@@ -100,14 +100,15 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
-      <!-- Subscribe Box -->
+            <!-- Subscribe Box -->
       <div class="bg-white rounded-xl p-8 border-2 border-sage-200 my-10 animate-on-scroll">
         <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
           <img src="/bird-envelope.png" alt="" class="w-32 h-auto self-center" />
           <div class="flex-1">
             <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Want more tips like this?</h3>
             <p class="text-warmgray-500 text-sm mb-4">Get helpful speech therapy insights delivered to your inbox.</p>
-            <form action="https://app.kit.com/forms/8889095/subscriptions" method="post" data-sv-form="8889095" data-uid="fe9960d287" data-format="inline" data-version="5">
+            <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+            <form action="https://app.kit.com/forms/8889095/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="8889095" data-uid="fe9960d287" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription."}}}'>
               <div class="flex flex-col sm:flex-row gap-2">
                 <input type="email" name="email_address" placeholder="Email Address" required class="flex-1 px-4 py-2 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none" />
                 <button type="submit" class="bg-sage-400 text-white px-6 py-2 rounded-lg font-medium hover:bg-sage-500 transition-colors">Subscribe</button>
