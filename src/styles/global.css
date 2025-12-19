@@ -95,6 +95,4 @@ h1, h2, h3, h4, h5, h6 {
   animation: scroll 30s linear infinite;
 }
 
-.gallery-scroll:hover {
-  animation-play-state: paused;
-}
+
