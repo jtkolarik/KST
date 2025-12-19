@@ -1,13 +1,94 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-html {
-  scroll-behavior: smooth;
+@theme {
+  --color-sage-50: #f4f7f4;
+  --color-sage-100: #e6ebe5;
+  --color-sage-200: #cedccd;
+  --color-sage-300: #a8c1a6;
+  --color-sage-400: #8BA888;
+  --color-sage-500: #628660;
+  --color-sage-600: #4d6b4b;
+  --color-sage-700: #3f563e;
+  --color-sage-800: #354634;
+  --color-sage-900: #2d3b2c;
+  --color-cream: #F8F6F1;
+  --color-warmgray-400: #7a7a7a;
+  --color-warmgray-500: #5C5C5C;
+  --color-warmgray-600: #4a4a4a;
+  --color-warmgray-700: #3D3D3D;
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
-body {
-  font-family: 'Inter', system-ui, sans-serif;
+/* Scroll-triggered fade-in animation */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card hover lift effect */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Button scale on hover */
+.btn-hover {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-hover:hover {
+  transform: scale(1.02);
+}
+
+/* Image hover zoom */
+.img-hover {
+  transition: transform 0.3s ease;
+}
+
+.img-hover:hover {
+  transform: scale(1.05);
+}
+
+/* Link underline animation */
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-hover:hover::after {
+  width: 100%;
+}
+
+/* Gallery scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.gallery-scroll {
+  animation: scroll 30s linear infinite;
 }

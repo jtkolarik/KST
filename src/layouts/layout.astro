@@ -1,5 +1,4 @@
 ---
-import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
@@ -10,22 +9,44 @@ interface Props {
 const { title } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Kolarik Speech Therapy - Personalized home health speech therapy services helping children and adults communicate with confidence." />
+    <meta name="description" content="Kolarik Speech Therapy provides in-home pediatric speech therapy services in the Kansas City metro area. Specializing in children ages 2-10." />
+    <meta name="keywords" content="speech therapy, pediatric speech therapy, Kansas City, speech therapist, home health, child speech development" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>{title} | Kolarik Speech Therapy</title>
   </head>
-  <body class="bg-cream text-warmgray-700 min-h-screen flex flex-col">
-    <Header />
-    <main class="flex-grow">
-      <slot />
-    </main>
-    <Footer />
+  <body class="bg-cream text-warmgray-500 font-sans">
+    <div class="min-h-screen flex flex-col">
+      <Header />
+      <main class="flex-grow">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
   </body>
 </html>
 
-
+<style is:global>
+  @import '../styles/global.css';
+</style>

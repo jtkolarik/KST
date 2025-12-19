@@ -2,12 +2,52 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-gray-50 border-t">
-  <div class="max-w-6xl mx-auto px-4 py-8">
-    <div class="text-center text-gray-600">
-      <p class="font-semibold text-teal-600 mb-2">Kolarik Speech Therapy</p>
-      <p class="text-sm">Helping children and adults find their voice</p>
-      <p class="text-sm mt-4">&copy; {currentYear} Kolarik Speech Therapy. All rights reserved.</p>
+<footer class="bg-warmgray-700 border-t border-warmgray-600">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Brand -->
+      <div>
+        <h3 class="font-semibold text-white text-lg mb-3">Kolarik Speech Therapy</h3>
+        <p class="text-warmgray-400 text-sm">
+          Helping children find their voice through personalized, home-based speech therapy in the Kansas City metro area.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-semibold text-white mb-3">Quick Links</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about" class="text-warmgray-400 hover:text-white transition-colors">About Molly</a></li>
+          <li><a href="/services" class="text-warmgray-400 hover:text-white transition-colors">Services</a></li>
+          <li><a href="/blog" class="text-warmgray-400 hover:text-white transition-colors">Blog</a></li>
+          <li><a href="/contact" class="text-warmgray-400 hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="font-semibold text-white mb-3">Get in Touch</h4>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="tel:816-729-1513" class="text-warmgray-400 hover:text-white transition-colors">
+              (816) 729-1513
+            </a>
+          </li>
+          <li>
+            <a href="mailto:kolarikspeechtherapy@gmail.com" class="text-warmgray-400 hover:text-white transition-colors">
+              kolarikspeechtherapy@gmail.com
+            </a>
+          </li>
+          <li class="text-warmgray-400">
+            Serving the KC Metro Area
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-warmgray-600 mt-8 pt-8 text-center text-sm text-warmgray-400">
+      <p>&copy; {currentYear} Kolarik Speech Therapy. All rights reserved.</p>
     </div>
   </div>
 </footer>
+
