@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kolarikspeechtherapy.com/sitemap.xml

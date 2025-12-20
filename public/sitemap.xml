@@ -18,6 +18,10 @@
   </url>
   <url>
     <loc>https://kolarikspeechtherapy.com/blog</loc>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/blog/5-signs-your-toddler-might-benefit-from-speech-therapy</loc>
+    <priority>0.7</priority>
   </url>
 </urlset>
