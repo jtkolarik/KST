@@ -33,6 +33,27 @@ const { title } = Astro.props;
       gtag('js', new Date());
       gtag('config', 'G-1TDDYMJY8J');
     </script>
+    
+    <!-- LocalBusiness Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Kolarik Speech Therapy",
+      "description": "Personalized home health speech therapy services for children and adults in the Kansas City metro area.",
+      "url": "https://kolarikspeechtherapy.com",
+      "telephone": "+1-816-729-1513",
+      "email": "kolarikspeechtherapy@gmail.com",
+      "areaServed": {
+        "@type": "City",
+        "name": "Kansas City"
+      },
+      "serviceType": ["Speech Therapy", "Pediatric Speech Therapy", "Speech-Language Pathology"],
+      "priceRange": "$$",
+      "image": "https://kolarikspeechtherapy.com/headshot.png",
+      "sameAs": []
+    }
+    </script>
   </head>
   <body class="bg-cream text-warmgray-700 min-h-screen flex flex-col">
     <Header />
