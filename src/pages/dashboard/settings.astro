@@ -1,0 +1,203 @@
+---
+
+
+import DashboardLayout from '../../components/dashboard/DashboardLayout';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - Company Hunter</title>
+  <link rel="stylesheet" href="/src/styles/global.css" />
+</head>
+<body class="bg-gray-900">
+  <DashboardLayout client:load currentPath="/dashboard/settings">
+    <div class="max-w-3xl space-y-6">
+      <!-- Header -->
+      <div>
+        <h1 class="text-2xl font-bold text-white">Settings</h1>
+        <p class="text-gray-400">Configure your Company Hunter dashboard</p>
+      </div>
+
+      <!-- API Keys -->
+      <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-700">
+          <h3 class="text-lg font-semibold text-white">API Keys</h3>
+          <p class="text-sm text-gray-400">Add API keys for enhanced data access</p>
+        </div>
+        <div class="p-6 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Alpha Vantage API Key</label>
+            <div class="flex gap-2">
+              <input
+                type="password"
+                placeholder="Enter your API key"
+                class="flex-1 bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                Save
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">
+              Free tier: 25 requests/day. <a href="https://www.alphavantage.co/support/#api-key" target="_blank" class="text-indigo-400 hover:underline">Get key</a>
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Financial Modeling Prep API Key</label>
+            <div class="flex gap-2">
+              <input
+                type="password"
+                placeholder="Enter your API key"
+                class="flex-1 bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                Save
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">
+              Free tier: 250 requests/day. <a href="https://site.financialmodelingprep.com/developer/docs" target="_blank" class="text-indigo-400 hover:underline">Get key</a>
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Finnhub API Key</label>
+            <div class="flex gap-2">
+              <input
+                type="password"
+                placeholder="Enter your API key"
+                class="flex-1 bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+                Save
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">
+              Free tier: 60 requests/min. <a href="https://finnhub.io/" target="_blank" class="text-indigo-400 hover:underline">Get key</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screening Defaults -->
+      <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-700">
+          <h3 class="text-lg font-semibold text-white">Screening Defaults</h3>
+          <p class="text-sm text-gray-400">Set default filter values for the screener</p>
+        </div>
+        <div class="p-6 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Default Max Market Cap</label>
+            <select class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="1000000000">$1 Billion</option>
+              <option value="3000000000" selected>$3 Billion</option>
+              <option value="10000000000">$10 Billion</option>
+              <option value="50000000000">$50 Billion</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Default Min Insider Ownership</label>
+            <select class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="0">0%</option>
+              <option value="5" selected>5%</option>
+              <option value="10">10%</option>
+              <option value="20">20%</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">Default Min Asymmetry Score</label>
+            <select class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="0">0 (Show all)</option>
+              <option value="5">5</option>
+              <option value="6" selected>6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Sources -->
+      <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-700">
+          <h3 class="text-lg font-semibold text-white">Data Sources</h3>
+          <p class="text-sm text-gray-400">Configure which data sources to use</p>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-white">SEC EDGAR</div>
+              <div class="text-sm text-gray-400">Free, no API key required</div>
+            </div>
+            <span class="px-2 py-1 bg-green-600 text-white rounded text-xs">Active</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-white">Yahoo Finance</div>
+              <div class="text-sm text-gray-400">Free, no API key required</div>
+            </div>
+            <span class="px-2 py-1 bg-green-600 text-white rounded text-xs">Active</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-white">Alpha Vantage</div>
+              <div class="text-sm text-gray-400">Requires API key (free tier available)</div>
+            </div>
+            <span class="px-2 py-1 bg-gray-600 text-white rounded text-xs">Not configured</span>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-white">Financial Modeling Prep</div>
+              <div class="text-sm text-gray-400">Requires API key (free tier available)</div>
+            </div>
+            <span class="px-2 py-1 bg-gray-600 text-white rounded text-xs">Not configured</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cache & Data -->
+      <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-700">
+          <h3 class="text-lg font-semibold text-white">Cache & Data</h3>
+          <p class="text-sm text-gray-400">Manage cached data</p>
+        </div>
+        <div class="p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-white">Clear Price Cache</div>
+              <div class="text-sm text-gray-400">Force refresh of all price data</div>
+            </div>
+            <button class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors">
+              Clear
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="font-medium text-white">Clear All Cache</div>
+              <div class="text-sm text-gray-400">Remove all cached data</div>
+            </div>
+            <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors">
+              Clear All
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="flex justify-end">
+        <button class="px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors font-medium">
+          Save All Settings
+        </button>
+      </div>
+    </div>
+  </DashboardLayout>
+</body>
+</html>

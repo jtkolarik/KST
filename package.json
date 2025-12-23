@@ -1,7 +1,8 @@
 {
-  "name": "kst",
+  "name": "exponential-opportunities",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "The Asymmetric Public Company Hunter - Find 20x-100x opportunities",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -9,8 +10,20 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^4.2.1",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "^5.62.0",
     "astro": "^5.16.6",
-    "tailwindcss": "^4.1.18"
+    "better-sqlite3": "^11.6.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "recharts": "^2.15.0",
+    "tailwindcss": "^4.1.18",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/react": "^18.3.14",
+    "@types/react-dom": "^18.3.2"
   }
 }

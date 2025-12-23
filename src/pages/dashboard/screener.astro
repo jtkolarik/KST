@@ -1,0 +1,261 @@
+---
+
+
+import DashboardLayout from '../../components/dashboard/DashboardLayout';
+import CompanyTable from '../../components/dashboard/CompanyTable';
+import FilterPanel from '../../components/dashboard/FilterPanel';
+import { type Company } from '../../lib/types';
+import { calculateAsymmetryScore } from '../../services/scoring';
+
+// Sample data - in production this would come from the database
+const sampleCompanies: Company[] = [
+  {
+    ticker: 'RKLB',
+    name: 'Rocket Lab USA',
+    futureCategory: 'national-security-space',
+    marketCap: 12_000_000_000,
+    insiderOwnership: 15,
+    currentTAM: 10_000_000_000,
+    futureTAM: 500_000_000_000,
+    tamMultiple: 50,
+    priceChange30d: 25.5,
+    founderActive: true,
+    cashPosition: 500_000_000,
+    grossMargin: 0.25,
+    revenueGrowth: 0.45,
+  },
+  {
+    ticker: 'OKLO',
+    name: 'Oklo Inc',
+    futureCategory: 'advanced-energy',
+    marketCap: 3_500_000_000,
+    insiderOwnership: 45,
+    currentTAM: 1_000_000_000,
+    futureTAM: 300_000_000_000,
+    tamMultiple: 300,
+    priceChange30d: 15.2,
+    founderActive: true,
+    insiderBuying90d: 500_000,
+    cashPosition: 300_000_000,
+    grossMargin: 0,
+    revenueGrowth: 0,
+  },
+  {
+    ticker: 'ASTS',
+    name: 'AST SpaceMobile',
+    futureCategory: 'national-security-space',
+    marketCap: 8_000_000_000,
+    insiderOwnership: 28,
+    currentTAM: 5_000_000_000,
+    futureTAM: 200_000_000_000,
+    tamMultiple: 40,
+    priceChange30d: -5.3,
+    founderActive: true,
+    cashPosition: 400_000_000,
+  },
+  {
+    ticker: 'TWST',
+    name: 'Twist Bioscience',
+    futureCategory: 'synthetic-biology',
+    marketCap: 2_800_000_000,
+    insiderOwnership: 8,
+    currentTAM: 3_000_000_000,
+    futureTAM: 150_000_000_000,
+    tamMultiple: 50,
+    priceChange30d: 12.8,
+    grossMargin: 0.45,
+    revenueGrowth: 0.30,
+  },
+  {
+    ticker: 'COHR',
+    name: 'Coherent Corp',
+    futureCategory: 'intelligence-infrastructure',
+    marketCap: 15_000_000_000,
+    insiderOwnership: 3,
+    currentTAM: 20_000_000_000,
+    futureTAM: 100_000_000_000,
+    tamMultiple: 5,
+    priceChange30d: 8.4,
+    grossMargin: 0.38,
+    revenueGrowth: 0.22,
+  },
+  {
+    ticker: 'LUNR',
+    name: 'Intuitive Machines',
+    futureCategory: 'national-security-space',
+    marketCap: 2_500_000_000,
+    insiderOwnership: 22,
+    currentTAM: 2_000_000_000,
+    futureTAM: 100_000_000_000,
+    tamMultiple: 50,
+    priceChange30d: 35.2,
+    founderActive: true,
+  },
+  {
+    ticker: 'DNA',
+    name: 'Ginkgo Bioworks',
+    futureCategory: 'synthetic-biology',
+    marketCap: 1_800_000_000,
+    insiderOwnership: 12,
+    currentTAM: 5_000_000_000,
+    futureTAM: 200_000_000_000,
+    tamMultiple: 40,
+    priceChange30d: -8.5,
+    founderActive: true,
+    cashPosition: 800_000_000,
+  },
+  {
+    ticker: 'SMR',
+    name: 'NuScale Power',
+    futureCategory: 'advanced-energy',
+    marketCap: 2_200_000_000,
+    insiderOwnership: 18,
+    currentTAM: 500_000_000,
+    futureTAM: 250_000_000_000,
+    tamMultiple: 500,
+    priceChange30d: 22.1,
+    founderActive: true,
+  },
+  {
+    ticker: 'ANET',
+    name: 'Arista Networks',
+    futureCategory: 'intelligence-infrastructure',
+    marketCap: 120_000_000_000,
+    insiderOwnership: 5,
+    currentTAM: 30_000_000_000,
+    futureTAM: 150_000_000_000,
+    tamMultiple: 5,
+    priceChange30d: 5.2,
+    grossMargin: 0.65,
+    revenueGrowth: 0.35,
+  },
+  {
+    ticker: 'AMBA',
+    name: 'Ambarella Inc',
+    futureCategory: 'robotics-autonomous',
+    marketCap: 2_500_000_000,
+    insiderOwnership: 6,
+    currentTAM: 8_000_000_000,
+    futureTAM: 80_000_000_000,
+    tamMultiple: 10,
+    priceChange30d: -2.3,
+    grossMargin: 0.62,
+  },
+  {
+    ticker: 'PL',
+    name: 'Planet Labs',
+    futureCategory: 'national-security-space',
+    marketCap: 1_200_000_000,
+    insiderOwnership: 15,
+    currentTAM: 4_000_000_000,
+    futureTAM: 50_000_000_000,
+    tamMultiple: 12.5,
+    priceChange30d: 18.7,
+    founderActive: true,
+  },
+  {
+    ticker: 'BEAM',
+    name: 'Beam Therapeutics',
+    futureCategory: 'synthetic-biology',
+    marketCap: 2_000_000_000,
+    insiderOwnership: 10,
+    currentTAM: 2_000_000_000,
+    futureTAM: 100_000_000_000,
+    tamMultiple: 50,
+    priceChange30d: 5.5,
+    cashPosition: 900_000_000,
+  },
+];
+
+// Calculate scores for each company
+const companiesWithScores = sampleCompanies.map(company => ({
+  ...company,
+  scores: calculateAsymmetryScore(company),
+})).sort((a, b) => (b.scores?.total || 0) - (a.scores?.total || 0));
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Screener - Company Hunter</title>
+  <link rel="stylesheet" href="/src/styles/global.css" />
+</head>
+<body class="bg-gray-900">
+  <DashboardLayout client:load currentPath="/dashboard/screener">
+    <div class="space-y-6">
+      <!-- Header -->
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-2xl font-bold text-white">Company Screener</h1>
+          <p class="text-gray-400">Filter and rank companies by asymmetry potential</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <button class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
+            Export
+          </button>
+          <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Refresh Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <FilterPanel
+        client:load
+        criteria={{}}
+        onChange={(criteria: any) => console.log('Criteria changed:', criteria)}
+        onReset={() => console.log('Filters reset')}
+      />
+
+      <!-- Results Summary -->
+      <div class="flex items-center justify-between">
+        <div class="text-sm text-gray-400">
+          Showing <span class="text-white font-medium">{companiesWithScores.length}</span> companies
+        </div>
+        <div class="flex items-center gap-4 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+            <span class="text-gray-400">Score ≥ 7: <span class="text-white">{companiesWithScores.filter(c => (c.scores?.total || 0) >= 7).length}</span></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+            <span class="text-gray-400">Score 5-7: <span class="text-white">{companiesWithScores.filter(c => (c.scores?.total || 0) >= 5 && (c.scores?.total || 0) < 7).length}</span></span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span class="text-gray-400">Score &lt; 5: <span class="text-white">{companiesWithScores.filter(c => (c.scores?.total || 0) < 5).length}</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Company Table -->
+      <CompanyTable
+        client:load
+        companies={companiesWithScores}
+        onCompanyClick={(ticker: string) => {
+          window.location.href = `/dashboard/company/${ticker}`;
+        }}
+      />
+
+      <!-- Footer Info -->
+      <div class="bg-gray-800 rounded-lg p-4 border border-gray-700 text-sm text-gray-400">
+        <p class="font-medium text-gray-300 mb-2">Understanding the Asymmetry Score</p>
+        <ul class="space-y-1 list-disc list-inside">
+          <li><strong class="text-white">Founder Conviction</strong> - Insider ownership, buying activity, founder involvement</li>
+          <li><strong class="text-white">AI Disruption</strong> - How AI/tech accelerates the company's market opportunity</li>
+          <li><strong class="text-white">White Space</strong> - How non-consensus and undiscovered the opportunity is</li>
+          <li><strong class="text-white">Asymmetry</strong> - Upside potential vs downside risk (convexity)</li>
+        </ul>
+      </div>
+    </div>
+  </DashboardLayout>
+</body>
+</html>

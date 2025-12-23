@@ -1,0 +1,226 @@
+---
+
+
+import DashboardLayout from '../../components/dashboard/DashboardLayout';
+import ScoreCard from '../../components/dashboard/ScoreCard';
+import { type Company } from '../../lib/types';
+import { calculateAsymmetryScore } from '../../services/scoring';
+
+// Sample company for demonstration
+const sampleCompany: Company = {
+  ticker: 'OKLO',
+  name: 'Oklo Inc',
+  futureCategory: 'advanced-energy',
+  marketCap: 3_500_000_000,
+  insiderOwnership: 45,
+  currentTAM: 1_000_000_000,
+  futureTAM: 300_000_000_000,
+  tamMultiple: 300,
+  founderActive: true,
+  insiderBuying90d: 500_000,
+  cashPosition: 300_000_000,
+  grossMargin: 0,
+  revenueGrowth: 0,
+  debtToEquity: 0.1,
+};
+
+const score = calculateAsymmetryScore(sampleCompany);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scoring Calculator - Company Hunter</title>
+  <link rel="stylesheet" href="/src/styles/global.css" />
+</head>
+<body class="bg-gray-900">
+  <DashboardLayout client:load currentPath="/dashboard/scoring">
+    <div class="space-y-6">
+      <!-- Header -->
+      <div>
+        <h1 class="text-2xl font-bold text-white">Asymmetry Score Calculator</h1>
+        <p class="text-gray-400">Calculate and understand the scoring methodology</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Input Form -->
+        <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+          <div class="px-6 py-4 border-b border-gray-700">
+            <h3 class="text-lg font-semibold text-white">Company Inputs</h3>
+            <p class="text-sm text-gray-400">Enter company data to calculate score</p>
+          </div>
+
+          <form class="p-6 space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Ticker</label>
+                <input
+                  type="text"
+                  value="OKLO"
+                  class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-300 mb-2">Market Cap ($)</label>
+                <input
+                  type="text"
+                  value="3,500,000,000"
+                  class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-4">
+              <h4 class="text-sm font-medium text-indigo-400 mb-3">Founder Conviction Inputs</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Insider Ownership (%)</label>
+                  <input
+                    type="number"
+                    value="45"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Insider Buying 90d ($)</label>
+                  <input
+                    type="number"
+                    value="500000"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+              <div class="mt-3 flex items-center gap-2">
+                <input type="checkbox" id="founderActive" checked class="rounded bg-gray-700 border-gray-600 text-indigo-600 focus:ring-indigo-500" />
+                <label for="founderActive" class="text-sm text-gray-300">Founder still active/leading</label>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-4">
+              <h4 class="text-sm font-medium text-indigo-400 mb-3">TAM / White Space Inputs</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Current TAM ($)</label>
+                  <input
+                    type="text"
+                    value="1,000,000,000"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Future TAM ($)</label>
+                  <input
+                    type="text"
+                    value="300,000,000,000"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-4">
+              <h4 class="text-sm font-medium text-indigo-400 mb-3">Asymmetry / Risk Inputs</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Cash Position ($)</label>
+                  <input
+                    type="text"
+                    value="300,000,000"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Debt/Equity Ratio</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value="0.1"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 mt-3">
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Gross Margin (%)</label>
+                  <input
+                    type="number"
+                    value="0"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-300 mb-2">Revenue Growth (%)</label>
+                  <input
+                    type="number"
+                    value="0"
+                    class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500 transition-colors font-medium"
+            >
+              Calculate Score
+            </button>
+          </form>
+        </div>
+
+        <!-- Score Result -->
+        <div class="space-y-6">
+          <ScoreCard client:load score={score} ticker="OKLO" showRationale={true} />
+
+          {/* Scoring Methodology */}
+          <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-700">
+              <h3 class="text-lg font-semibold text-white">Scoring Methodology</h3>
+            </div>
+            <div class="p-6 space-y-4 text-sm">
+              <div>
+                <h4 class="font-medium text-indigo-400 mb-2">Founder Conviction (0-10)</h4>
+                <ul class="text-gray-400 space-y-1 list-disc list-inside">
+                  <li>Insider ownership &gt;30% = 4 pts, &gt;20% = 3 pts, &gt;10% = 2 pts</li>
+                  <li>Insider buying &gt;$1M (90d) = 3 pts, &gt;$100k = 2 pts</li>
+                  <li>Founder-led = 3 pts</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-medium text-indigo-400 mb-2">AI-Accelerated Disruption (0-10)</h4>
+                <ul class="text-gray-400 space-y-1 list-disc list-inside">
+                  <li>Core AI sector = 3 pts base</li>
+                  <li>TAM multiple &gt;100x = 4 pts, &gt;50x = 3 pts, &gt;20x = 2 pts</li>
+                  <li>Direct AI beneficiary = 2 pts</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-medium text-indigo-400 mb-2">Market White-Space (0-10)</h4>
+                <ul class="text-gray-400 space-y-1 list-disc list-inside">
+                  <li>Current TAM &lt;$1B = 4 pts, &lt;$5B = 3 pts</li>
+                  <li>Market cap &lt;0.1% of future TAM = 3 pts</li>
+                  <li>Small cap (&lt;$1B) = 2 pts</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-medium text-indigo-400 mb-2">Asymmetry & Convexity (0-10)</h4>
+                <ul class="text-gray-400 space-y-1 list-disc list-inside">
+                  <li>100x+ potential (at 10% capture) = 4 pts</li>
+                  <li>Strong cash (&gt;20% of market cap) = 2 pts</li>
+                  <li>Low debt (D/E &lt;0.3) = 1 pt</li>
+                  <li>High margins, revenue growth = 1-2 pts</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </DashboardLayout>
+</body>
+</html>
