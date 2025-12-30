@@ -95,8 +95,11 @@ h1, h2, h3, h4, h5, h6 {
   animation: scroll 30s linear infinite;
 }
 
-.gallery-scroll:hover {
-  animation-play-state: paused;
+/* Only pause on devices with true hover (mouse), not touch */
+@media (hover: hover) {
+  .gallery-scroll:hover {
+    animation-play-state: paused;
+  }
 }
 
 /* Skip to content link for accessibility */
@@ -122,15 +125,17 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mobile menu animation */
 .mobile-menu {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-out;
+}
+
+.mobile-menu > ul {
   overflow: hidden;
-  transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
-  opacity: 0;
 }
 
 .mobile-menu.open {
-  max-height: 300px;
-  opacity: 1;
+  grid-template-rows: 1fr;
 }
 
 /* Active navigation state */
@@ -185,6 +190,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .mobile-menu {
     transition: none;
+    grid-template-rows: 1fr;
   }
 }
 
