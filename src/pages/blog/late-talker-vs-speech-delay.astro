@@ -1,9 +1,50 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const articleData = {
+  title: "Late Talker vs. Speech Delay: What's the Difference?",
+  description: "Learn the key differences between late talkers who catch up on their own and children with speech delays who benefit from therapy. Know when to seek help.",
+  image: "/blog-late-talker.png",
+  publishedDate: "2025-12-01",
+  author: "Molly Kolarik"
+};
 ---
 
-<Layout title="Late Talker vs. Speech Delay: What's the Difference?">
+<Layout
+  title={articleData.title}
+  description={articleData.description}
+  image={articleData.image}
+  type="article"
+  publishedDate={articleData.publishedDate}
+>
   <article>
+  <!-- Article Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": `https://kolarikspeechtherapy.com${articleData.image}`,
+    "datePublished": articleData.publishedDate,
+    "author": {
+      "@type": "Person",
+      "name": articleData.author,
+      "jobTitle": "Speech-Language Pathologist",
+      "url": "https://kolarikspeechtherapy.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kolarik Speech Therapy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kolarikspeechtherapy.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kolarikspeechtherapy.com/blog/late-talker-vs-speech-delay"
+    }
+  })} />
     <!-- Article Header with Pattern -->
     <header class="relative py-16 overflow-hidden">
       <div class="absolute inset-0 opacity-30" style="background-image: url('/blog-pattern.png'); background-size: 400px;"></div>

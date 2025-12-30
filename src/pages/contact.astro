@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contact">
+<Layout title="Contact" description="Schedule a free consultation with Molly Kolarik, pediatric speech therapist in Kansas City. Call (816) 729-1513 or send a message. Serving the KC metro area.">
   <section class="py-16">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12 animate-on-scroll">
@@ -208,4 +208,54 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </section>
+
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I know if my child needs speech therapy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you're wondering, that's often a sign to ask. Common concerns include not speaking as much as peers, difficulty being understood, frustration when communicating, or not responding to their name. A free consultation can help us figure it out together."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you take insurance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I'm a private pay practice, which means I don't bill insurance directly. However, I provide superbills that many families successfully submit for reimbursement. I'm happy to discuss this during our consultation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why home-based therapy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Children learn best in familiar environments. Home therapy means less stress getting to appointments, practicing skills where they'll actually use them, and I can share strategies specific to your daily routines."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What ages do you work with?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "I specialize in children ages 2 and up. This range allows me to focus deeply on early childhood development and elementary-age communication needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long are sessions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most therapy sessions are 50 minutes, though I also offer 30-minute sessions for younger children or specific needs. We'll find what works best for your child."
+        }
+      }
+    ]
+  }
+  </script>
 </Layout>

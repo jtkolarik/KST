@@ -1,9 +1,50 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const articleData = {
+  title: "Simple Ways to Encourage Your Toddler's Speech at Home",
+  description: "Discover everyday strategies to support your toddler's speech development. Learn how to encourage language skills during daily routines without flashcards or apps.",
+  image: "/blog-encourage-speech.png",
+  publishedDate: "2025-12-01",
+  author: "Molly Kolarik"
+};
 ---
 
-<Layout title="Simple Ways to Encourage Your Toddler's Speech at Home">
+<Layout
+  title={articleData.title}
+  description={articleData.description}
+  image={articleData.image}
+  type="article"
+  publishedDate={articleData.publishedDate}
+>
   <article>
+  <!-- Article Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": `https://kolarikspeechtherapy.com${articleData.image}`,
+    "datePublished": articleData.publishedDate,
+    "author": {
+      "@type": "Person",
+      "name": articleData.author,
+      "jobTitle": "Speech-Language Pathologist",
+      "url": "https://kolarikspeechtherapy.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kolarik Speech Therapy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kolarikspeechtherapy.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kolarikspeechtherapy.com/blog/encourage-speech-at-home"
+    }
+  })} />
     <!-- Article Header with Pattern -->
     <header class="relative py-16 overflow-hidden">
       <div class="absolute inset-0 opacity-30" style="background-image: url('/blog-pattern.png'); background-size: 400px;"></div>
