@@ -2,12 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 
 const galleryImages = [
-  { src: '/gallery 1.jpg', alt: 'Speech therapy session' },
-  { src: '/gallery 2.jpg', alt: 'Speech therapy session' },
-  { src: '/gallery 3.jpg', alt: 'Speech therapy session' },
-  { src: '/gallery 4.jpg', alt: 'Speech therapy session' },
-  { src: '/gallery 5.jpg', alt: 'Speech therapy session' },
-  { src: '/gallery 6.jpg', alt: 'Speech therapy session' },
+  { src: '/gallery 1.jpg', alt: 'Child engaged in play-based speech therapy activity' },
+  { src: '/gallery 2.jpg', alt: 'Speech therapist working with toddler on language skills' },
+  { src: '/gallery 3.jpg', alt: 'Home-based speech therapy session in Kansas City' },
+  { src: '/gallery 4.jpg', alt: 'Pediatric speech therapy using interactive learning' },
+  { src: '/gallery 5.jpg', alt: 'Child practicing speech sounds during therapy' },
+  { src: '/gallery 6.jpg', alt: 'Family-centered speech therapy approach in action' },
 ];
 ---
 
@@ -32,11 +32,12 @@ const galleryImages = [
             >
               Schedule a Free Consultation
             </a>
-            <span
-              class="inline-block border-2 border-sage-400 text-sage-500 px-8 py-3 rounded-lg font-semibold text-center"
+            <a
+              href="tel:+18167291513"
+              class="inline-block border-2 border-sage-400 text-sage-500 px-8 py-3 rounded-lg font-semibold text-center hover:bg-sage-50 transition-colors"
             >
               Call (816) 729-1513
-            </span>
+            </a>
           </div>
         </div>
         <div class="flex justify-center animate-on-scroll stagger-1">
@@ -294,10 +295,10 @@ const galleryImages = [
         </div>
 
         <!-- Navigation Dots -->
-        <div class="flex justify-center gap-2 mt-6">
-          <button class="testimonial-dot w-3 h-3 rounded-full bg-sage-400 transition-colors" data-index="0"></button>
-          <button class="testimonial-dot w-3 h-3 rounded-full bg-sage-200 hover:bg-sage-300 transition-colors" data-index="1"></button>
-          <button class="testimonial-dot w-3 h-3 rounded-full bg-sage-200 hover:bg-sage-300 transition-colors" data-index="2"></button>
+        <div class="flex justify-center gap-2 mt-6" role="tablist" aria-label="Testimonial navigation">
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-sage-400 transition-colors" data-index="0" role="tab" aria-selected="true" aria-label="View testimonial 1 of 3"></button>
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-sage-200 hover:bg-sage-300 transition-colors" data-index="1" role="tab" aria-selected="false" aria-label="View testimonial 2 of 3"></button>
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-sage-200 hover:bg-sage-300 transition-colors" data-index="2" role="tab" aria-selected="false" aria-label="View testimonial 3 of 3"></button>
         </div>
       </div>
     </div>
@@ -349,11 +350,12 @@ const galleryImages = [
         >
           Schedule a Free Consultation
         </a>
-        <span
-          class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold"
+        <a
+          href="tel:+18167291513"
+          class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors"
         >
           Call (816) 729-1513
-        </span>
+        </a>
       </div>
     </div>
   </section>

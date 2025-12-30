@@ -5,9 +5,24 @@ import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: string;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Personalized home-based speech therapy for children ages 2+ in Kansas City. Molly Kolarik, CCC-SLP, helps kids find their voice in the comfort of their own home.",
+  image = "/headshot.png",
+  type = "website",
+  publishedDate
+} = Astro.props;
+
+const siteUrl = "https://kolarikspeechtherapy.com";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const imageUrl = new URL(image, siteUrl).href;
+const fullTitle = `${title} | Kolarik Speech Therapy`;
 ---
 
 <!DOCTYPE html>
@@ -16,13 +31,35 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="9IhRpv6j9_BXRAfaRvsu6LdoDzRDhcIX7wsd9Ou96Hc" />
-    <meta name="description" content="Kolarik Speech Therapy - Personalized home health speech therapy services helping children and adults communicate with confidence." />
+    <meta name="description" content={description} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:site_name" content="Kolarik Speech Therapy" />
+    <meta property="og:locale" content="en_US" />
+    {publishedDate && <meta property="article:published_time" content={publishedDate} />}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+
+    <!-- Favicons -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/png" href="/favicon.ico" sizes="48x48" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <title>{title} | Kolarik Speech Therapy</title>
+
+    <title>{fullTitle}</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,26 +79,56 @@ const { title } = Astro.props;
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
+      "@type": "HealthBusiness",
+      "additionalType": "https://schema.org/MedicalBusiness",
       "name": "Kolarik Speech Therapy",
-      "description": "Personalized home health speech therapy services for children and adults in the Kansas City metro area.",
+      "description": "Personalized home-based speech therapy for children ages 2+ in the Kansas City metro area. Specializing in speech sound disorders, language delays, autism spectrum support, and early intervention.",
       "url": "https://kolarikspeechtherapy.com",
       "telephone": "+1-816-729-1513",
       "email": "kolarikspeechtherapy@gmail.com",
-      "areaServed": {
-        "@type": "City",
-        "name": "Kansas City"
+      "founder": {
+        "@type": "Person",
+        "name": "Molly Kolarik",
+        "jobTitle": "Speech-Language Pathologist",
+        "description": "Licensed pediatric speech-language pathologist (CCC-SLP) with a Master's degree from the University of Central Missouri"
       },
-      "serviceType": ["Speech Therapy", "Pediatric Speech Therapy", "Speech-Language Pathology"],
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 39.0997,
+          "longitude": -94.5786
+        },
+        "geoRadius": "50 mi"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 39.0997,
+        "longitude": -94.5786
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kansas City",
+        "addressRegion": "MO",
+        "addressCountry": "US"
+      },
+      "serviceType": ["Pediatric Speech Therapy", "Speech Sound Disorders Treatment", "Language Delay Therapy", "Autism Spectrum Support", "Early Intervention", "Fluency Therapy", "Feeding Therapy"],
       "priceRange": "$$",
+      "currenciesAccepted": "USD",
+      "paymentAccepted": "Cash, Credit Card, Check",
       "image": "https://kolarikspeechtherapy.com/headshot.png",
+      "logo": "https://kolarikspeechtherapy.com/logo.png",
       "sameAs": []
     }
     </script>
   </head>
   <body class="bg-cream text-warmgray-700 min-h-screen flex flex-col">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-to-content">
+      Skip to main content
+    </a>
     <Header />
-    <main class="flex-grow">
+    <main id="main-content" class="flex-grow">
       <slot />
     </main>
     <Footer />

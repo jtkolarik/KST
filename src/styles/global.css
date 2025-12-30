@@ -95,4 +95,107 @@ h1, h2, h3, h4, h5, h6 {
   animation: scroll 30s linear infinite;
 }
 
+.gallery-scroll:hover {
+  animation-play-state: paused;
+}
 
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #628660;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+  font-weight: 600;
+  z-index: 9999;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 2px solid #3f563e;
+  outline-offset: 2px;
+}
+
+/* Mobile menu animation */
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+  opacity: 0;
+}
+
+.mobile-menu.open {
+  max-height: 300px;
+  opacity: 1;
+}
+
+/* Active navigation state */
+.nav-link-active {
+  color: #628660;
+  position: relative;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #628660;
+  border-radius: 1px;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .gallery-scroll {
+    animation: none;
+  }
+
+  .card-hover,
+  .btn-hover,
+  .img-hover,
+  .link-hover {
+    transition: none;
+  }
+
+  .card-hover:hover,
+  .btn-hover:hover,
+  .img-hover:hover {
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .testimonial-track {
+    transition: none;
+  }
+
+  .mobile-menu {
+    transition: none;
+  }
+}
+
+/* Focus visible styles for better accessibility */
+:focus-visible {
+  outline: 2px solid #628660;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #628660;
+  outline-offset: 2px;
+}

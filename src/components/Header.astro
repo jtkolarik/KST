@@ -6,6 +6,15 @@ const navLinks = [
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === '/') {
+    return currentPath === '/';
+  }
+  return currentPath.startsWith(href);
+}
 ---
 
 <header class="bg-white border-b border-sage-100">
@@ -13,12 +22,12 @@ const navLinks = [
   <div class="bg-sage-400 text-white text-sm py-2">
     <div class="max-w-6xl mx-auto px-4 flex justify-center sm:justify-between items-center">
       <span class="hidden sm:block">Pediatric Speech Therapy in Kansas City</span>
-      <span class="flex items-center gap-1">
+      <a href="tel:+18167291513" class="flex items-center gap-1 hover:text-sage-100 transition-colors">
   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
   </svg>
   (816) 729-1513
-</span>
+</a>
     </div>
   </div>
 
@@ -32,7 +41,11 @@ const navLinks = [
         <li>
           <a
             href={link.href}
-            class="text-warmgray-500 hover:text-sage-500 transition-colors font-medium"
+            class:list={[
+              "transition-colors font-medium",
+              isActive(link.href) ? "nav-link-active text-sage-500" : "text-warmgray-500 hover:text-sage-500"
+            ]}
+            aria-current={isActive(link.href) ? "page" : undefined}
           >
             {link.name}
           </a>
@@ -40,7 +53,13 @@ const navLinks = [
       ))}
     </ul>
     <!-- Mobile menu button -->
-    <button id="mobile-menu-btn" class="md:hidden text-warmgray-500 hover:text-sage-500">
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-warmgray-500 hover:text-sage-500"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Toggle navigation menu"
+    >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
       </svg>
@@ -48,13 +67,17 @@ const navLinks = [
   </nav>
 
   <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-sage-100">
+  <div id="mobile-menu" class="mobile-menu md:hidden border-t border-sage-100">
     <ul class="px-4 py-4 space-y-3">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
-            class="block text-warmgray-500 hover:text-sage-500 transition-colors font-medium"
+            class:list={[
+              "block transition-colors font-medium",
+              isActive(link.href) ? "text-sage-500 font-semibold" : "text-warmgray-500 hover:text-sage-500"
+            ]}
+            aria-current={isActive(link.href) ? "page" : undefined}
           >
             {link.name}
           </a>
@@ -67,7 +90,9 @@ const navLinks = [
 <script>
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
+
   btn?.addEventListener('click', () => {
-    menu?.classList.toggle('hidden');
+    const isOpen = menu?.classList.toggle('open');
+    btn?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
 </script>

@@ -1,9 +1,50 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const articleData = {
+  title: "5 Signs Your Toddler Might Benefit from Speech Therapy",
+  description: "Wondering if your toddler needs speech therapy? Learn the 5 key signs to watch for in your child's speech development and when to seek professional help.",
+  image: "/blog-speech-signs.png",
+  publishedDate: "2025-12-01",
+  author: "Molly Kolarik"
+};
 ---
 
-<Layout title="5 Signs Your Toddler Might Benefit from Speech Therapy">
+<Layout
+  title={articleData.title}
+  description={articleData.description}
+  image={articleData.image}
+  type="article"
+  publishedDate={articleData.publishedDate}
+>
   <article>
+  <!-- Article Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": `https://kolarikspeechtherapy.com${articleData.image}`,
+    "datePublished": articleData.publishedDate,
+    "author": {
+      "@type": "Person",
+      "name": articleData.author,
+      "jobTitle": "Speech-Language Pathologist",
+      "url": "https://kolarikspeechtherapy.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kolarik Speech Therapy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kolarikspeechtherapy.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kolarikspeechtherapy.com/blog/signs-toddler-needs-speech-therapy"
+    }
+  })} />
     <!-- Article Header with Pattern -->
     <header class="relative py-16 overflow-hidden">
       <div class="absolute inset-0 opacity-30" style="background-image: url('/blog-pattern.png'); background-size: 400px;"></div>
