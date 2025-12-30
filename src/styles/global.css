@@ -123,19 +123,21 @@ h1, h2, h3, h4, h5, h6 {
   outline-offset: 2px;
 }
 
-/* Mobile menu animation */
-.mobile-menu {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease-out;
-}
+/* Mobile menu animation - only on mobile screens */
+@media (max-width: 767px) {
+  .mobile-menu {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-out;
+  }
 
-.mobile-menu > ul {
-  overflow: hidden;
-}
+  .mobile-menu > ul {
+    overflow: hidden;
+  }
 
-.mobile-menu.open {
-  grid-template-rows: 1fr;
+  .mobile-menu.open {
+    grid-template-rows: 1fr;
+  }
 }
 
 /* Active navigation state */
