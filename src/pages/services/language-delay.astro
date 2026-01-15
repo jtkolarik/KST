@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const faqs = [
+  {
+    question: "What's the difference between a speech delay and a language delay?",
+    answer: "Speech refers to how sounds are produced—the physical act of talking. Language is the system of communication itself: vocabulary, grammar, understanding, and expressing ideas. A child can have clear speech but struggle with language, or vice versa. Many children have both."
+  },
+  {
+    question: "How do I know if my child has a language delay?",
+    answer: "Signs include using fewer words than peers, difficulty putting words together, trouble following directions, limited understanding of questions, or relying heavily on gestures instead of words. If your child seems behind in how they understand or express language compared to other kids their age, an evaluation can provide clarity."
+  },
+  {
+    question: "What causes language delays?",
+    answer: "Language delays can have many causes, including hearing issues, developmental differences, limited language exposure, or sometimes no clear cause at all. The good news is that early intervention works regardless of the underlying reason. We focus on what we can do to help your child progress."
+  },
+  {
+    question: "How quickly will I see progress?",
+    answer: "Every child is different. Some make rapid gains in the first few weeks; others progress more gradually. What I can tell you is that children who receive early intervention and have families who practice strategies at home tend to make the fastest progress."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Language Delay Speech Therapy",
+  "description": "Speech therapy for children with expressive and receptive language delays in Kansas City. Home-based therapy to build vocabulary, comprehension, and communication skills.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Kolarik Speech Therapy"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kansas City"
+  },
+  "serviceType": "Pediatric Speech Therapy"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kolarikspeechtherapy.com" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://kolarikspeechtherapy.com/services" },
+    { "@type": "ListItem", "position": 3, "name": "Language Delay Therapy", "item": "https://kolarikspeechtherapy.com/services/language-delay" }
+  ]
+};
+---
+
+<Layout
+  title="Language Delay Speech Therapy in Kansas City"
+  description="Help your child build vocabulary and communication skills with language delay therapy in Kansas City. Kolarik Speech Therapy offers home-based treatment for expressive and receptive language delays."
+  canonicalUrl="/services/language-delay"
+  schema={[faqSchema, serviceSchema, breadcrumbSchema]}
+>
+  <Breadcrumb items={[
+    { label: "Services", href: "/services" },
+    { label: "Language Delay" }
+  ]} />
+
+  <!-- Hero Section -->
+  <section class="py-12 bg-sage-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl font-bold text-warmgray-700 mb-6 animate-on-scroll">
+        Language Delay Speech Therapy in Kansas City
+      </h1>
+      <p class="text-xl text-warmgray-500 leading-relaxed animate-on-scroll">
+        Language is how we share ideas, ask questions, and connect with others. When a child struggles to understand or express language, it affects every part of their day. Early support can help them catch up and thrive.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+
+      <!-- Understanding Language Delays -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">Understanding Language Delays</h2>
+        <p class="text-warmgray-600 mb-4">
+          Language delays affect how children understand what they hear (receptive language) and how they express themselves (expressive language). A child might have difficulty with one or both areas.
+        </p>
+        <p class="text-warmgray-600 mb-4">
+          <strong class="text-warmgray-700">Receptive language delays</strong> affect understanding. Your child might have trouble following directions, understanding questions, or knowing what words mean.
+        </p>
+        <p class="text-warmgray-600">
+          <strong class="text-warmgray-700">Expressive language delays</strong> affect how your child communicates. They might have limited vocabulary, difficulty forming sentences, or struggle to tell you what they want or need.
+        </p>
+      </div>
+
+      <!-- Signs Section -->
+      <div class="bg-sage-50 rounded-xl p-8 mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Signs of a Language Delay</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="font-semibold text-warmgray-700 mb-3">Receptive (Understanding)</h3>
+            <ul class="space-y-2 text-warmgray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Difficulty following directions</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Trouble understanding questions</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Limited understanding of concepts</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Seems to "tune out" language</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-semibold text-warmgray-700 mb-3">Expressive (Speaking)</h3>
+            <ul class="space-y-2 text-warmgray-600">
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Limited vocabulary for age</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Trouble combining words</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Difficulty telling stories or explaining</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-sage-500">•</span>
+                <span>Relies on gestures more than words</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Approach Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">How I Help Children with Language Delays</h2>
+        <p class="text-warmgray-600 mb-4">
+          Language therapy in your home means we can work with real situations: the breakfast table, the toy bin, the backyard. This context helps your child connect words to their actual life, not abstract flashcards.
+        </p>
+        <p class="text-warmgray-600 mb-4">
+          I use play-based, naturalistic strategies that follow your child's interests. If they love cars, we build language around cars. If they're obsessed with bubbles, bubbles become our teaching tool. Children learn language fastest when it's tied to things they care about.
+        </p>
+        <p class="text-warmgray-600">
+          I also coach you on strategies to use throughout the day—at mealtimes, during bath, while running errands. The more language-rich moments your child experiences, the faster they'll progress. You're their most important teacher.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="border-b border-sage-100 pb-6">
+              <h3 class="text-lg font-semibold text-warmgray-700 mb-2">{faq.question}</h3>
+              <p class="text-warmgray-600">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-sage-400 rounded-xl p-8 text-center animate-on-scroll">
+        <h2 class="text-2xl font-bold text-white mb-4">Ready to Help Your Child Communicate?</h2>
+        <p class="text-sage-100 mb-6 max-w-2xl mx-auto">
+          Early intervention for language delays can make a lasting difference. Let's talk about your child's communication and whether therapy might help.
+        </p>
+        <a href="/contact" class="inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+      <!-- Back to Services -->
+      <div class="mt-12 text-center animate-on-scroll">
+        <a href="/services" class="text-sage-500 font-medium hover:text-sage-600 transition-colors">
+          ← Back to All Services
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

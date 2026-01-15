@@ -10,6 +10,26 @@
   </url>
   <url>
     <loc>https://kolarikspeechtherapy.com/services</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/services/late-talker</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/services/articulation</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/services/autism-speech-therapy</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/services/language-delay</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/services/toddler-speech-therapy</loc>
     <priority>0.8</priority>
   </url>
   <url>

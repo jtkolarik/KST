@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const faqs = [
+  {
+    question: "How many words should my toddler be saying?",
+    answer: "By 18 months, most toddlers say around 20 words. By age 2, that number typically jumps to 50+ words with two-word combinations like 'more milk' or 'daddy go.' However, every child develops differently, and the quality of communication matters as much as quantity."
+  },
+  {
+    question: "Will my late talker catch up on their own?",
+    answer: "Some late talkers do catch up without intervention, especially if they understand language well and communicate through gestures. However, about half benefit from early support. An evaluation can help determine which path is right for your child."
+  },
+  {
+    question: "When should I be concerned about my child's speech?",
+    answer: "Consider an evaluation if your child has fewer than 20 words by 18 months, isn't combining words by age 2, seems to understand very little of what you say, or has lost words they used to say. Trust your instincts—if something feels off, it's worth exploring."
+  },
+  {
+    question: "What does speech therapy for late talkers look like?",
+    answer: "For toddlers, therapy is play-based and happens in your home using familiar toys and routines. I work with you and your child together, teaching strategies you can use throughout the day to encourage language development naturally."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Late Talker Speech Therapy",
+  "description": "Specialized speech therapy for toddlers who are late talkers in Kansas City. Home-based, play-based approach to help children develop language skills.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Kolarik Speech Therapy"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kansas City"
+  },
+  "serviceType": "Pediatric Speech Therapy"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kolarikspeechtherapy.com" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://kolarikspeechtherapy.com/services" },
+    { "@type": "ListItem", "position": 3, "name": "Late Talker Speech Therapy", "item": "https://kolarikspeechtherapy.com/services/late-talker" }
+  ]
+};
+---
+
+<Layout
+  title="Late Talker Speech Therapy in Kansas City"
+  description="Is your toddler a late talker? Kolarik Speech Therapy provides home-based speech therapy in Kansas City to help children develop language skills through play-based intervention."
+  canonicalUrl="/services/late-talker"
+  schema={[faqSchema, serviceSchema, breadcrumbSchema]}
+>
+  <Breadcrumb items={[
+    { label: "Services", href: "/services" },
+    { label: "Late Talker" }
+  ]} />
+
+  <!-- Hero Section -->
+  <section class="py-12 bg-sage-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl font-bold text-warmgray-700 mb-6 animate-on-scroll">
+        Late Talker Speech Therapy in Kansas City
+      </h1>
+      <p class="text-xl text-warmgray-500 leading-relaxed animate-on-scroll">
+        Your toddler is communicating in their own way—but you're wondering if their speech is on track. If your child has fewer words than expected for their age, you're not alone. Early support can make a meaningful difference.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+
+      <!-- Understanding Late Talkers -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">What Is a Late Talker?</h2>
+        <p class="text-warmgray-600 mb-4">
+          A late talker is typically a toddler between 18-30 months who has fewer words than expected but is otherwise developing normally. They might understand what you say, make eye contact, and communicate through pointing and gestures—they just don't have many spoken words yet.
+        </p>
+        <p class="text-warmgray-600">
+          About 10-15% of two-year-olds are considered late talkers. While some catch up on their own, others benefit significantly from early intervention. The challenge is knowing which path your child is on—and that's where an evaluation helps.
+        </p>
+      </div>
+
+      <!-- Signs Section -->
+      <div class="bg-sage-50 rounded-xl p-8 mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Signs Your Child May Be a Late Talker</h2>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Fewer than 20 words by 18 months</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Fewer than 50 words by age 2</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Not combining two words together by 24 months</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Relies heavily on gestures instead of words</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Gets frustrated when trying to communicate</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Approach Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">How I Help Late Talkers</h2>
+        <p class="text-warmgray-600 mb-4">
+          My approach is rooted in where your child is most comfortable—your home. Using your child's favorite toys, books, and daily routines, I create natural opportunities for language to emerge. This isn't about drilling flashcards; it's about making communication feel rewarding.
+        </p>
+        <p class="text-warmgray-600 mb-4">
+          I also work closely with you as a parent. You're with your child far more than I am, so I teach you strategies to encourage speech throughout your day—during meals, bath time, play, and everyday moments. This parent-coaching approach leads to faster, more lasting progress.
+        </p>
+        <p class="text-warmgray-600">
+          Every session is play-based and child-led. We follow your toddler's interests because children learn language best when they're engaged and having fun.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="border-b border-sage-100 pb-6">
+              <h3 class="text-lg font-semibold text-warmgray-700 mb-2">{faq.question}</h3>
+              <p class="text-warmgray-600">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-sage-400 rounded-xl p-8 text-center animate-on-scroll">
+        <h2 class="text-2xl font-bold text-white mb-4">Wondering If Your Child Needs Support?</h2>
+        <p class="text-sage-100 mb-6 max-w-2xl mx-auto">
+          A simple conversation can help you understand where your child is and whether an evaluation makes sense. I'm happy to answer your questions—no pressure, no commitment.
+        </p>
+        <a href="/contact" class="inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+      <!-- Back to Services -->
+      <div class="mt-12 text-center animate-on-scroll">
+        <a href="/services" class="text-sage-500 font-medium hover:text-sage-600 transition-colors">
+          ← Back to All Services
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

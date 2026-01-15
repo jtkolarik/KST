@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const faqs = [
+  {
+    question: "How is speech therapy different for children with autism?",
+    answer: "Speech therapy for children with autism often focuses on functional communication—helping your child express needs, wants, and ideas in ways that work for them. This might include spoken words, gestures, pictures, or AAC devices. We also work on social communication skills like joint attention, turn-taking, and understanding nonverbal cues."
+  },
+  {
+    question: "Does my child need an autism diagnosis before starting therapy?",
+    answer: "No. If you have concerns about your child's communication or social development, an evaluation can help regardless of whether you have a formal diagnosis. Many families begin speech therapy while still pursuing or waiting for a diagnostic evaluation."
+  },
+  {
+    question: "What communication approaches do you use?",
+    answer: "I believe in meeting each child where they are. Depending on your child's needs, we might use naturalistic strategies during play, visual supports, augmentative communication tools, or techniques from approaches like PECS or the Hanen program. The goal is always functional, meaningful communication."
+  },
+  {
+    question: "How do you handle sensory sensitivities during sessions?",
+    answer: "Sessions happen in your home, which already helps reduce sensory overwhelm compared to a clinic. I follow your child's lead and adjust activities based on what they can tolerate. If certain textures, sounds, or activities are challenging, we work around them while still making progress."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Autism Speech Therapy",
+  "description": "Specialized speech therapy for children with autism in Kansas City. Home-based therapy focusing on functional communication and social language skills.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Kolarik Speech Therapy"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kansas City"
+  },
+  "serviceType": "Pediatric Speech Therapy"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kolarikspeechtherapy.com" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://kolarikspeechtherapy.com/services" },
+    { "@type": "ListItem", "position": 3, "name": "Autism Speech Therapy", "item": "https://kolarikspeechtherapy.com/services/autism-speech-therapy" }
+  ]
+};
+---
+
+<Layout
+  title="Autism Speech Therapy in Kansas City"
+  description="Specialized speech therapy for children with autism in Kansas City. Kolarik Speech Therapy offers home-based support for communication, social skills, and functional language development."
+  canonicalUrl="/services/autism-speech-therapy"
+  schema={[faqSchema, serviceSchema, breadcrumbSchema]}
+>
+  <Breadcrumb items={[
+    { label: "Services", href: "/services" },
+    { label: "Autism Speech Therapy" }
+  ]} />
+
+  <!-- Hero Section -->
+  <section class="py-12 bg-sage-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl font-bold text-warmgray-700 mb-6 animate-on-scroll">
+        Autism Speech Therapy in Kansas City
+      </h1>
+      <p class="text-xl text-warmgray-500 leading-relaxed animate-on-scroll">
+        Every child with autism communicates differently. My goal is to help your child find their voice—whatever form that takes—so they can connect, express themselves, and thrive.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+
+      <!-- Understanding Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">Communication and Autism</h2>
+        <p class="text-warmgray-600 mb-4">
+          Children with autism often experience communication differently. Some may have limited spoken language, while others speak fluently but struggle with the social aspects of conversation. Many fall somewhere in between.
+        </p>
+        <p class="text-warmgray-600">
+          What's important is finding the right approach for your child—one that builds on their strengths, respects their needs, and opens doors to meaningful connection with the people in their life.
+        </p>
+      </div>
+
+      <!-- Signs Section -->
+      <div class="bg-sage-50 rounded-xl p-8 mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Areas We Can Address Together</h2>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Expressing wants, needs, and ideas</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Joint attention and shared engagement</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Back-and-forth conversation skills</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Play and social interaction with peers</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Understanding and using nonverbal communication</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Alternative and augmentative communication (AAC)</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Approach Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">My Approach with Autistic Children</h2>
+        <p class="text-warmgray-600 mb-4">
+          I have special experience working with children on the autism spectrum. I believe in meeting your child exactly where they are—following their interests, respecting their sensory needs, and building communication in ways that feel natural to them.
+        </p>
+        <p class="text-warmgray-600 mb-4">
+          Therapy happens in your home, which offers a huge advantage for kids who find new environments overwhelming. We work with your child's own toys, spaces, and routines, making it easier for skills to generalize to daily life.
+        </p>
+        <p class="text-warmgray-600">
+          I also collaborate closely with you and any other providers involved in your child's care—ABA therapists, occupational therapists, teachers—to ensure everyone is working toward the same goals with consistent strategies.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="border-b border-sage-100 pb-6">
+              <h3 class="text-lg font-semibold text-warmgray-700 mb-2">{faq.question}</h3>
+              <p class="text-warmgray-600">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-sage-400 rounded-xl p-8 text-center animate-on-scroll">
+        <h2 class="text-2xl font-bold text-white mb-4">Let's Talk About Your Child</h2>
+        <p class="text-sage-100 mb-6 max-w-2xl mx-auto">
+          Every child with autism has their own strengths and challenges. I'd love to learn about yours and discuss how speech therapy might help them communicate and connect.
+        </p>
+        <a href="/contact" class="inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+      <!-- Back to Services -->
+      <div class="mt-12 text-center animate-on-scroll">
+        <a href="/services" class="text-sage-500 font-medium hover:text-sage-600 transition-colors">
+          ← Back to All Services
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

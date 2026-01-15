@@ -1,0 +1,186 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const faqs = [
+  {
+    question: "At what age should my child be able to say all sounds correctly?",
+    answer: "Most children master all speech sounds by age 7-8. However, certain sounds develop earlier than others. For example, sounds like 'p,' 'b,' and 'm' typically emerge by age 2-3, while 'r,' 's,' and 'th' are often mastered later. If your child's speech is difficult to understand for their age, an evaluation can determine if therapy would help."
+  },
+  {
+    question: "How can I tell if my child has an articulation problem?",
+    answer: "Signs include consistently substituting one sound for another (like 'wabbit' for 'rabbit'), leaving sounds off words ('ca' for 'cat'), or being difficult to understand compared to peers. By age 3, strangers should understand about 75% of your child's speech. If not, it may be worth an evaluation."
+  },
+  {
+    question: "Will my child outgrow their speech sound errors?",
+    answer: "Some speech sound errors are developmentally appropriate and resolve naturally. Others persist without intervention. A speech-language pathologist can determine whether your child's errors are expected for their age or if therapy would help them progress faster."
+  },
+  {
+    question: "How long does articulation therapy usually take?",
+    answer: "The duration varies based on the number and type of sounds being targeted, the child's age, and how consistently practice happens at home. Some children make significant progress in a few months; others may need longer. I'll give you a clearer picture after the initial evaluation."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Articulation Speech Therapy",
+  "description": "Speech therapy for children with articulation disorders and pronunciation difficulties in Kansas City. Home-based therapy to help kids speak clearly.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Kolarik Speech Therapy"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kansas City"
+  },
+  "serviceType": "Pediatric Speech Therapy"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kolarikspeechtherapy.com" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://kolarikspeechtherapy.com/services" },
+    { "@type": "ListItem", "position": 3, "name": "Articulation Therapy", "item": "https://kolarikspeechtherapy.com/services/articulation" }
+  ]
+};
+---
+
+<Layout
+  title="Articulation Speech Therapy in Kansas City"
+  description="Help your child speak more clearly with articulation therapy in Kansas City. Kolarik Speech Therapy provides home-based treatment for speech sound disorders and pronunciation problems."
+  canonicalUrl="/services/articulation"
+  schema={[faqSchema, serviceSchema, breadcrumbSchema]}
+>
+  <Breadcrumb items={[
+    { label: "Services", href: "/services" },
+    { label: "Articulation" }
+  ]} />
+
+  <!-- Hero Section -->
+  <section class="py-12 bg-sage-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl font-bold text-warmgray-700 mb-6 animate-on-scroll">
+        Articulation Speech Therapy in Kansas City
+      </h1>
+      <p class="text-xl text-warmgray-500 leading-relaxed animate-on-scroll">
+        When your child speaks, do others struggle to understand them? Articulation therapy helps children pronounce sounds correctly so their words come through clearly—building confidence in every conversation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+
+      <!-- Understanding Articulation -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">What Are Articulation Disorders?</h2>
+        <p class="text-warmgray-600 mb-4">
+          Articulation refers to how we physically make speech sounds using our lips, tongue, teeth, and palate. When a child has an articulation disorder, they have difficulty producing certain sounds correctly, even though they know the words they want to say.
+        </p>
+        <p class="text-warmgray-600">
+          This can look like substituting sounds ("wabbit" for "rabbit"), leaving sounds out ("nana" for "banana"), or distorting sounds (a "slushy" s sound). While some sound errors are normal in young children, persistent errors can make speech hard to understand and may affect confidence.
+        </p>
+      </div>
+
+      <!-- Signs Section -->
+      <div class="bg-sage-50 rounded-xl p-8 mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Signs of an Articulation Problem</h2>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Difficulty being understood by unfamiliar listeners</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Substituting one sound for another consistently</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Leaving sounds off the beginning or end of words</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Speech errors that don't improve with age</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Frustration or reluctance to speak</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Approach Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">How I Help Children Speak Clearly</h2>
+        <p class="text-warmgray-600 mb-4">
+          Articulation therapy starts with understanding exactly which sounds your child struggles with and why. During the evaluation, I assess how they produce different sounds and identify patterns that might be affecting their clarity.
+        </p>
+        <p class="text-warmgray-600 mb-4">
+          In therapy, we work on sounds in a progression: first in isolation, then in syllables, words, sentences, and finally in conversation. I use games, activities, and your child's interests to make practice feel like play—because engaged kids make faster progress.
+        </p>
+        <p class="text-warmgray-600">
+          Home practice is essential for articulation therapy. I'll show you simple activities and cues to use between sessions so your child gets the repetition they need. The good news is that a few minutes of daily practice can make a big difference.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="border-b border-sage-100 pb-6">
+              <h3 class="text-lg font-semibold text-warmgray-700 mb-2">{faq.question}</h3>
+              <p class="text-warmgray-600">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-sage-400 rounded-xl p-8 text-center animate-on-scroll">
+        <h2 class="text-2xl font-bold text-white mb-4">Help Your Child Be Understood</h2>
+        <p class="text-sage-100 mb-6 max-w-2xl mx-auto">
+          Clear speech builds confidence. If your child is difficult to understand, let's talk about whether articulation therapy could help.
+        </p>
+        <a href="/contact" class="inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+      <!-- Back to Services -->
+      <div class="mt-12 text-center animate-on-scroll">
+        <a href="/services" class="text-sage-500 font-medium hover:text-sage-600 transition-colors">
+          ← Back to All Services
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+
+const faqs = [
+  {
+    question: "Is my 2-year-old too young for speech therapy?",
+    answer: "Absolutely not. In fact, ages 2-3 are an ideal time for speech therapy because the brain is incredibly adaptable during this period. Early intervention often leads to faster progress and better long-term outcomes. The earlier we start, the more we can leverage this critical window of development."
+  },
+  {
+    question: "What does speech therapy look like for a toddler?",
+    answer: "Toddler speech therapy looks like play. We use toys, books, songs, and everyday activities to create opportunities for communication. Sessions are child-led and happen in your home using your child's own things. I also coach you on strategies to use throughout your day."
+  },
+  {
+    question: "How do you keep a toddler engaged during therapy?",
+    answer: "By following their lead. If your toddler is interested in balls, we work on language through ball play. If they love snacks, snack time becomes a language opportunity. Children learn best when they're engaged and having fun, so therapy feels like play—not work."
+  },
+  {
+    question: "How do I know if my toddler's speech is just 'delayed' or something more?",
+    answer: "That's exactly what an evaluation helps determine. I look at the full picture: how many words they have, how they communicate without words, how they understand language, and how they're developing overall. From there, I can tell you whether watching and waiting makes sense or whether therapy would help."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Toddler Speech Therapy",
+  "description": "Early intervention speech therapy for toddlers ages 2-3 in Kansas City. Home-based, play-based therapy to support early language development.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Kolarik Speech Therapy"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Kansas City"
+  },
+  "serviceType": "Pediatric Speech Therapy"
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://kolarikspeechtherapy.com" },
+    { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://kolarikspeechtherapy.com/services" },
+    { "@type": "ListItem", "position": 3, "name": "Toddler Speech Therapy", "item": "https://kolarikspeechtherapy.com/services/toddler-speech-therapy" }
+  ]
+};
+---
+
+<Layout
+  title="Toddler Speech Therapy in Kansas City"
+  description="Early intervention speech therapy for toddlers ages 2-3 in Kansas City. Kolarik Speech Therapy offers play-based, home-based support for early speech and language development."
+  canonicalUrl="/services/toddler-speech-therapy"
+  schema={[faqSchema, serviceSchema, breadcrumbSchema]}
+>
+  <Breadcrumb items={[
+    { label: "Services", href: "/services" },
+    { label: "Toddler Speech Therapy" }
+  ]} />
+
+  <!-- Hero Section -->
+  <section class="py-12 bg-sage-50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h1 class="text-4xl font-bold text-warmgray-700 mb-6 animate-on-scroll">
+        Toddler Speech Therapy in Kansas City
+      </h1>
+      <p class="text-xl text-warmgray-500 leading-relaxed animate-on-scroll">
+        The toddler years are a critical window for language development. If your 2- or 3-year-old isn't talking as much as you'd expect, early intervention can make a meaningful difference—and it doesn't have to feel like "therapy."
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="py-16">
+    <div class="max-w-4xl mx-auto px-4">
+
+      <!-- Why Early Intervention -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">Why Early Intervention Matters</h2>
+        <p class="text-warmgray-600 mb-4">
+          Between ages 2-3, the brain is uniquely primed for language learning. Neural pathways are forming rapidly, and children absorb language at an incredible rate. When we provide support during this window, children often make faster progress than they would if we waited.
+        </p>
+        <p class="text-warmgray-600">
+          Research consistently shows that children who receive early intervention for speech and language concerns have better outcomes—not just in communication, but in reading, social skills, and academic success later on.
+        </p>
+      </div>
+
+      <!-- Signs Section -->
+      <div class="bg-sage-50 rounded-xl p-8 mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Signs Your Toddler May Benefit from Speech Therapy</h2>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Fewer than 50 words by age 2</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Not putting two words together by age 2</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Difficulty being understood by family members</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Not responding to their name or simple questions</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Frequent frustration when trying to communicate</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="text-warmgray-600">Loss of words they previously used</span>
+          </li>
+        </ul>
+        <p class="text-warmgray-500 mt-6 text-sm">
+          Not sure if these apply to your child? <a href="/blog/signs-toddler-needs-speech-therapy" class="text-sage-500 hover:text-sage-600 font-medium">Read more about when to seek an evaluation</a>.
+        </p>
+      </div>
+
+      <!-- Approach Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">What Toddler Speech Therapy Looks Like</h2>
+        <p class="text-warmgray-600 mb-4">
+          Therapy for toddlers doesn't look like sitting at a table with flashcards. It looks like playing on the floor with blocks, reading books, blowing bubbles, and having fun. We follow your child's interests and weave language into activities they already enjoy.
+        </p>
+        <p class="text-warmgray-600 mb-4">
+          Sessions happen in your home, which is where toddlers are most comfortable. Your child's own toys, routines, and environment become our therapy materials. This helps skills generalize naturally to everyday life.
+        </p>
+        <p class="text-warmgray-600">
+          I work with you just as much as I work with your child. You'll learn strategies you can use during meals, playtime, bath time, and everyday moments. The more practice your toddler gets throughout the day, the faster they'll progress.
+        </p>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="mb-12 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Frequently Asked Questions</h2>
+        <div class="space-y-6">
+          {faqs.map((faq) => (
+            <div class="border-b border-sage-100 pb-6">
+              <h3 class="text-lg font-semibold text-warmgray-700 mb-2">{faq.question}</h3>
+              <p class="text-warmgray-600">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-sage-400 rounded-xl p-8 text-center animate-on-scroll">
+        <h2 class="text-2xl font-bold text-white mb-4">Concerned About Your Toddler's Speech?</h2>
+        <p class="text-sage-100 mb-6 max-w-2xl mx-auto">
+          You know your child best. If something feels off, it's worth exploring. A free consultation can help you decide whether an evaluation makes sense.
+        </p>
+        <a href="/contact" class="inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+      <!-- Back to Services -->
+      <div class="mt-12 text-center animate-on-scroll">
+        <a href="/services" class="text-sage-500 font-medium hover:text-sage-600 transition-colors">
+          ← Back to All Services
+        </a>
+      </div>
+
+    </div>
+  </section>
+</Layout>
