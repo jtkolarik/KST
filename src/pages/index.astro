@@ -1,5 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { blogPosts } from '../data/blogPosts';
+
+// Get the 2 most recent blog posts
+const recentPosts = blogPosts.slice(0, 2);
 
 const galleryImages = [
   { src: '/gallery 1.jpg', alt: 'Child engaged in play-based speech therapy activity' },
@@ -226,16 +230,13 @@ const galleryImages = [
         </p>
       </div>
       <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <a href="/blog/signs-toddler-needs-speech-therapy" class="block bg-sage-50 rounded-xl p-6 hover:shadow-md transition-shadow animate-on-scroll card-hover">
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-2">5 Signs Your Toddler Might Benefit from Speech Therapy</h3>
-          <p class="text-warmgray-500 text-sm mb-3">Wondering if your child's speech is on track? Here are the key signs to watch for.</p>
-          <span class="text-sage-500 font-medium text-sm">Read more →</span>
-        </a>
-        <a href="/blog/late-talker-vs-speech-delay" class="block bg-sage-50 rounded-xl p-6 hover:shadow-md transition-shadow animate-on-scroll stagger-1 card-hover">
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Late Talker vs. Speech Delay: What's the Difference?</h3>
-          <p class="text-warmgray-500 text-sm mb-3">Some kids catch up on their own, others benefit from support. Here's how to tell.</p>
-          <span class="text-sage-500 font-medium text-sm">Read more →</span>
-        </a>
+        {recentPosts.map((post, index) => (
+          <a href={`/blog/${post.slug}`} class={`block bg-sage-50 rounded-xl p-6 hover:shadow-md transition-shadow animate-on-scroll card-hover ${index === 1 ? 'stagger-1' : ''}`}>
+            <h3 class="text-xl font-semibold text-warmgray-700 mb-2">{post.title}</h3>
+            <p class="text-warmgray-500 text-sm mb-3">{post.description}</p>
+            <span class="text-sage-500 font-medium text-sm">Read more →</span>
+          </a>
+        ))}
       </div>
       <div class="text-center mt-8 animate-on-scroll">
         <a href="/blog" class="text-sage-500 font-semibold hover:text-sage-600 transition-colors">
