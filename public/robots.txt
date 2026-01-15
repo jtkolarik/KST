@@ -1,4 +1,7 @@
+# Robots.txt for kolarikspeechtherapy.com
+
 User-agent: *
 Allow: /
 
+# Sitemap location
 Sitemap: https://kolarikspeechtherapy.com/sitemap.xml
