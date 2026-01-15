@@ -1,0 +1,198 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const articleData = {
+  title: "What to Expect at Your First Speech Therapy Session",
+  description: "Nervous about your child's first speech therapy appointment? Here's exactly what happens during an initial session and how to help your child feel comfortable.",
+  image: "/blog-what-to-expect.png",
+  publishedDate: "2026-01-15",
+  author: "Molly Kolarik"
+};
+---
+
+<Layout
+  title={articleData.title}
+  description={articleData.description}
+  image={articleData.image}
+  type="article"
+  publishedDate={articleData.publishedDate}
+>
+  <article>
+  <!-- Article Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": `https://kolarikspeechtherapy.com${articleData.image}`,
+    "datePublished": articleData.publishedDate,
+    "author": {
+      "@type": "Person",
+      "name": articleData.author,
+      "jobTitle": "Speech-Language Pathologist",
+      "url": "https://kolarikspeechtherapy.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kolarik Speech Therapy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kolarikspeechtherapy.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kolarikspeechtherapy.com/blog/what-to-expect-first-session"
+    }
+  })} />
+    <!-- Article Header with Pattern -->
+    <header class="relative py-16 overflow-hidden">
+      <div class="absolute inset-0 opacity-30" style="background-image: url('/blog-pattern.png'); background-size: 400px;"></div>
+      <div class="relative max-w-3xl mx-auto px-4">
+        <a href="/blog" class="text-sage-500 hover:text-sage-600 text-sm font-medium mb-4 inline-block">← Back to Blog</a>
+        <p class="text-sage-500 font-medium mb-2 animate-on-scroll">Getting Started</p>
+        <h1 class="text-4xl font-bold text-warmgray-700 mb-4 animate-on-scroll">What to Expect at Your First Speech Therapy Session</h1>
+        <p class="text-warmgray-400 animate-on-scroll">January 2026 · 5 min read</p>
+      </div>
+    </header>
+
+    <!-- Banner Image -->
+    <div class="max-w-3xl mx-auto px-4 pt-8">
+      <img src="/blog-what-to-expect.png" alt="Speech therapist playing with a young child during therapy session" class="w-full rounded-xl" />
+    </div>
+
+    <!-- Article Content -->
+    <div class="max-w-3xl mx-auto px-4 pb-16">
+
+      <p class="text-lg text-warmgray-600 mb-8 mt-8 animate-on-scroll">
+        You've made the call and scheduled your child's first speech therapy session. Now what? If you're feeling a mix of relief and nerves, that's completely normal. Here's a look at what actually happens during that first appointment—and how you can help your child (and yourself) feel prepared.
+      </p>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center animate-on-scroll">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">It Starts with Conversation</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Before I ever work directly with your child, I want to hear from you. You know your child better than anyone, and your observations are invaluable. We'll talk about what prompted you to seek help, your child's developmental history, and what communication looks like in your daily life.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        This isn't a test you need to prepare for. There are no wrong answers. I just want to understand your child's unique story and what concerns are on your mind.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Play Is the Main Event</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        For kids, speech therapy doesn't look like sitting at a desk doing drills. Especially in that first session, my goal is to make your child feel comfortable and safe. That means getting down on the floor, pulling out toys, and following their lead.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        While we play, I'm observing how your child communicates—the words they use (or don't), how they interact, how they respond to language, and what sounds they're making. It might look like we're just having fun, but I'm gathering important information the whole time.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Your Child Sets the Pace</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Some kids warm up quickly. Others need more time—and that's okay. If your child is shy, clingy, or needs you close by, we work with that. There's no pressure to perform. The first session is about building trust, not pushing limits.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        I've worked with kids who spend the entire first session on their parent's lap, peeking at toys from a distance. By the second or third visit, they're leading the play. Every child is different, and I meet them where they are.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Home-Based Means Comfortable</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        One of the biggest advantages of home-based therapy is that your child is already in a familiar space. There's no sterile clinic waiting room, no unfamiliar smells, no fluorescent lights. Your child can show me their favorite toys, their room, their world.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        This comfort translates to better sessions. Kids who feel safe are more willing to try new things, take risks, and engage. And I get to see how communication happens in your actual daily environment—which helps me give you more practical strategies.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">We'll Talk About What I See</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        At the end of the session (or sometimes in a follow-up call), I'll share my initial observations. This isn't a formal diagnosis—that comes after a full evaluation—but I can usually give you a sense of what I'm noticing and whether speech therapy seems like a good fit.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        I'll also answer any questions you have. No question is too small or too silly. If you've been Googling at 2 AM, bring those questions. This is a judgment-free zone.
+      </p>
+
+      <!-- CTA Box -->
+      <div class="bg-sage-50 rounded-xl p-8 my-10 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">How to Prepare</h2>
+        <p class="text-warmgray-600 mb-4">
+          Honestly? You don't need to do much. But if it helps you feel ready, here are a few simple things:
+        </p>
+        <ul class="text-warmgray-600 space-y-2 mb-4">
+          <li class="flex items-start gap-2">
+            <span class="text-sage-500 mt-1">•</span>
+            <span><strong>Keep it low-key with your child.</strong> You can say something like, "Someone is coming to play with you today!" No need to build it up or explain what speech therapy is.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sage-500 mt-1">•</span>
+            <span><strong>Schedule around naps and meals.</strong> A rested, fed child is a happier child. If your toddler is typically a mess at 4 PM, let's not schedule for 4 PM.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sage-500 mt-1">•</span>
+            <span><strong>Have a few favorite toys accessible.</strong> Familiar objects can help your child feel secure and give me a window into what motivates them.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-sage-500 mt-1">•</span>
+            <span><strong>Jot down your questions.</strong> It's easy to forget what you wanted to ask once we're in the moment.</span>
+          </li>
+        </ul>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">What Happens After?</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        After the initial session, we'll discuss next steps together. If a full evaluation is needed, I'll walk you through what that involves. If we're ready to start regular therapy, we'll talk about goals and scheduling. And if I think your child doesn't need services right now, I'll tell you that too—along with things to watch for going forward.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        There's no hard sell here. My job is to figure out what's best for your child, even if that means telling you they don't need me.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">The Bottom Line</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        The first session is really about getting to know each other. It's low-pressure, play-based, and designed to make your child feel comfortable. Most parents tell me afterward that it was much easier than they expected—and their kids often ask when I'm coming back.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        If you've been putting off that first appointment because you're not sure what to expect, I hope this helps. Taking that first step is the hardest part. Everything after that gets easier.
+      </p>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <!-- Author -->
+      <div class="flex items-center gap-4 py-8 border-t border-sage-100 animate-on-scroll">
+        <img src="/headshot.png" alt="Molly Kolarik" class="w-16 h-16 rounded-full object-cover object-top" />
+        <div>
+          <p class="font-semibold text-warmgray-700">Molly Kolarik, CCC-SLP</p>
+          <p class="text-warmgray-500 text-sm">Pediatric Speech-Language Pathologist serving the Kansas City area</p>
+        </div>
+      </div>
+
+      <!-- Subscribe Box -->
+      <div class="bg-white rounded-xl p-8 border-2 border-sage-200 my-10 animate-on-scroll">
+        <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+          <img src="/bird-envelope.png" alt="" class="w-32 h-auto self-center" />
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Want more tips like this?</h3>
+            <p class="text-warmgray-500 text-sm mb-4">Get helpful speech therapy insights delivered to your inbox.</p>
+            <form action="https://app.kit.com/forms/8889095/subscriptions" method="post">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="email" name="email_address" placeholder="Email Address" required class="flex-1 px-4 py-2 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none" />
+                <button type="submit" class="bg-sage-400 text-white px-6 py-2 rounded-lg font-medium hover:bg-sage-500 transition-colors">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="text-center animate-on-scroll">
+        <a href="/contact" class="inline-block bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+    </div>
+  </article>
+</Layout>

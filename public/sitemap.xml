@@ -41,6 +41,10 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://kolarikspeechtherapy.com/blog/archive</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://kolarikspeechtherapy.com/blog/encourage-speech-at-home</loc>
     <priority>0.7</priority>
   </url>
@@ -50,6 +54,10 @@
   </url>
   <url>
     <loc>https://kolarikspeechtherapy.com/blog/signs-toddler-needs-speech-therapy</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://kolarikspeechtherapy.com/blog/what-to-expect-first-session</loc>
     <priority>0.7</priority>
   </url>
 </urlset>

@@ -1,14 +1,27 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getPaginatedPosts, getTotalPages, blogPosts } from '../data/blogPosts';
+import Layout from '../../../layouts/Layout.astro';
+import { getPaginatedPosts, getTotalPages, blogPosts, POSTS_PER_PAGE } from '../../../data/blogPosts';
 
-const currentPage = 1;
+export function getStaticPaths() {
+  const totalPages = getTotalPages();
+  // Generate paths for pages 2 and beyond (page 1 is handled by /blog)
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) }
+  }));
+}
+
+const { page } = Astro.params;
+const currentPage = parseInt(page);
 const posts = getPaginatedPosts(currentPage);
 const totalPages = getTotalPages();
-const hasMorePosts = totalPages > 1;
+
+const hasPrevPage = currentPage > 1;
+const hasNextPage = currentPage < totalPages;
+const prevPageUrl = currentPage === 2 ? '/blog' : `/blog/page/${currentPage - 1}`;
+const nextPageUrl = `/blog/page/${currentPage + 1}`;
 ---
 
-<Layout title="Blog" description="The Nest - Speech therapy tips, resources, and insights for parents. Learn how to support your child's communication development at home.">
+<Layout title={`Blog - Page ${currentPage}`} description="The Nest - Speech therapy tips, resources, and insights for parents. Learn how to support your child's communication development at home.">
   <!-- Header with pattern background -->
   <div class="relative bg-sage-50 py-16">
     <div class="absolute inset-0 opacity-30">
@@ -25,6 +38,9 @@ const hasMorePosts = totalPages > 1;
 
   <section class="py-16 bg-sage-50/30">
     <div class="max-w-3xl mx-auto px-4">
+
+      <!-- Page indicator -->
+      <p class="text-warmgray-400 text-sm mb-8 text-center">Page {currentPage} of {totalPages}</p>
 
       <!-- Blog Posts -->
       <div class="space-y-8">
@@ -50,19 +66,38 @@ const hasMorePosts = totalPages > 1;
       </div>
 
       <!-- Pagination -->
-      {hasMorePosts && (
-        <div class="mt-12 flex justify-center items-center gap-2">
-          <span class="px-4 py-2 bg-sage-400 text-white rounded-lg font-medium">1</span>
-          {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((page) => (
-            <a
-              href={`/blog/page/${page}`}
-              class="px-4 py-2 bg-white border border-sage-200 text-warmgray-600 rounded-lg font-medium hover:bg-sage-50 hover:border-sage-300 transition-colors"
-            >
-              {page}
-            </a>
-          ))}
+      <div class="mt-12 flex justify-center items-center gap-2">
+        {hasPrevPage && (
           <a
-            href="/blog/page/2"
+            href={prevPageUrl}
+            class="px-4 py-2 bg-white border border-sage-200 text-warmgray-600 rounded-lg font-medium hover:bg-sage-50 hover:border-sage-300 transition-colors flex items-center gap-1"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Prev
+          </a>
+        )}
+
+        <a
+          href="/blog"
+          class={`px-4 py-2 rounded-lg font-medium ${1 === currentPage ? 'bg-sage-400 text-white' : 'bg-white border border-sage-200 text-warmgray-600 hover:bg-sage-50 hover:border-sage-300'} transition-colors`}
+        >
+          1
+        </a>
+
+        {Array.from({ length: totalPages - 1 }, (_, i) => i + 2).map((pageNum) => (
+          <a
+            href={`/blog/page/${pageNum}`}
+            class={`px-4 py-2 rounded-lg font-medium ${pageNum === currentPage ? 'bg-sage-400 text-white' : 'bg-white border border-sage-200 text-warmgray-600 hover:bg-sage-50 hover:border-sage-300'} transition-colors`}
+          >
+            {pageNum}
+          </a>
+        ))}
+
+        {hasNextPage && (
+          <a
+            href={nextPageUrl}
             class="px-4 py-2 bg-white border border-sage-200 text-warmgray-600 rounded-lg font-medium hover:bg-sage-50 hover:border-sage-300 transition-colors flex items-center gap-1"
           >
             Next
@@ -70,17 +105,15 @@ const hasMorePosts = totalPages > 1;
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
           </a>
-        </div>
-      )}
+        )}
+      </div>
 
-      <!-- View All Posts Link (when there are archived posts) -->
-      {hasMorePosts && (
-        <div class="mt-6 text-center">
-          <a href="/blog/archive" class="text-sage-500 hover:text-sage-600 font-medium text-sm">
-            View all {blogPosts.length} posts →
-          </a>
-        </div>
-      )}
+      <!-- View All Posts Link -->
+      <div class="mt-6 text-center">
+        <a href="/blog/archive" class="text-sage-500 hover:text-sage-600 font-medium text-sm">
+          View all {blogPosts.length} posts →
+        </a>
+      </div>
 
       <!-- Branch Divider -->
       <div class="my-16 flex justify-center animate-on-scroll">
