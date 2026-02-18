@@ -9,6 +9,8 @@ interface Props {
   image?: string;
   type?: 'website' | 'article';
   publishedDate?: string;
+  canonicalUrl?: string;
+  schema?: Record<string, any>[];
 }
 
 const {
@@ -16,11 +18,15 @@ const {
   description = "Personalized home-based speech therapy for children ages 2+ in Kansas City. Molly Kolarik, CCC-SLP, helps kids find their voice in the comfort of their own home.",
   image = "/headshot.png",
   type = "website",
-  publishedDate
+  publishedDate,
+  canonicalUrl: canonicalUrlProp,
+  schema
 } = Astro.props;
 
 const siteUrl = "https://kolarikspeechtherapy.com";
-const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const canonicalUrl = canonicalUrlProp
+  ? new URL(canonicalUrlProp, siteUrl).href
+  : new URL(Astro.url.pathname, siteUrl).href;
 const imageUrl = new URL(image, siteUrl).href;
 const fullTitle = `${title} | Kolarik Speech Therapy`;
 ---
@@ -121,6 +127,9 @@ const fullTitle = `${title} | Kolarik Speech Therapy`;
       "sameAs": []
     }
     </script>
+    {schema && schema.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
   </head>
   <body class="bg-cream text-warmgray-700 min-h-screen flex flex-col">
     <!-- Skip to main content link for accessibility -->
