@@ -11,6 +11,15 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "screen-time-and-speech-delay",
+    title: "Screen Time and Speech Delay: What the Research Actually Says",
+    description: "Does screen time cause speech delays in toddlers? Here's what current research shows about screens and language development, and what parents can do.",
+    image: "/blog-screen-time.png",
+    imageAlt: "Parent and toddler engaged in conversation instead of screens",
+    date: "2026-03-09",
+    dateDisplay: "March 2026"
+  },
+  {
     slug: "what-to-expect-first-session",
     title: "What to Expect at Your First Speech Therapy Session",
     description: "Nervous about your child's first appointment? Here's exactly what happens and how to help your child feel comfortable.",

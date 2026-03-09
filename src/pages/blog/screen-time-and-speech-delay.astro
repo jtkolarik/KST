@@ -1,0 +1,243 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const articleData = {
+  title: "Screen Time and Speech Delay: What the Research Actually Says",
+  description: "Does screen time cause speech delays in toddlers? Here's what current research shows about screens and language development, and what Kansas City parents can do.",
+  image: "/blog-screen-time.png",
+  publishedDate: "2026-03-09",
+  author: "Molly Kolarik"
+};
+
+const faqs = [
+  {
+    question: "Does screen time cause speech delays in toddlers?",
+    answer: "Research shows a consistent association between higher screen time in children under 3 and slower language development. A 2023 study in JAMA Pediatrics found that each additional hour of daily screen time at age 1 was associated with a 4.7-times higher risk of expressive language delay by age 2. However, researchers are careful to note that screen time is associated with delays, not proven to directly cause them."
+  },
+  {
+    question: "How much screen time is too much for a toddler's speech development?",
+    answer: "The American Academy of Pediatrics recommends no screen time for children under 18 months (except video calls) and no more than one hour per day for children ages 2-5. For speech and language development specifically, the quality and context matter as much as quantity. Passive viewing is the most concerning, while co-viewing with a caregiver who talks about what's on screen is less likely to interfere with language development."
+  },
+  {
+    question: "Can educational apps and shows help my toddler learn to talk?",
+    answer: "Children under about age 2.5 have difficulty transferring what they see on a screen to real life, a concept researchers call the 'transfer deficit.' While older preschoolers can learn vocabulary from high-quality educational programs, toddlers learn language most effectively through live, back-and-forth interaction with a caregiver. No app or show can replicate the responsive, real-time communication that drives early language development."
+  },
+  {
+    question: "Should I feel guilty about my toddler's screen time?",
+    answer: "No. Guilt is not productive, and every family's situation is different. What matters most is the overall balance of your child's day. If your toddler is getting plenty of face-to-face interaction, active play, and responsive conversation throughout the day, some screen time is unlikely to be the sole factor in a speech delay. Focus on adding more language-rich moments rather than eliminating screens entirely."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<Layout
+  title={articleData.title}
+  description={articleData.description}
+  image={articleData.image}
+  type="article"
+  publishedDate={articleData.publishedDate}
+  schema={[faqSchema]}
+>
+  <article>
+  <!-- Article Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": `https://kolarikspeechtherapy.com${articleData.image}`,
+    "datePublished": articleData.publishedDate,
+    "author": {
+      "@type": "Person",
+      "name": articleData.author,
+      "jobTitle": "Speech-Language Pathologist",
+      "url": "https://kolarikspeechtherapy.com/about"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kolarik Speech Therapy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kolarikspeechtherapy.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kolarikspeechtherapy.com/blog/screen-time-and-speech-delay"
+    }
+  })} />
+    <!-- Article Header with Pattern -->
+    <header class="relative py-16 overflow-hidden">
+      <div class="absolute inset-0 opacity-30" style="background-image: url('/blog-pattern.png'); background-size: 400px;"></div>
+      <div class="relative max-w-3xl mx-auto px-4">
+        <a href="/blog" class="text-sage-500 hover:text-sage-600 text-sm font-medium mb-4 inline-block">← Back to Blog</a>
+        <p class="text-sage-500 font-medium mb-2 animate-on-scroll">Speech Development</p>
+        <h1 class="text-4xl font-bold text-warmgray-700 mb-4 animate-on-scroll">Screen Time and Speech Delay: What the Research Actually Says</h1>
+        <p class="text-warmgray-400 animate-on-scroll">March 2026 · 6 min read</p>
+      </div>
+    </header>
+
+    <!-- Banner Image -->
+    <div class="max-w-3xl mx-auto px-4 pt-8">
+      <img src="/blog-screen-time.png" alt="Parent and toddler engaged in conversation instead of screens" class="w-full rounded-xl" />
+    </div>
+
+    <!-- Article Content -->
+    <div class="max-w-3xl mx-auto px-4 pb-16">
+
+      <p class="text-lg text-warmgray-600 mb-8 mt-8 animate-on-scroll">
+        If you've ever wondered whether your toddler's tablet time is affecting their speech, you're not alone. It's one of the most common questions I hear from Kansas City parents. The short answer: research shows a real connection between screen time and language development in young children—but the full picture is more nuanced than the headlines suggest.
+      </p>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center animate-on-scroll">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">What the Research Shows</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Multiple studies over the past several years have found a consistent pattern: higher screen time in children under 3 is associated with slower language development. A large 2023 study published in JAMA Pediatrics followed over 7,000 children and found that each additional hour of daily screen time at age 1 was linked to significantly higher risk of language delay by age 2.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Earlier research from the National Institutes of Health found similar trends—children who spent more time with screens before age 2 tended to have smaller vocabularies and used fewer word combinations than peers with less screen exposure.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        The pattern holds across different countries, income levels, and types of content. It's not just "junk" content—even educational programming shows the same association when viewed passively by very young children.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Why Screens Affect Language Development</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        The issue isn't that screens are inherently harmful. It's about what screens replace. Children under 3 learn language through live, back-and-forth interaction—what researchers call "serve and return" communication. Your toddler babbles, you respond. They point at something, you name it. They say a word, you expand on it.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Screens can't do this. Even the best educational app doesn't adjust to your child's specific communication attempt in real time. And when a screen is on, studies show that parents talk less, respond less, and use simpler language—even when they're in the same room.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        There's also what researchers call the "transfer deficit." Children under about 2.5 have difficulty applying what they see on a screen to real-world situations. A toddler might watch a character name objects on a show but struggle to use those words in their own life. Learning from a screen and learning from a person are processed differently by the developing brain.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Not All Screen Time Is Equal</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Before you throw out every device in your house, it's important to understand that context matters. Research distinguishes between several types of screen use:
+      </p>
+      <ul class="list-disc pl-6 text-warmgray-600 mb-6 space-y-3 animate-on-scroll">
+        <li><strong>Passive viewing</strong> (child watches alone) — most consistently linked to language delays</li>
+        <li><strong>Co-viewing</strong> (watching together and talking about it) — less concerning, and may even support learning in children over 2</li>
+        <li><strong>Video calls</strong> (FaceTime, Zoom with grandparents) — the AAP considers these an exception because they involve real-time, back-and-forth interaction</li>
+        <li><strong>Background TV</strong> (a screen on in the room while the child plays) — often overlooked, but research shows it reduces both the quantity and quality of parent-child conversation</li>
+      </ul>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        For families in the Kansas City area, the practical takeaway is this: it's not about eliminating screens entirely. It's about being intentional with how and when they're used.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">What the AAP Recommends</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        The American Academy of Pediatrics guidelines for screen time are straightforward:
+      </p>
+      <ul class="list-disc pl-6 text-warmgray-600 mb-6 space-y-3 animate-on-scroll">
+        <li><strong>Under 18 months:</strong> Avoid screen time other than video calls</li>
+        <li><strong>18-24 months:</strong> If you introduce screens, choose high-quality content and watch together</li>
+        <li><strong>Ages 2-5:</strong> Limit to one hour per day of high-quality programming, with co-viewing when possible</li>
+      </ul>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        These are guidelines, not absolute rules. Every family's situation is different, and I'd never tell a parent that a few minutes of screen time while they make dinner is going to derail their child's development.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">What You Can Do Instead</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        The goal isn't perfection—it's adding more language-rich moments to your child's day. Here are some practical swaps that Kansas City families I work with have found helpful:
+      </p>
+      <ul class="list-disc pl-6 text-warmgray-600 mb-6 space-y-3 animate-on-scroll">
+        <li><strong>Narrate daily routines.</strong> Talk through meals, bath time, getting dressed. "Now we're putting on your socks. Red socks today!"</li>
+        <li><strong>Turn off background TV.</strong> If no one is actively watching, switch it off. The silence creates space for conversation.</li>
+        <li><strong>Co-view when screens are on.</strong> Watch together and talk about what you see. "Look, the dog is running! Where do you think he's going?"</li>
+        <li><strong>Swap one screen session for a hands-on activity.</strong> Playdough, water play, stacking blocks, or a walk outside—all create natural opportunities for language.</li>
+        <li><strong>Use the "one more thing" rule.</strong> Before handing over a device, do one more face-to-face activity—read a book, sing a song, play for five minutes.</li>
+      </ul>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">When to Be Concerned</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Screen time alone is unlikely to be the sole cause of a speech delay. But if you're noticing that your child has fewer words than expected for their age, isn't combining words by age 2, or seems to struggle with understanding language, it's worth getting an evaluation—regardless of how much screen time they've had.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        In the Kansas City metro area, children under 3 may qualify for free speech therapy through Missouri's First Steps early intervention program. For children over 3, a private evaluation can clarify whether your child would benefit from support.
+      </p>
+
+      <!-- FAQ Section -->
+      <div class="my-10 flex justify-center animate-on-scroll">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Frequently Asked Questions</h2>
+
+      {faqs.map((faq) => (
+        <div class="mb-8 animate-on-scroll">
+          <h3 class="text-lg font-semibold text-warmgray-700 mb-2">{faq.question}</h3>
+          <p class="text-warmgray-600">{faq.answer}</p>
+        </div>
+      ))}
+
+      <!-- CTA Box -->
+      <div class="bg-sage-50 rounded-xl p-8 my-10 animate-on-scroll">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">The Bottom Line</h2>
+        <p class="text-warmgray-600 mb-4">
+          Screen time is one piece of the puzzle, not the whole picture. What matters most is that your child is getting plenty of real, responsive interaction throughout their day. If you're reading this article and thinking about your child's habits, you're already being a thoughtful, engaged parent.
+        </p>
+        <p class="text-warmgray-600">
+          If you're in the Kansas City area and have concerns about your child's speech or language development—whether or not you think screen time is a factor—<a href="/contact" class="text-sage-500 hover:text-sage-600 font-medium">I'm happy to talk it through</a>. The first conversation is always free.
+        </p>
+      </div>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <!-- Author -->
+      <div class="flex items-center gap-4 py-8 border-t border-sage-100 animate-on-scroll">
+        <img src="/headshot.png" alt="Molly Kolarik" class="w-16 h-16 rounded-full object-cover object-top" />
+        <div>
+          <p class="font-semibold text-warmgray-700">Molly Kolarik, CCC-SLP</p>
+          <p class="text-warmgray-500 text-sm">Pediatric Speech-Language Pathologist serving the Kansas City area</p>
+        </div>
+      </div>
+
+      <!-- Subscribe Box -->
+      <div class="bg-white rounded-xl p-8 border-2 border-sage-200 my-10 animate-on-scroll">
+        <div class="flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+          <img src="/bird-envelope.png" alt="" class="w-40 h-auto self-center" />
+          <div class="flex-1">
+            <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Want more tips like this?</h3>
+            <p class="text-warmgray-500 text-sm mb-4">Get helpful speech therapy insights delivered to your inbox.</p>
+            <form action="https://app.kit.com/forms/8889095/subscriptions" method="post">
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="email" name="email_address" placeholder="Email Address" required class="flex-1 px-4 py-2 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none" />
+                <button type="submit" class="bg-sage-400 text-white px-6 py-2 rounded-lg font-medium hover:bg-sage-500 transition-colors">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="text-center animate-on-scroll">
+        <a href="/contact" class="inline-block bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500 transition-colors">
+          Schedule a Free Consultation
+        </a>
+      </div>
+
+    </div>
+  </article>
+</Layout>
