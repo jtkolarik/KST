@@ -1,0 +1,17 @@
+# Service page redirects
+/services/                       /sound-groups/  301
+/services/articulation           /sound-groups/  301
+/services/language-delay         /sound-groups/  301
+/services/autism-speech-therapy  /sound-groups/  301
+/services/toddler-speech-therapy /sound-groups/  301
+/services/late-talker            /sound-groups/  301
+
+# Blog redirects
+/blog/                           /               301
+/blog/archive                    /               301
+/blog/screen-time-and-speech-delay         /     301
+/blog/what-to-expect-first-session         /     301
+/blog/encourage-speech-at-home             /     301
+/blog/late-talker-vs-speech-delay          /     301
+/blog/signs-toddler-needs-speech-therapy   /     301
+/blog/page/*                     /               301

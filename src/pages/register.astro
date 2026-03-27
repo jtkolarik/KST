@@ -1,0 +1,250 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Register for Sound Groups" description="Reserve your child's spot in a Speech Sound Group for Fall 2026. Small groups, $50 per session, 30 minutes. Led by Molly Kolarik, CCC-SLP in Kansas City.">
+  <section class="py-16">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center mb-12 animate-on-scroll">
+        <p class="text-sage-500 font-semibold mb-3 tracking-wide uppercase text-sm">Fall 2026</p>
+        <h1 class="text-4xl font-bold text-warmgray-700 mb-4">Reserve Your Child's Spot</h1>
+        <p class="text-lg text-warmgray-500 max-w-2xl mx-auto">
+          Fill out the form below and Molly will reach out to get your child started. No commitment required — just let us know you're interested.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Registration Form -->
+        <div class="bg-white rounded-xl p-8 shadow-sm border border-sage-200 animate-on-scroll">
+          <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Registration Interest Form</h2>
+          <form name="registration" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
+            <p style="display:none;">
+              <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+            </p>
+            <input type="hidden" name="form-name" value="registration" />
+
+            <div>
+              <label for="parent-name" class="block text-sm font-medium text-warmgray-700 mb-2">
+                Your Name
+              </label>
+              <input
+                type="text"
+                id="parent-name"
+                name="parent-name"
+                required
+                class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="email" class="block text-sm font-medium text-warmgray-700 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
+                  placeholder="you@email.com"
+                />
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium text-warmgray-700 mb-2">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
+                  placeholder="(555) 555-5555"
+                />
+              </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label for="child-name" class="block text-sm font-medium text-warmgray-700 mb-2">
+                  Child's Name
+                </label>
+                <input
+                  type="text"
+                  id="child-name"
+                  name="child-name"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
+                  placeholder="Child's first name"
+                />
+              </div>
+              <div>
+                <label for="child-age" class="block text-sm font-medium text-warmgray-700 mb-2">
+                  Child's Age
+                </label>
+                <select
+                  id="child-age"
+                  name="child-age"
+                  required
+                  class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors bg-white"
+                >
+                  <option value="">Select age range</option>
+                  <option value="3-4">3–4 years</option>
+                  <option value="4-5">4–5 years</option>
+                  <option value="5-6">5–6 years</option>
+                  <option value="6-7">6–7 years</option>
+                  <option value="7+">7+ years</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="speech-concern" class="block text-sm font-medium text-warmgray-700 mb-2">
+                What sounds does your child have trouble with?
+              </label>
+              <textarea
+                id="speech-concern"
+                name="speech-concern"
+                rows="3"
+                class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors resize-none"
+                placeholder="E.g., 'R' sounds, hard to understand, etc. (optional)"
+              ></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-warmgray-700 mb-3">
+                Preferred Day(s)
+              </label>
+              <div class="flex flex-wrap gap-3">
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-days" value="Monday" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Monday
+                </label>
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-days" value="Tuesday" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Tuesday
+                </label>
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-days" value="Wednesday" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Wednesday
+                </label>
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-days" value="Thursday" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Thursday
+                </label>
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-days" value="Friday" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Friday
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-warmgray-700 mb-3">
+                Preferred Time
+              </label>
+              <div class="flex flex-wrap gap-4">
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-time" value="Morning" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Morning
+                </label>
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-time" value="Afternoon" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Afternoon
+                </label>
+                <label class="flex items-center gap-2 text-warmgray-500 text-sm">
+                  <input type="checkbox" name="preferred-time" value="Evening" class="rounded border-sage-200 text-sage-500 focus:ring-sage-400" />
+                  Evening
+                </label>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500 transition-colors"
+            >
+              Reserve Your Child's Spot
+            </button>
+          </form>
+          <p class="text-sm text-warmgray-400 mt-4 text-center">
+            Molly will reach out within 24 hours to confirm your child's spot.
+          </p>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-8">
+          <div class="bg-sage-50 rounded-xl p-8 animate-on-scroll border border-sage-200">
+            <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Sound Groups at a Glance</h2>
+            <div class="space-y-4">
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span class="text-sage-600 font-bold text-lg">$50</span>
+                </div>
+                <div>
+                  <p class="font-semibold text-warmgray-700">Per Session</p>
+                  <p class="text-warmgray-500 text-sm">No contracts or hidden fees</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-warmgray-700">30 Minutes</p>
+                  <p class="text-warmgray-500 text-sm">Focused, play-based sessions</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-warmgray-700">Small Groups</p>
+                  <p class="text-warmgray-500 text-sm">2–4 kids per session</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold text-warmgray-700">Starting Fall 2026</p>
+                  <p class="text-warmgray-500 text-sm">Spots are limited — register early</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-sage-50 rounded-xl p-8 animate-on-scroll border border-sage-200">
+            <h3 class="font-semibold text-warmgray-700 mb-4">Questions?</h3>
+            <p class="text-warmgray-500 mb-4">
+              Molly is happy to chat about whether Sound Groups are the right fit for your child.
+            </p>
+            <div class="space-y-3">
+              <a href="#" class="flex items-center gap-2 text-sage-500 hover:text-sage-600 transition-colors font-medium phone-link">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                </svg>
+                <span class="phone-text"></span>
+              </a>
+              <a href="mailto:kolarikspeechtherapy@gmail.com" class="flex items-center gap-2 text-sage-500 hover:text-sage-600 transition-colors font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                kolarikspeechtherapy@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

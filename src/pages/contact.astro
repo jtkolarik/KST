@@ -2,24 +2,29 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Contact" description="Schedule a free consultation with Molly Kolarik, pediatric speech therapist in Kansas City. Call (816) 729-1513 or send a message. Serving the KC metro area.">
+<Layout title="Contact" description="Get in touch with Molly Kolarik, pediatric speech sound specialist in Kansas City. Call (816) 729-1513 or send a message. Now enrolling for Fall 2026 Sound Groups.">
   <section class="py-16">
     <div class="max-w-6xl mx-auto px-4">
       <div class="text-center mb-12 animate-on-scroll">
         <h1 class="text-4xl font-bold text-warmgray-700 mb-4">Let's Talk</h1>
         <p class="text-lg text-warmgray-500 max-w-2xl mx-auto">
-          Have questions? Wondering if speech therapy is right for your child? I'd love to hear from you. The first conversation is always free.
+          Have questions about Sound Groups? Wondering if it's the right fit for your child? I'd love to hear from you.
+        </p>
+        <p class="text-warmgray-500 mt-3">
+          Looking to register? <a href="/register/" class="text-sage-500 font-semibold hover:text-sage-600 transition-colors">Reserve your child's spot here →</a>
         </p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-12">
         <!-- Contact Form -->
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-sage-100 animate-on-scroll">
+        <div class="bg-white rounded-xl p-8 shadow-sm border border-sage-200 animate-on-scroll">
           <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Send a Message</h2>
-          <form action="https://formspree.io/f/mjgbvqpv" method="POST" class="space-y-6">
+          <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
             <p style="display:none;">
               <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
             </p>
+            <input type="hidden" name="form-name" value="contact" />
+
             <div>
               <label for="name" class="block text-sm font-medium text-warmgray-700 mb-2">
                 Your Name
@@ -73,10 +78,11 @@ import Layout from '../layouts/Layout.astro';
                 class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors bg-white"
               >
                 <option value="">Select age range</option>
-                <option value="under-2">Under 2 years</option>
-                <option value="2-4">2-4 years</option>
-                <option value="5-7">5-7 years</option>
-                <option value="8-10">8-10 years</option>
+                <option value="3-4">3–4 years</option>
+                <option value="4-5">4–5 years</option>
+                <option value="5-6">5–6 years</option>
+                <option value="6-7">6–7 years</option>
+                <option value="7+">7+ years</option>
               </select>
             </div>
 
@@ -108,7 +114,7 @@ import Layout from '../layouts/Layout.astro';
 
         <!-- Contact Info -->
         <div class="space-y-8">
-          <div class="bg-sage-50 rounded-xl p-8 animate-on-scroll">
+          <div class="bg-sage-50 rounded-xl p-8 animate-on-scroll border border-sage-200">
             <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Get in Touch</h2>
             <div class="space-y-6">
               <div class="flex items-start gap-4">
@@ -148,18 +154,16 @@ import Layout from '../layouts/Layout.astro';
                 </div>
                 <div>
                   <h3 class="font-semibold text-warmgray-700">Service Area</h3>
-                  <p class="text-warmgray-500">
-    Kansas City metro area
-</p>
+                  <p class="text-warmgray-500">Kansas City metro area</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="rounded-xl overflow-hidden shadow-sm animate-on-scroll">
-            <img 
-              src="/gallery 3.jpg" 
-              alt="Speech therapy session" 
+            <img
+              src="/gallery 3.jpg"
+              alt="Play-based speech therapy session"
               class="w-full h-48 object-cover object-top"
             />
           </div>
@@ -174,38 +178,38 @@ import Layout from '../layouts/Layout.astro';
       <h2 class="text-3xl font-bold text-warmgray-700 text-center mb-12 animate-on-scroll">Common Questions</h2>
 
       <div class="space-y-6">
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll">
-          <h3 class="font-semibold text-warmgray-700 mb-2">How do I know if my child needs speech therapy?</h3>
+        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
+          <h3 class="font-semibold text-warmgray-700 mb-2">How do I know if my child needs speech help?</h3>
           <p class="text-warmgray-500">
-            If you're wondering, that's often a sign to ask. Common concerns include not speaking as much as peers, difficulty being understood, frustration when communicating, or not responding to their name. A free consultation can help us figure it out together.
+            If people outside your family have trouble understanding your child, or if your child gets frustrated trying to say certain words, it's worth a conversation. A quick call with Molly can help you figure out the right next step.
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll">
-          <h3 class="font-semibold text-warmgray-700 mb-2">Do you take insurance?</h3>
+        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
+          <h3 class="font-semibold text-warmgray-700 mb-2">What's the difference between Sound Groups and individual therapy?</h3>
           <p class="text-warmgray-500">
-            I'm a private pay practice, which means I don't bill insurance directly. However, I provide superbills that many families successfully submit for reimbursement. I'm happy to discuss this during our consultation.
+            Sound Groups are small group sessions (2–4 kids) focused on speech sounds at $50 for 30 minutes. Kids practice alongside peers in a fun, play-based setting. If your child needs more individualized support, Molly can discuss options with you directly.
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll">
-          <h3 class="font-semibold text-warmgray-700 mb-2">Why home-based therapy?</h3>
+        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
+          <h3 class="font-semibold text-warmgray-700 mb-2">Do you accept insurance?</h3>
           <p class="text-warmgray-500">
-            Children learn best in familiar environments. Home therapy means less stress getting to appointments, practicing skills where they'll actually use them, and I can share strategies specific to your daily routines.
+            Kolarik Speech Therapy is a private pay practice. At $50 per session, Sound Groups are designed to be accessible without the hassle of insurance billing.
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll">
+        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
           <h3 class="font-semibold text-warmgray-700 mb-2">What ages do you work with?</h3>
           <p class="text-warmgray-500">
-            I specialize in children ages 2 and up. This range allows me to focus deeply on early childhood development and elementary-age communication needs.
+            Sound Groups are for children ages 3 and up. Groups are organized by age so your child is always working alongside peers at a similar level.
           </p>
         </div>
 
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll">
+        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
           <h3 class="font-semibold text-warmgray-700 mb-2">How long are sessions?</h3>
           <p class="text-warmgray-500">
-            Most therapy sessions are 50 minutes, though I also offer 30-minute sessions for younger children or specific needs. We'll find what works best for your child.
+            Sound Group sessions are 30 minutes — focused, play-based, and designed to keep kids engaged the entire time.
           </p>
         </div>
       </div>
@@ -220,26 +224,26 @@ import Layout from '../layouts/Layout.astro';
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How do I know if my child needs speech therapy?",
+        "name": "How do I know if my child needs speech help?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "If you're wondering, that's often a sign to ask. Common concerns include not speaking as much as peers, difficulty being understood, frustration when communicating, or not responding to their name. A free consultation can help us figure it out together."
+          "text": "If people outside your family have trouble understanding your child, or if your child gets frustrated trying to say certain words, it's worth a conversation. A quick call with Molly can help you figure out the right next step."
         }
       },
       {
         "@type": "Question",
-        "name": "Do you take insurance?",
+        "name": "What's the difference between Sound Groups and individual therapy?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "I'm a private pay practice, which means I don't bill insurance directly. However, I provide superbills that many families successfully submit for reimbursement. I'm happy to discuss this during our consultation."
+          "text": "Sound Groups are small group sessions (2-4 kids) focused on speech sounds at $50 for 30 minutes. Kids practice alongside peers in a fun, play-based setting. If your child needs more individualized support, Molly can discuss options with you directly."
         }
       },
       {
         "@type": "Question",
-        "name": "Why home-based therapy?",
+        "name": "Do you accept insurance?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Children learn best in familiar environments. Home therapy means less stress getting to appointments, practicing skills where they'll actually use them, and I can share strategies specific to your daily routines."
+          "text": "Kolarik Speech Therapy is a private pay practice. At $50 per session, Sound Groups are designed to be accessible without the hassle of insurance billing."
         }
       },
       {
@@ -247,7 +251,7 @@ import Layout from '../layouts/Layout.astro';
         "name": "What ages do you work with?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "I specialize in children ages 2 and up. This range allows me to focus deeply on early childhood development and elementary-age communication needs."
+          "text": "Sound Groups are for children ages 3 and up. Groups are organized by age so your child is always working alongside peers at a similar level."
         }
       },
       {
@@ -255,7 +259,7 @@ import Layout from '../layouts/Layout.astro';
         "name": "How long are sessions?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Most therapy sessions are 50 minutes, though I also offer 30-minute sessions for younger children or specific needs. We'll find what works best for your child."
+          "text": "Sound Group sessions are 30 minutes — focused, play-based, and designed to keep kids engaged the entire time."
         }
       }
     ]
