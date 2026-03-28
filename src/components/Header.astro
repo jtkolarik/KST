@@ -3,6 +3,7 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Sound Groups', href: '/sound-groups' },
   { name: 'About', href: '/about' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' },
 ];
 
@@ -67,22 +68,24 @@ function isActive(href: string): boolean {
 
   <!-- Mobile menu -->
   <div id="mobile-menu" class="mobile-menu md:hidden">
-    <ul class="px-4 py-4 space-y-3 border-t border-sage-200">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              "block transition-colors font-medium",
-              isActive(link.href) ? "text-sage-500 font-semibold" : "text-warmgray-500 hover:text-sage-500"
-            ]}
-            aria-current={isActive(link.href) ? "page" : undefined}
-          >
-            {link.name}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="overflow-hidden">
+      <ul class="px-4 py-4 space-y-3">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                "block transition-colors font-medium",
+                isActive(link.href) ? "text-sage-500 font-semibold" : "text-warmgray-500 hover:text-sage-500"
+              ]}
+              aria-current={isActive(link.href) ? "page" : undefined}
+            >
+              {link.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </div>
 </header>
 

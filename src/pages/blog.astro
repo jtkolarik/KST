@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="The Nest | Blog" description="Speech therapy tips, resources, and insights for parents. Learn how to support your child's speech sound development at home.">
+  <!-- Header -->
+  <section class="relative bg-sage-50 py-16">
+    <div class="absolute inset-0 opacity-30 pointer-events-none">
+      <img src="/blog-pattern.png" alt="" class="w-full h-full object-cover" />
+    </div>
+    <div class="relative max-w-3xl mx-auto px-4 text-center">
+      <img src="/bird-envelope.png" alt="" class="w-40 h-auto mx-auto mb-6 animate-on-scroll" />
+      <h1 class="text-4xl md:text-5xl font-bold text-warmgray-700 mb-4 animate-on-scroll">The Nest</h1>
+      <p class="text-lg text-warmgray-500 animate-on-scroll">
+        Tips, resources, and insights for supporting your child's communication journey.
+      </p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="py-16 bg-sage-50/30">
+    <div class="max-w-3xl mx-auto px-4">
+      <div class="space-y-8">
+        <article class="bg-white rounded-xl overflow-hidden shadow-sm border border-sage-100 hover:shadow-md transition-shadow animate-on-scroll card-hover">
+          <a href="/blog/why-kids-thrive-in-group-speech-therapy/" class="block">
+            <img src="/blog-group-therapy.png" alt="Children practicing speech sounds together in a group setting" class="w-full h-48 object-cover" />
+            <div class="p-6">
+              <h2 class="text-2xl font-semibold text-warmgray-700 mb-2 hover:text-sage-500 transition-colors">
+                Why Kids Thrive in Group Speech Therapy
+              </h2>
+              <p class="text-warmgray-400 text-sm mb-3">March 2026</p>
+              <p class="text-warmgray-500">
+                Speech sessions your child will actually look forward to. Learn why small group settings help kids build confidence and make faster progress with speech sounds.
+              </p>
+              <span class="inline-block mt-4 text-sage-500 font-medium hover:text-sage-600 transition-colors">
+                Read more →
+              </span>
+            </div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>

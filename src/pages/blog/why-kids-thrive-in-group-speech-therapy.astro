@@ -1,0 +1,197 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const articleData = {
+  title: "Why Kids Thrive in Group Speech Therapy",
+  description: "Speech sessions your child will actually look forward to. Learn why small group settings help kids build confidence and make faster progress with speech sounds.",
+  image: "/blog-group-therapy.png",
+  publishedDate: "2026-03-28",
+  author: "Molly Kolarik"
+};
+---
+
+<Layout
+  title={articleData.title}
+  description={articleData.description}
+  image={articleData.image}
+  type="article"
+  publishedDate={articleData.publishedDate}
+>
+  <article>
+  <!-- Article Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": articleData.title,
+    "description": articleData.description,
+    "image": `https://kolarikspeechtherapy.com${articleData.image}`,
+    "datePublished": articleData.publishedDate,
+    "author": {
+      "@type": "Person",
+      "name": articleData.author,
+      "jobTitle": "Speech-Language Pathologist",
+      "url": "https://kolarikspeechtherapy.com/about/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Kolarik Speech Therapy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://kolarikspeechtherapy.com/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://kolarikspeechtherapy.com/blog/why-kids-thrive-in-group-speech-therapy/"
+    }
+  })} />
+
+    <!-- Article Header with Pattern -->
+    <header class="relative py-16 overflow-hidden">
+      <div class="absolute inset-0 opacity-30" style="background-image: url('/blog-pattern.png'); background-size: 400px;"></div>
+      <div class="relative max-w-3xl mx-auto px-4">
+        <a href="/blog/" class="text-sage-500 hover:text-sage-600 text-sm font-medium mb-4 inline-block">← Back to Blog</a>
+        <p class="text-sage-500 font-medium mb-2 animate-on-scroll">Group Therapy</p>
+        <h1 class="text-4xl font-bold text-warmgray-700 mb-4 animate-on-scroll">Why Kids Thrive in Group Speech Therapy</h1>
+        <p class="text-warmgray-500 italic mb-2 animate-on-scroll">Speech sessions your child will actually look forward to</p>
+        <p class="text-warmgray-400 animate-on-scroll">March 2026 · 7 min read</p>
+      </div>
+    </header>
+
+    <!-- Banner Image -->
+    <div class="max-w-3xl mx-auto px-4 pt-8">
+      <img src="/blog-group-therapy.png" alt="Children practicing speech sounds together in a group setting" class="w-full rounded-xl" />
+    </div>
+
+    <!-- Article Content -->
+    <div class="max-w-3xl mx-auto px-4 pb-16">
+
+      <p class="text-lg text-warmgray-600 mb-8 mt-8 animate-on-scroll">
+        If you're reading this, chances are you've noticed something about your child's speech. Maybe their "r" sounds more like a "w." Maybe their teachers have mentioned it, or maybe you've just had that quiet thought at the back of your mind: <em>should I look into this?</em>
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        You're not alone. Speech sound disorders are one of the most common developmental challenges in childhood. Research from the National Institute on Deafness and Other Communication Disorders estimates that 8 to 9 percent of young children have a speech sound disorder — that's roughly one in every ten kids. And most of those children respond really well to therapy when they get the right support at the right time.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        But here's the part most parents don't hear enough about: <em>how</em> your child receives that support matters just as much as whether they receive it. And for a lot of kids, working on speech sounds alongside peers their own age is where the magic happens.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        That's exactly why I created Sound Groups.
+      </p>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center animate-on-scroll">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">What the Research Actually Says</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        When most people picture speech therapy, they imagine a child sitting across from a therapist in a quiet room, repeating sounds over and over. And one-on-one therapy absolutely has its place — it's great for focused, individualized work on specific challenges.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        But the research tells us something interesting about group settings. A Cochrane review of speech and language therapy interventions found that children in group treatment benefit from the opportunities to interact with and learn from each other. That peer dynamic adds a layer that one-on-one sessions simply can't replicate.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Think about it from your child's perspective. When they're the only one in the room working on a tricky sound, it can feel isolating — like they're the only kid in the world who can't say their "s" right. But when they're sitting next to two other kids who are working on the same thing? Suddenly it's normal. They see other children making the same mistakes, trying the same strategies, and making progress. That's incredibly powerful for a child's confidence.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Speech-language pathologists have long recognized that children in group settings learn not just from the therapist, but from watching and listening to their peers. When a child hears another child attempt a sound, they naturally start to notice the difference between correct and incorrect productions — sometimes more easily than when they're focused on their own speech. That kind of observational learning reinforces what we're working on in sessions in a way that feels organic rather than clinical.
+      </p>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Why Peer Learning Works for Speech Sounds</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        There are a few specific reasons group therapy is especially well-suited for speech sound work:
+      </p>
+      <div class="space-y-4 mb-8">
+        <div class="bg-sage-50 rounded-lg p-5 border-l-4 border-l-sage-400 border border-sage-300 animate-on-scroll">
+          <p class="font-semibold text-warmgray-700 mb-1">Kids learn by teaching.</p>
+          <p class="text-warmgray-600 text-sm">It sounds counterintuitive, but one of the most effective ways for a child to solidify a new speech skill is to notice when a peer makes an error. When they can hear it in someone else's speech, they become more aware of it in their own. This back-and-forth reinforcement is something that naturally happens in a small group setting.</p>
+        </div>
+        <div class="bg-sage-50 rounded-lg p-5 border-l-4 border-l-sage-400 border border-sage-300 animate-on-scroll">
+          <p class="font-semibold text-warmgray-700 mb-1">It's closer to real life.</p>
+          <p class="text-warmgray-600 text-sm">The ultimate goal of speech therapy isn't to produce perfect sounds in a quiet therapy room — it's to carry those skills into everyday conversations at school, at home, on the playground. Group sessions create a more realistic communication environment where kids practice their sounds while actually interacting with other children. That bridge between "therapy speech" and "real-world speech" gets built faster.</p>
+        </div>
+        <div class="bg-sage-50 rounded-lg p-5 border-l-4 border-l-sage-400 border border-sage-300 animate-on-scroll">
+          <p class="font-semibold text-warmgray-700 mb-1">Confidence grows in community.</p>
+          <p class="text-warmgray-600 text-sm">For many children, knowing they're not the only one working on speech sounds is a huge relief. Group therapy normalizes the experience and turns it into something social and fun rather than something that singles them out. I see kids light up when they realize the child sitting next to them is working on the exact same sound.</p>
+        </div>
+        <div class="bg-sage-50 rounded-lg p-5 border-l-4 border-l-sage-400 border border-sage-300 animate-on-scroll">
+          <p class="font-semibold text-warmgray-700 mb-1">Motivation is contagious.</p>
+          <p class="text-warmgray-600 text-sm">When one child in the group has a breakthrough, the other kids notice. There's a natural sense of friendly encouragement that develops — kids cheering each other on, celebrating small wins together. That kind of positive energy is hard to manufacture in a one-on-one setting.</p>
+        </div>
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">What Sound Groups Look Like in Practice</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Sound Groups at Kolarik Speech Therapy are small group sessions — just a few kids, grouped by the speech sounds they're working on — in a relaxed, play-based setting. Each session is 30 minutes, which is the sweet spot for keeping young children engaged without wearing them out.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Here's what parents tell me they appreciate most: there's no complicated intake process. No lengthy assessments before your child can start. You pick a time, show up, and I handle the rest. If you've ever gone through the process of finding a specialist for your child — the intake forms, the waitlists, the insurance back-and-forth — you know how exhausting that can be. I designed Sound Groups to be the opposite of that experience.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        I think of it like swim lessons. You wouldn't hesitate to sign your kid up for a group swimming class. Speech sounds work the same way — kids learn alongside peers, they get expert instruction, and they build skills in a setting that feels like an activity, not a medical appointment.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        And at $50 per session, it's a price point that makes quality speech therapy accessible for more families. That matters to me. Every child deserves the chance to communicate clearly and confidently, and cost shouldn't be the thing that stands in the way.
+      </p>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center animate-on-scroll">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <h2 class="text-2xl font-semibold text-warmgray-700 mt-10 mb-4 animate-on-scroll">Is This Right for Your Child?</h2>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Sound Groups are a great fit for children who struggle with specific speech sounds — the kinds of errors that make them harder to understand or that they're not outgrowing on their own. If your child's "r" sounds like "w," or their "s" comes out sounding slushy, or they drop sounds at the beginnings or ends of words, those are exactly the kinds of challenges we work on.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        Group sessions work well for kids who do okay in social settings and can participate in a small group activity. For children who need more intensive, individualized support — or who aren't quite ready for a group dynamic — one-on-one sessions might be a better starting point. And that's completely fine. Many families start with individual therapy and transition to groups once their child is ready, or do a combination of both.
+      </p>
+      <p class="text-warmgray-600 mb-6 animate-on-scroll">
+        The best way to find out? A quick conversation. <a href="tel:8167291513" class="text-sage-500 hover:text-sage-600 font-medium">Call or text me at (816) 729-1513</a> and tell me a little about your child. I can usually tell pretty quickly whether Sound Groups would be a good fit — and if not, I'll point you in the right direction.
+      </p>
+
+      <!-- CTA Box -->
+      <div class="bg-sage-50 rounded-xl p-8 my-10 animate-on-scroll border border-sage-300">
+        <h2 class="text-2xl font-semibold text-warmgray-700 mb-4">Getting Started Is Simple</h2>
+        <p class="text-warmgray-600 mb-4">
+          No waitlists. No insurance headaches. Just pick a time, show up, and let's get to work on helping your child find their voice.
+        </p>
+        <div class="space-y-2 text-warmgray-600">
+          <p><strong>Call or text:</strong> <a href="tel:8167291513" class="text-sage-500 hover:text-sage-600">(816) 729-1513</a></p>
+          <p><strong>Email:</strong> <a href="mailto:kolarikspeechtherapy@gmail.com" class="text-sage-500 hover:text-sage-600">kolarikspeechtherapy@gmail.com</a></p>
+        </div>
+      </div>
+
+      <p class="text-warmgray-500 text-sm italic mb-8 animate-on-scroll">
+        Kolarik Speech Therapy serves families across the Kansas City metro area. Molly Kolarik, M.S., CCC-SLP, is a pediatric speech sound specialist passionate about making speech therapy accessible, effective, and — most importantly — something kids actually enjoy.
+      </p>
+
+      <p class="text-sage-500 font-semibold text-center animate-on-scroll">
+        Now enrolling for Sound Groups — spots are limited.
+      </p>
+
+      <!-- Divider -->
+      <div class="my-10 flex justify-center">
+        <img src="/branch-divider.png" alt="" class="w-72 h-auto opacity-50" />
+      </div>
+
+      <!-- Author -->
+      <div class="flex items-center gap-4 py-8 border-t border-sage-100 animate-on-scroll">
+        <img src="/headshot.png" alt="Molly Kolarik" class="w-16 h-16 rounded-full object-cover object-top" />
+        <div>
+          <p class="font-semibold text-warmgray-700">Molly Kolarik, CCC-SLP</p>
+          <p class="text-warmgray-500 text-sm">Pediatric Speech-Language Pathologist serving the Kansas City area</p>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="text-center animate-on-scroll">
+        <a href="/register/" class="inline-block bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500 transition-colors">
+          Reserve a Spot for June 2026
+        </a>
+      </div>
+
+    </div>
+  </article>
+</Layout>

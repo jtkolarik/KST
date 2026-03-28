@@ -131,12 +131,14 @@ h1, h2, h3, h4, h5, h6 {
     transition: grid-template-rows 0.3s ease-out;
   }
 
-  .mobile-menu > ul {
+  .mobile-menu > div {
     overflow: hidden;
+    min-height: 0;
   }
 
   .mobile-menu.open {
     grid-template-rows: 1fr;
+    border-top: 1px solid var(--color-sage-200);
   }
 }
 
