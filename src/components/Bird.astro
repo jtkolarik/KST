@@ -1,0 +1,149 @@
+---
+// The sage bird from the logo, redrawn in SVG so it can blink, bob, hop
+// when tapped, and "say" practice words (target sound highlighted).
+interface Props {
+  bubble?: boolean;
+  perch?: boolean;
+  words?: [string, string][];
+  class?: string;
+}
+
+const {
+  bubble = false,
+  perch = false,
+  words = [
+    ['S', 'un'],
+    ['R', 'ed'],
+    ['L', 'ion'],
+    ['Sh', 'oe'],
+    ['Ch', 'air'],
+    ['Th', 'umb'],
+  ],
+  class: className,
+} = Astro.props;
+
+// Gradient ids must be unique when several birds share a page.
+const uid = Math.random().toString(36).slice(2, 8);
+const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-tail-${uid}` };
+---
+
+<div class:list={['bird-wrap', className]} data-bird data-words={JSON.stringify(words)} aria-hidden="true">
+  {
+    bubble && (
+      <div class="bubble">
+        <span class="bubble-word" data-bubble-word><b>{words[0][0]}</b>{`${words[0][1]}!`}</span>
+      </div>
+    )
+  }
+  <svg class="bird" viewBox="0 0 128 120" fill="none">
+    <defs>
+      <linearGradient id={ids.body} x1="0.3" y1="0" x2="0.6" y2="1">
+        <stop offset="0" stop-color="#e6f2f1" />
+        <stop offset="0.55" stop-color="#d8eadf" />
+        <stop offset="1" stop-color="#c6dfc9" />
+      </linearGradient>
+      <linearGradient id={ids.wing} x1="0.8" y1="0" x2="0.1" y2="1">
+        <stop offset="0" stop-color="#d4e9e6" />
+        <stop offset="1" stop-color="#b3d4c2" />
+      </linearGradient>
+      <linearGradient id={ids.tail} x1="1" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#c9e0d6" />
+        <stop offset="1" stop-color="#aecfbf" />
+      </linearGradient>
+    </defs>
+
+    {
+      perch && (
+        <g>
+          <path d="M-6 114C30 110 84 113 134 106" stroke="#9a7357" stroke-width="3.4" stroke-linecap="round" />
+          <path d="M100 109c6-1 10 1 13 5" stroke="#9a7357" stroke-width="2.1" stroke-linecap="round" />
+          <path d="M10 112c-1-7-6-11-12-12 0 7 5 12 12 12z" fill="#a8c47a" stroke="#6f8f45" stroke-width="1.1" />
+          <path d="M116 106c4-6 10-8 15-7-2 6-8 9-15 7z" fill="#a8c47a" stroke="#6f8f45" stroke-width="1.1" />
+        </g>
+      )
+    }
+
+    <g class="bird-bob">
+      <!-- tail feathers -->
+      <path d="M48 84C34 86 18 89 2 92c14 4 30 5 48 1z" fill={`url(#${ids.tail})`} stroke="#2f5044" stroke-width="2.1" stroke-linejoin="round" />
+      <path d="M50 92C38 97 24 102 8 107c16 2 32-1 46-8z" fill={`url(#${ids.tail})`} stroke="#2f5044" stroke-width="2.1" stroke-linejoin="round" />
+
+      <!-- body -->
+      <path
+        d="M30 86C40 74 48 54 56 36 63 19 74 8 88 8c14 0 24 11 24 25 0 11 1 23-1 33-3 20-19 36-39 37-16 1-30-6-42-17z"
+        fill={`url(#${ids.body})`}
+        stroke="#2f5044"
+        stroke-width="2.3"
+        stroke-linejoin="round"
+      />
+      <ellipse cx="78" cy="18" rx="9" ry="4" transform="rotate(-30 78 18)" fill="#fff" opacity="0.55" />
+
+      <!-- wing -->
+      <path
+        d="M60 50c10-10 28-10 36 2 6 10 4 26-8 36-14 11-40 13-72 8 14-8 26-20 34-32 3-5 6-10 10-14z"
+        fill={`url(#${ids.wing})`}
+        stroke="#2f5044"
+        stroke-width="2.1"
+        stroke-linejoin="round"
+      />
+      <path d="M28 94c20-1 42-6 58-17M40 87c16-2 34-8 48-20M52 79c14-3 28-10 38-22" stroke="#3d6857" stroke-width="1.35" stroke-linecap="round" />
+
+      <!-- face -->
+      <ellipse cx="91.5" cy="34.5" rx="5.2" ry="3.2" fill="#f2b3ad" opacity="0.7" />
+      <g class="bird-eye">
+        <circle cx="97" cy="24" r="3.8" fill="#1f2b26" />
+        <circle cx="98.4" cy="22.6" r="1.3" fill="#fff" />
+      </g>
+      <path d="M110.2 21.8c4.3-1.6 9.3-1.4 13.4.8l-12 7z" fill="#f4a847" stroke="#b86e25" stroke-width="1.2" stroke-linejoin="round" />
+      <path class="bird-jaw" d="M111.6 30.6l10.2 2.4c-3.3 3.2-7.3 4.4-11 3.6z" fill="#e58c36" stroke="#b86e25" stroke-width="1.2" stroke-linejoin="round" />
+
+      <!-- feet -->
+      <path d="M66 102.5l-1.2 7.5M80 101.5l-.8 8M60.5 111.2c2-2.2 6-2.4 8 0M75 110.6c2-2.2 6-2.4 8 0" stroke="#7a5838" stroke-width="1.9" stroke-linecap="round" />
+    </g>
+  </svg>
+</div>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('[data-bird]').forEach((bird) => {
+    const wordEl = bird.querySelector<HTMLElement>('[data-bubble-word]');
+    const words: [string, string][] = JSON.parse(bird.dataset.words || '[]');
+    let index = 0;
+    let timer = 0;
+
+    const say = () => {
+      if (!wordEl || words.length < 2) return;
+      index = (index + 1) % words.length;
+      const [sound, rest] = words[index];
+      const b = document.createElement('b');
+      b.textContent = sound;
+      wordEl.replaceChildren(b, `${rest}!`);
+      wordEl.classList.remove('is-swap');
+      void wordEl.offsetWidth;
+      wordEl.classList.add('is-swap');
+      bird.classList.add('is-chirping');
+      window.setTimeout(() => bird.classList.remove('is-chirping'), 240);
+    };
+
+    if (wordEl && !reduceMotion) {
+      new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !timer) timer = window.setInterval(say, 2600);
+        if (!entry.isIntersecting && timer) {
+          window.clearInterval(timer);
+          timer = 0;
+        }
+      }).observe(bird);
+    }
+
+    bird.addEventListener('click', () => {
+      bird.classList.remove('is-hop');
+      void bird.offsetWidth;
+      bird.classList.add('is-hop');
+      say();
+    });
+    bird.addEventListener('animationend', (event) => {
+      if (event.animationName === 'bird-hop') bird.classList.remove('is-hop');
+    });
+  });
+</script>

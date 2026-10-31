@@ -1,152 +1,176 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import BranchDivider from '../components/BranchDivider.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import mollyLake from '../assets/images/molly-lake-portrait.jpg';
+import laughPhoto from '../assets/images/gallery-5.jpg';
+import ashaBadge from '../assets/images/asha-certified.png';
+
+const credentials = [
+  { icon: 'cap', title: 'M.S., Speech-Language Pathology', text: 'University of Central Missouri' },
+  { icon: 'shield', title: 'CCC-SLP', text: 'Certificate of Clinical Competence from ASHA' },
+  { icon: 'pin', title: 'Licensed in Missouri', text: 'Serving families across the Kansas City metro' },
+] as const;
+
+const approach = [
+  { icon: 'smile', title: 'Play-based', text: 'Therapy should feel like fun, not work. I use games, stories, and movement to build speech skills naturally.' },
+  { icon: 'friends', title: 'Peer-powered', text: 'Kids learn best alongside other kids. Small groups build confidence and make practice feel normal.' },
+  { icon: 'heart', title: 'Family-centered', text: "I keep you in the loop with simple ideas you can use at home between sessions, so progress keeps going." },
+] as const;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.owner,
+  jobTitle: 'Pediatric Speech-Language Pathologist',
+  honorificSuffix: site.credentials,
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'University of Central Missouri' },
+  hasCredential: { '@type': 'EducationalOccupationalCredential', name: 'Certificate of Clinical Competence in Speech-Language Pathology (CCC-SLP)' },
+  worksFor: { '@type': 'Organization', name: site.name, url: site.url },
+  url: `${site.url}/about/`,
+};
 ---
 
-<Layout title="About Molly Kolarik" description="Meet Molly Kolarik, CCC-SLP — a pediatric speech sound specialist serving families across the Kansas City metro area with play-based speech sound groups.">
-  <!-- Hero Section -->
-  <section class="relative py-16 bg-gradient-to-b from-white to-sage-50">
-    <div class="absolute inset-0 bg-[url('/background-texture.png')] bg-cover bg-center opacity-40 pointer-events-none"></div>
-    <div class="relative max-w-6xl mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="animate-on-scroll">
-          <h1 class="text-4xl md:text-5xl font-bold text-warmgray-700 mb-6">
-            Meet Molly Kolarik
-          </h1>
-          <p class="text-lg text-warmgray-500 leading-relaxed mb-6">
-            I'm a pediatric speech-language pathologist serving families across the Kansas City metro area. I specialize in speech sounds — helping kids learn to speak clearly and confidently through play-based group sessions.
-          </p>
-          <p class="text-warmgray-500 leading-relaxed">
-            <span class="font-semibold text-warmgray-700">Credentials:</span> M.S. in Speech-Language Pathology, CCC-SLP
-          </p>
-        </div>
-        <div class="flex justify-center animate-on-scroll stagger-1">
-          <img
-            src="/headshot-2.jpg"
-            alt="Molly Kolarik, Pediatric Speech-Language Pathologist"
-            class="rounded-2xl shadow-lg max-w-md w-full img-hover"
-          />
-        </div>
+<Layout
+  title="About Molly Kolarik, CCC-SLP"
+  description="Meet Molly Kolarik, M.S., CCC-SLP: an experienced pediatric speech-language pathologist and Kansas City mom bringing play-based Sound Groups to local families."
+  schema={[person]}
+>
+  <section class="relative isolate overflow-hidden">
+    <div class="hero-bg grain" aria-hidden="true"></div>
+    <div class="container-x grid items-center gap-14 pb-20 pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-28 lg:pt-14">
+      <div>
+        <p class="eyebrow load-in">
+          <Icon name="heart" size={16} class="text-sage-600" />
+          About Molly
+        </p>
+        <h1 class="display mt-6 load-in" style="--d:1">Hi, I'm <span class="accent">Molly</span></h1>
+        <p class="lead mt-6 max-w-xl load-in" style="--d:2">
+          I'm an experienced pediatric speech-language pathologist and a Kansas City mom. I specialize in speech sounds,
+          helping kids speak clearly and confidently through play.
+        </p>
+        <ul class="mt-10 grid gap-3 sm:grid-cols-3 load-in" style="--d:3">
+          {
+            credentials.map((c) => (
+              <li class="card p-5">
+                <Icon name={c.icon} size={24} class="text-sage-600" />
+                <p class="mt-3 font-semibold leading-snug text-ink">{c.title}</p>
+                <p class="mt-1 text-sm text-muted">{c.text}</p>
+              </li>
+            ))
+          }
+        </ul>
       </div>
-    </div>
-  </section>
-
-  <!-- Background Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="animate-on-scroll">
-        <h2 class="text-3xl font-bold text-warmgray-700 mb-6">My Background</h2>
-        <div class="flex flex-col sm:flex-row gap-8 items-start">
-          <div class="flex-1 space-y-4 text-warmgray-500 leading-relaxed">
-            <p>
-              I earned my Master's degree in Speech-Language Pathology from the University of Central Missouri and hold my Certificate of Clinical Competence (CCC-SLP) from the American Speech-Language-Hearing Association.
-            </p>
-            <p>
-              I've worked with children ages 3 and up, with a special focus on speech sound disorders — helping kids who are hard to understand, substitute sounds, or struggle to say certain sounds clearly. I love finding creative, play-based ways to make speech practice feel like fun.
-            </p>
-          </div>
-          <div class="flex-shrink-0">
-            <img
-              src="/asha-certified.png"
-              alt="ASHA Certified Speech-Language Pathologist"
-              class="w-28 h-auto"
+      <div class="relative mx-auto w-full max-w-[24rem]">
+        <div class="arch-frame">
+          <div class="arch arch-reveal aspect-[4/5]">
+            <Image
+              src={mollyLake}
+              alt="Molly Kolarik smiling by a lake"
+              widths={[360, 560, 800]} width={800}
+              sizes="(min-width: 1024px) 24rem, 85vw"
+              loading="eager"
+              fetchpriority="high"
             />
           </div>
         </div>
+        <div class="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border-[1.5px] border-sage-200 bg-white px-4 py-3 shadow-[var(--shadow-soft)] load-in sm:-left-10" style="--d:5">
+          <Image src={ashaBadge} alt="" width={44} densities={[1, 2]} />
+          <span class="text-sm leading-tight text-ink"><strong class="block">ASHA certified</strong>Speech-language pathologist</span>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Why I Started Section -->
-  <section class="py-16 bg-sage-50">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="order-2 md:order-1 flex justify-center animate-on-scroll">
-          <img
-            src="/gallery 4.jpg"
-            alt="Molly working with children on speech sounds"
-            class="rounded-2xl shadow-lg max-w-md w-full img-hover"
+  <section class="section bg-white/70">
+    <div class="container-x max-w-3xl">
+      <p class="kicker reveal">My background</p>
+      <h2 class="h2 mt-3 reveal" style="--i:1">Helping kids <span class="accent">be understood</span></h2>
+      <div class="mt-6 space-y-5 text-[1.0625rem] reveal" style="--i:2">
+        <p>
+          I earned my Master's degree in Speech-Language Pathology from the University of Central Missouri and hold my
+          Certificate of Clinical Competence (CCC-SLP) from the American Speech-Language-Hearing Association.
+        </p>
+        <p>
+          I've worked with children ages 3 and up, with a special focus on speech sounds: kids who are hard to understand,
+          swap one sound for another, or struggle to say certain sounds clearly. I love finding creative, play-based ways to
+          make practice feel like fun.
+        </p>
+      </div>
+      <div class="mt-12 rounded-3xl border-[1.5px] border-sage-300 bg-sage-50 p-7 reveal md:p-9" style="--i:3">
+        <h3 class="flex items-center gap-3 font-serif text-2xl">
+          <Icon name="sparkle" size={26} class="text-sage-600" />
+          A new service, the same experience
+        </h3>
+        <p class="mt-3">
+          During the school year I work as a school-based speech-language pathologist, helping kids with speech sounds every
+          week. Sound Groups are a new way to bring that experience to more families, in a format that's affordable, playful,
+          and easy to start.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal">
+        <div class="overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
+          <Image
+            src={laughPhoto}
+            alt="Molly and a boy laughing together during a play-based activity"
+            widths={[480, 760, 1100]} width={1100}
+            sizes="(min-width: 1024px) 34rem, 92vw"
+            class="aspect-[4/3] w-full object-cover"
           />
         </div>
-        <div class="order-1 md:order-2 animate-on-scroll stagger-1">
-          <h2 class="text-3xl font-bold text-warmgray-700 mb-6">Why I Started Sound Groups</h2>
-          <div class="space-y-4 text-warmgray-500 leading-relaxed">
-            <p>
-              I saw too many families struggle to access speech therapy — overwhelmed by complicated intake processes, confusing referral systems, and costs that felt out of reach. I knew there had to be a better way.
-            </p>
-            <p>
-              Sound Groups are my answer to that. Small group sessions that are affordable, easy to start, and genuinely fun for kids. No complicated paperwork, no insurance headaches — just quality speech therapy your family can count on.
-            </p>
-          </div>
-        </div>
       </div>
-    </div>
-  </section>
-
-  <!-- My Approach Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-warmgray-700 text-center mb-12 animate-on-scroll">My Approach</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="animate-on-scroll stagger-1 bg-sage-50 rounded-xl p-8 card-hover border border-sage-200">
-          <div class="w-12 h-12 bg-sage-200 rounded-full flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-3">Play-Based</h3>
-          <p class="text-warmgray-500">
-            Therapy should feel like fun, not work. I use games, activities, and peer interaction to build speech skills naturally.
+      <div>
+        <p class="kicker reveal">Why Sound Groups</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Getting help <span class="accent">shouldn't be hard</span></h2>
+        <div class="mt-6 space-y-5 reveal" style="--i:2">
+          <p>
+            I've seen so many families struggle to get speech help for their child: complicated intake processes, confusing
+            referrals, and costs that feel out of reach. I knew there had to be a better way.
           </p>
-        </div>
-        <div class="animate-on-scroll stagger-2 bg-sage-50 rounded-xl p-8 card-hover border border-sage-200">
-          <div class="w-12 h-12 bg-sage-200 rounded-full flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-3">Peer-Powered</h3>
-          <p class="text-warmgray-500">
-            Kids learn best alongside other kids. Group sessions build confidence and make practice feel natural and encouraging.
-          </p>
-        </div>
-        <div class="animate-on-scroll stagger-3 bg-sage-50 rounded-xl p-8 card-hover border border-sage-200">
-          <div class="w-12 h-12 bg-sage-200 rounded-full flex items-center justify-center mb-4">
-            <svg class="w-6 h-6 text-sage-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-3">Family-Centered</h3>
-          <p class="text-warmgray-500">
-            I keep parents in the loop with simple strategies you can use between sessions to keep progress going at home.
+          <p>
+            Sound Groups are my answer. Small group sessions that are affordable, easy to start, and genuinely fun for kids.
+            No complicated paperwork and no insurance headaches, just good speech therapy your family can count on.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="py-16 bg-sage-400">
-    <div class="max-w-4xl mx-auto px-4 text-center animate-on-scroll">
-      <h2 class="text-3xl font-bold text-white mb-4">
-        Let's Talk About Your Child
-      </h2>
-      <p class="text-sage-100 text-lg mb-8">
-        I'd love to hear your story and answer any questions you have. Reserve a spot or give me a call — I'm here to help.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/register/"
-          class="btn-hover inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50"
-        >
-          Reserve a Spot for June 2026
-        </a>
-        <a
-          href="#"
-          class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors phone-link"
-        >
-          Call <span class="phone-text"></span>
-        </a>
+  <section class="section bg-white/70">
+    <div class="container-x">
+      <BranchDivider class="mb-10" />
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="kicker reveal">My approach</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">How I work <span class="accent">with kids</span></h2>
+      </div>
+      <div class="mt-14 grid gap-6 md:grid-cols-3">
+        {
+          approach.map((item, i) => (
+            <article class="card card-lift reveal p-8" style={`--i:${i}`}>
+              <span class="icon-badge">
+                <Icon name={item.icon} size={26} />
+              </span>
+              <h3 class="mt-6 text-xl">{item.title}</h3>
+              <p class="mt-2">{item.text}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
+
+  <div class="pt-20 md:pt-28">
+    <CtaBand
+      title="Let's talk about your child"
+      text="I'd love to hear your story. Join the Sound Groups priority list, or reach out with any questions."
+    />
+  </div>
 </Layout>

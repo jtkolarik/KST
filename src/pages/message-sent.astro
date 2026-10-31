@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bird from '../components/Bird.astro';
+---
+
+<Layout title="Message Sent" description="Thanks for reaching out. Molly will be in touch soon." noindex>
+  <section class="relative isolate overflow-hidden">
+    <div class="hero-bg grain" aria-hidden="true"></div>
+    <div class="container-x py-20 text-center lg:py-28">
+      <div class="mx-auto w-28 load-in">
+        <Bird bubble perch words={[['Th', 'anks'], ['T', 'alk soon']]} class="w-full!" />
+      </div>
+      <h1 class="display mt-8 load-in" style="--d:1">Message <span class="accent">sent</span></h1>
+      <p class="lead mx-auto mt-5 max-w-xl load-in" style="--d:2">
+        Thanks for reaching out. I typically reply within a day, so keep an eye on your inbox (and your spam folder, just in
+        case).
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-3 load-in" style="--d:3">
+        <a href="/register/" class="btn btn-primary">Join the priority list</a>
+        <a href="/" class="btn btn-secondary">Back to home</a>
+      </div>
+    </div>
+  </section>
+</Layout>

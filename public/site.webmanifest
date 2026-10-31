@@ -15,9 +15,9 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#8BA888",
-  "background_color": "#F8F6F1",
-  "description": "Personalized home-based speech therapy for children in the Kansas City metro area",
+  "theme_color": "#f5f0e8",
+  "background_color": "#f5f0e8",
+  "description": "Play-based speech sound groups for kids in Kansas City",
   "start_url": "/",
   "display": "standalone"
 }

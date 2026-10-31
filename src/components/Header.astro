@@ -1,100 +1,121 @@
 ---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import logoBirds from '../assets/images/logo-birds.png';
+import logoWordmark from '../assets/images/logo-wordmark.png';
+
 const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Sound Groups', href: '/sound-groups' },
-  { name: 'About', href: '/about' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Sound Groups', href: '/sound-groups/' },
+  { name: 'Sound Chart', href: '/speech-sound-chart/' },
+  { name: 'About Molly', href: '/about/' },
+  { name: 'The Nest', href: '/blog/' },
+  { name: 'Contact', href: '/contact/' },
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/?$/, '/');
 
 function isActive(href: string): boolean {
-  if (href === '/') {
-    return currentPath === '/';
-  }
-  return currentPath.startsWith(href);
+  return currentPath === href || currentPath.startsWith(href);
 }
 ---
 
-<header class="bg-white border-b border-sage-200">
-  <!-- Top bar with contact info -->
-  <div class="bg-sage-400 text-white text-sm py-2">
-    <div class="max-w-6xl mx-auto px-4 flex justify-center sm:justify-between items-center">
-      <span class="hidden sm:block">Pediatric Speech Sound Specialist in Kansas City</span>
-      <a href="#" class="flex items-center gap-1 hover:text-sage-100 transition-colors phone-link">
-  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-  </svg>
-  <span class="phone-text"></span>
-</a>
+<header class="site-header" data-header>
+  <div class="container-x header-inner flex items-center justify-between gap-4">
+    <a href="/" class="logo-lockup" aria-label="Kolarik Speech Therapy, home">
+      <Image src={logoBirds} alt="" class="logo-birds" height={106} densities={[1, 2]} loading="eager" />
+      <Image src={logoWordmark} alt="" class="logo-word" height={84} densities={[1, 2]} loading="eager" />
+    </a>
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a href={link.href} class="nav-link" aria-current={isActive(link.href) ? 'page' : undefined}>
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="/register/" class="btn btn-primary btn-sm">
+        <span class="sm:hidden">Join</span>
+        <span class="hidden sm:inline">Join the list</span>
+      </a>
+      <button
+        type="button"
+        class="menu-btn lg:hidden"
+        data-menu-btn
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Menu"
+      >
+        <span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
     </div>
   </div>
 
-  <!-- Main navigation -->
-  <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-    <a href="/" class="hover:opacity-80 transition-opacity">
-      <img src="/logo.png" alt="Kolarik Speech Therapy" class="h-[74px] md:h-[110px]" />
-    </a>
-    <ul class="hidden md:flex gap-8">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class:list={[
-              "transition-colors font-medium",
-              isActive(link.href) ? "nav-link-active text-sage-500" : "text-warmgray-500 hover:text-sage-500"
-            ]}
-            aria-current={isActive(link.href) ? "page" : undefined}
-          >
-            {link.name}
+  <div id="mobile-nav" class="mobile-nav lg:hidden" data-mobile-nav>
+    <div>
+      <nav aria-label="Mobile" class="container-x pb-8 pt-2">
+        <ul class="divide-y divide-tan border-t border-tan">
+          {
+            navLinks.map((link, i) => (
+              <li class="m-item" style={`--i:${i}`}>
+                <a
+                  href={link.href}
+                  class="m-link flex items-center justify-between py-4 font-serif text-2xl text-ink"
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  tabindex="-1"
+                >
+                  <span>{link.name}</span>
+                  <Icon name="arrow" size={20} class="text-sage-600" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="m-item mt-6 grid gap-3 sm:grid-cols-2" style={`--i:${navLinks.length}`}>
+          <a href="/register/" class="btn btn-primary btn-lg" tabindex="-1">Join the priority list</a>
+          <a href="#" class="btn btn-secondary btn-lg phone-link" tabindex="-1">
+            <Icon name="phone" size={19} />
+            <span class="phone-text"></span>
           </a>
-        </li>
-      ))}
-    </ul>
-    <!-- Mobile menu button -->
-    <button
-      id="mobile-menu-btn"
-      class="md:hidden text-warmgray-500 hover:text-sage-500"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label="Toggle navigation menu"
-    >
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-      </svg>
-    </button>
-  </nav>
-
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="mobile-menu md:hidden">
-    <div class="overflow-hidden">
-      <ul class="px-4 py-4 space-y-3">
-        {navLinks.map(link => (
-          <li>
-            <a
-              href={link.href}
-              class:list={[
-                "block transition-colors font-medium",
-                isActive(link.href) ? "text-sage-500 font-semibold" : "text-warmgray-500 hover:text-sage-500"
-              ]}
-              aria-current={isActive(link.href) ? "page" : undefined}
-            >
-              {link.name}
-            </a>
-          </li>
-        ))}
-      </ul>
+        </div>
+        <p class="m-item mt-5 text-center text-sm text-muted" style={`--i:${navLinks.length + 1}`}>
+          Sound Groups are coming to Kansas City.
+        </p>
+      </nav>
     </div>
   </div>
 </header>
 
 <script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const button = document.querySelector<HTMLButtonElement>('[data-menu-btn]');
+  const panel = document.querySelector<HTMLElement>('[data-mobile-nav]');
+  const panelLinks = panel ? [...panel.querySelectorAll<HTMLElement>('a')] : [];
 
-  btn?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('open');
-    btn?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  const onScroll = () => header?.toggleAttribute('data-scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const setOpen = (open: boolean) => {
+    button?.setAttribute('aria-expanded', String(open));
+    panel?.classList.toggle('is-open', open);
+    header?.toggleAttribute('data-open', open);
+    panelLinks.forEach((link) => (open ? link.removeAttribute('tabindex') : link.setAttribute('tabindex', '-1')));
+  };
+
+  button?.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
+  panelLinks.forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && button?.getAttribute('aria-expanded') === 'true') {
+      setOpen(false);
+      button.focus();
+    }
   });
 </script>

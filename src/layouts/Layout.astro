@@ -1,7 +1,14 @@
 ---
+import '@fontsource-variable/outfit/wght.css';
+import '@fontsource-variable/lora/wght.css';
+import '@fontsource-variable/lora/wght-italic.css';
 import '../styles/global.css';
+import outfitLatin from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
+import loraLatin from '@fontsource-variable/lora/files/lora-latin-wght-normal.woff2?url';
+import loraLatinItalic from '@fontsource-variable/lora/files/lora-latin-wght-italic.woff2?url';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
 
 interface Props {
   title: string;
@@ -11,145 +18,130 @@ interface Props {
   publishedDate?: string;
   canonicalUrl?: string;
   schema?: Record<string, any>[];
+  noindex?: boolean;
 }
 
 const {
   title,
-  description = "Play-based speech sound groups for kids in Kansas City. Small groups, big progress. Led by Molly Kolarik, CCC-SLP. Now enrolling for June 2026.",
-  image = "/headshot.png",
-  type = "website",
+  description = 'Play-based speech sound groups for kids in Kansas City, led by experienced pediatric SLP Molly Kolarik, CCC-SLP. Join the priority list to hear first when groups open.',
+  image = '/og/kolarik-speech-therapy.jpg',
+  type = 'website',
   publishedDate,
   canonicalUrl: canonicalUrlProp,
-  schema
+  schema,
+  noindex = false,
 } = Astro.props;
 
-const noAnalyticsPages = ['/sound-groups/', '/register/', '/contact/', '/success/'];
+// Analytics stays off the pages where families share contact details.
+const noAnalyticsPages = ['/sound-groups/', '/register/', '/contact/', '/success/', '/message-sent/'];
 const pathname = Astro.url.pathname.replace(/\/?$/, '/');
-const enableAnalytics = !noAnalyticsPages.includes(pathname);
+const enableAnalytics = !noAnalyticsPages.includes(pathname) && !noindex;
 
-const siteUrl = "https://kolarikspeechtherapy.com";
 const canonicalUrl = canonicalUrlProp
-  ? new URL(canonicalUrlProp, siteUrl).href
-  : new URL(Astro.url.pathname, siteUrl).href;
-const imageUrl = new URL(image, siteUrl).href;
+  ? new URL(canonicalUrlProp, site.url).href
+  : new URL(pathname, site.url).href;
+const imageUrl = new URL(image, site.url).href;
 const fullTitle = `${title} | Kolarik Speech Therapy`;
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'HealthBusiness',
+  additionalType: 'https://schema.org/MedicalBusiness',
+  name: site.name,
+  description: 'Play-based speech sound groups for kids in the Kansas City metro, led by Molly Kolarik, M.S., CCC-SLP.',
+  url: `${site.url}/`,
+  email: site.email,
+  founder: {
+    '@type': 'Person',
+    name: site.owner,
+    jobTitle: 'Speech-Language Pathologist',
+    description: "Pediatric speech-language pathologist (M.S., CCC-SLP) with a Master's degree from the University of Central Missouri",
+  },
+  areaServed: {
+    '@type': 'GeoCircle',
+    geoMidpoint: { '@type': 'GeoCoordinates', latitude: 39.0997, longitude: -94.5786 },
+    geoRadius: '50 mi',
+  },
+  address: { '@type': 'PostalAddress', addressLocality: 'Kansas City', addressRegion: 'MO', addressCountry: 'US' },
+  serviceType: ['Speech Sound Groups', 'Pediatric Speech Therapy', 'Speech Sound Disorders Treatment'],
+  priceRange: '$$',
+  currenciesAccepted: 'USD',
+  paymentAccepted: 'Cash, Credit Card, Check',
+  image: `${site.url}/og/kolarik-speech-therapy.jpg`,
+  logo: `${site.url}/logo.png`,
+  sameAs: ['https://share.google/SahP2f3AkQ4MqXJPu'],
+};
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="google-site-verification" content="9IhRpv6j9_BXRAfaRvsu6LdoDzRDhcIX7wsd9Ou96Hc" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-
-    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="google-site-verification" content="9IhRpv6j9_BXRAfaRvsu6LdoDzRDhcIX7wsd9Ou96Hc" />
+    <meta name="theme-color" content="#f5f0e8" />
 
-    <!-- Open Graph / Facebook -->
+    <link rel="preload" href={outfitLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={loraLatin} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={loraLatinItalic} as="font" type="font/woff2" crossorigin />
+
+    <!-- Open Graph / social previews -->
     <meta property="og:type" content={type} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={imageUrl} />
-    <meta property="og:site_name" content="Kolarik Speech Therapy" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="en_US" />
     {publishedDate && <meta property="article:published_time" content={publishedDate} />}
-
-    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
 
-    <!-- Favicons -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/png" href="/favicon.ico" sizes="48x48" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <title>{fullTitle}</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    {enableAnalytics && (
-      <Fragment>
-        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-1TDDYMJY8J"></script>
-        <script is:inline>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-1TDDYMJY8J');
-        </script>
-      </Fragment>
-    )}
-    
-    <!-- LocalBusiness Schema -->
-    <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "HealthBusiness",
-      "additionalType": "https://schema.org/MedicalBusiness",
-      "name": "Kolarik Speech Therapy",
-      "description": "Play-based speech sound groups for kids in the Kansas City metro area. Small groups, big progress. $50 per session. Led by Molly Kolarik, CCC-SLP.",
-      "url": "https://kolarikspeechtherapy.com/",
-      "email": "kolarikspeechtherapy@gmail.com",
-      "founder": {
-        "@type": "Person",
-        "name": "Molly Kolarik",
-        "jobTitle": "Speech-Language Pathologist",
-        "description": "Licensed pediatric speech-language pathologist (CCC-SLP) with a Master's degree from the University of Central Missouri"
-      },
-      "areaServed": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": 39.0997,
-          "longitude": -94.5786
-        },
-        "geoRadius": "50 mi"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 39.0997,
-        "longitude": -94.5786
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Kansas City",
-        "addressRegion": "MO",
-        "addressCountry": "US"
-      },
-      "serviceType": ["Speech Sound Groups", "Pediatric Speech Therapy", "Speech Sound Disorders Treatment"],
-      "priceRange": "$$",
-      "currenciesAccepted": "USD",
-      "paymentAccepted": "Cash, Credit Card, Check",
-      "image": "https://kolarikspeechtherapy.com/headshot.png",
-      "logo": "https://kolarikspeechtherapy.com/logo.png",
-      "sameAs": [
-        "https://share.google/SahP2f3AkQ4MqXJPu"
-      ],
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "09:00",
-          "closes": "16:30"
-        }
-      ]
+      enableAnalytics && (
+        <script is:inline define:vars={{ gaId: site.gaId }}>
+          // Analytics loads after the page does, so it never competes with content.
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = function () { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', gaId);
+          var loadGa = function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+            document.head.appendChild(s);
+          };
+          var whenLoaded = function () {
+            if (document.readyState === 'complete') setTimeout(loadGa, 0);
+            else window.addEventListener('load', function () { setTimeout(loadGa, 0); }, { once: true });
+          };
+          if (document.prerendering) document.addEventListener('prerenderingchange', whenLoaded, { once: true });
+          else whenLoaded();
+        </script>
+      )
     }
-    </script>
-    {schema && schema.map((s) => (
-      <script type="application/ld+json" set:html={JSON.stringify(s)} />
-    ))}
+
+    <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+    {schema && schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
   </head>
-  <body class="bg-cream text-warmgray-700 min-h-screen flex flex-col">
-    <!-- Skip to main content link for accessibility -->
-    <a href="#main-content" class="skip-to-content">
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main-content"
+      class="sr-only z-[100] rounded-b-xl bg-sage-700 px-5 py-3 font-semibold text-white focus:not-sr-only focus:fixed focus:left-1/2 focus:top-0 focus:-translate-x-1/2"
+    >
       Skip to main content
     </a>
     <Header />
@@ -157,33 +149,25 @@ const fullTitle = `${title} | Kolarik Speech Therapy`;
       <slot />
     </main>
     <Footer />
-    
+
     <script>
-      // Scroll animations
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+      // Reveal sections as they scroll into view.
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add('is-in');
+            revealObserver.unobserve(entry.target);
           }
-        });
-      }, {
-        threshold: 0.1
-      });
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+      );
+      document.querySelectorAll('.reveal, [data-reveal]').forEach((el) => revealObserver.observe(el));
 
-      document.querySelectorAll('.animate-on-scroll').forEach((el) => {
-        observer.observe(el);
-      });
-    </script>
-
-    <script>
-      // Phone obfuscation - assembles number via JS to prevent scraper harvesting
-      (function() {
-        var a = '816', b = '729', c = '1513';
-        var display = '(' + a + ') ' + b + '-' + c;
-        var uri = 'tel:' + a + b + c;
-        document.querySelectorAll('.phone-link').forEach(function(el) { el.href = uri; });
-        document.querySelectorAll('.phone-text').forEach(function(el) { el.textContent = display; });
-      })();
+      // The phone number is assembled here so scrapers can't harvest it from the HTML.
+      const parts = ['816', '729', '1513'];
+      document.querySelectorAll<HTMLAnchorElement>('.phone-link').forEach((el) => (el.href = `tel:${parts.join('')}`));
+      document.querySelectorAll('.phone-text').forEach((el) => (el.textContent = `(${parts[0]}) ${parts[1]}-${parts[2]}`));
     </script>
   </body>
 </html>

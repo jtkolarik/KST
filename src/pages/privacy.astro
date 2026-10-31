@@ -1,100 +1,144 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+
+const link = 'text-link font-medium';
 ---
 
 <Layout title="Privacy Policy" description="Privacy policy for Kolarik Speech Therapy. Learn how we collect, use, and protect your information.">
-  <section class="py-16">
-    <div class="max-w-3xl mx-auto px-4">
-      <h1 class="text-4xl font-bold text-warmgray-700 mb-4">Privacy Policy</h1>
-      <p class="text-warmgray-400 mb-8">Effective Date: March 28, 2026</p>
+  <section class="section pt-12!">
+    <div class="container-x max-w-3xl!">
+      <p class="kicker">Legal</p>
+      <h1 class="mt-3 text-[clamp(2.4rem,1.8rem+2.6vw,3.4rem)]">Privacy Policy</h1>
+      <p class="mt-3 text-muted">Effective date: March 28, 2026 · Last updated: October 31, 2026</p>
 
-      <div class="space-y-8 text-warmgray-500 leading-relaxed">
+      <div class="mt-12 space-y-10 leading-relaxed [&_h2]:font-serif [&_h2]:text-2xl [&_h2]:mb-3 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Introduction</h2>
+          <h2>Introduction</h2>
           <p>
-            Kolarik Speech Therapy LLC ("we," "us," or "our") respects your privacy and is committed to protecting the personal information you share with us. This Privacy Policy explains what information we collect through our website at kolarikspeechtherapy.com, how we use it, and your choices regarding that information.
+            Kolarik Speech Therapy LLC ("we," "us," or "our") respects your privacy and is committed to protecting the personal
+            information you share with us. This Privacy Policy explains what information we collect through our website at
+            kolarikspeechtherapy.com, how we use it, and your choices regarding that information.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Information We Collect</h2>
-          <p class="mb-3"><strong class="text-warmgray-700">Information you provide directly:</strong> When you fill out our contact or inquiry forms, you may provide your name, email address, phone number, your child's first name, age range, and general area of interest. This information is processed through Netlify Forms, our website hosting provider's form handling service. Website forms are used for initial inquiries only. Detailed intake is handled separately.</p>
-          <p><strong class="text-warmgray-700">Information collected automatically:</strong> When you visit our website, we automatically collect certain information through cookies and similar technologies, including pages visited, time spent on pages, referring website, browser type, and device information.</p>
+          <h2>Information We Collect</h2>
+          <p class="mb-3">
+            <strong class="text-ink">Information you provide directly:</strong> When you fill out our contact form or join the Sound
+            Groups priority list, you may provide your name, email address, phone number, your child's first name and age, your ZIP code,
+            the times your child could attend, how you heard about us, a friend's child's first name if you're signing up together,
+            and your general area of interest. This information is processed through Netlify Forms, our website hosting provider's
+            form handling service. Website forms are used for initial inquiries only. Detailed intake is handled separately.
+          </p>
+          <p>
+            <strong class="text-ink">Information collected automatically:</strong> When you visit our website, we automatically collect
+            certain information through cookies and similar technologies, including pages visited, time spent on pages, referring
+            website, browser type, and device information.
+          </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">How We Use Your Information</h2>
-          <ul class="list-disc pl-6 space-y-2">
+          <h2>How We Use Your Information</h2>
+          <ul>
             <li>To respond to your inquiries and schedule consultations</li>
+            <li>To plan Sound Groups, including choosing a location, schedule, and group sizes that work for families</li>
+            <li>
+              To send updates about Sound Groups if you join the priority list, including an occasional at-home practice
+              idea. You can unsubscribe at any time.
+            </li>
             <li>To understand how visitors use selected informational pages on our website</li>
-            <li>To communicate with you about our services</li>
           </ul>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Third-Party Services</h2>
+          <h2>Third-Party Services</h2>
           <p class="mb-3">We use the following third-party services that may collect information about your visit:</p>
-          <ul class="list-disc pl-6 space-y-2">
-            <li><strong class="text-warmgray-700">Google Analytics:</strong> We use Google Analytics on selected informational pages (such as the homepage and blog) to understand general website traffic. Google Analytics does not run on inquiry, registration, or contact pages. Google's ability to use and share information collected by Google Analytics is governed by the <a href="https://policies.google.com/privacy" class="text-sage-500 hover:text-sage-600 underline" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</li>
-            <li><strong class="text-warmgray-700">Netlify:</strong> Our form submissions are processed through Netlify Forms. You can review the <a href="https://www.netlify.com/privacy/" class="text-sage-500 hover:text-sage-600 underline" target="_blank" rel="noopener noreferrer">Netlify Privacy Policy</a> for details on how they handle submitted data.</li>
+          <ul>
+            <li>
+              <strong class="text-ink">Google Analytics:</strong> We use Google Analytics on selected informational pages (such as the
+              homepage, blog, and speech sound chart) to understand general website traffic. Google Analytics does not run on
+              inquiry, registration, or contact pages. Google's ability to use and share information collected by Google Analytics
+              is governed by the <a href="https://policies.google.com/privacy" class={link} target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+            </li>
+            <li>
+              <strong class="text-ink">Netlify:</strong> Our form submissions are processed through Netlify Forms. You can review the
+              <a href="https://www.netlify.com/privacy/" class={link} target="_blank" rel="noopener noreferrer">Netlify Privacy Policy</a> for
+              details on how they handle submitted data.
+            </li>
           </ul>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Cookies</h2>
+          <h2>Cookies</h2>
           <p>
-            Our website uses cookies — small text files stored on your device — to support limited analytics on informational pages. We do not use advertising or tracking cookies. You can control cookies through your browser settings. Disabling cookies may affect your experience on our website but will not prevent you from using it.
+            Our website uses cookies (small text files stored on your device) to support limited analytics on informational
+            pages. We do not use advertising or tracking cookies. You can control cookies through your browser settings.
+            Disabling cookies may affect your experience on our website but will not prevent you from using it.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Children's Privacy</h2>
+          <h2>Children's Privacy</h2>
           <p>
-            Our website is directed at parents and caregivers, not children. We do not knowingly collect personal information from children under the age of 13. If you believe your child has submitted personal information through our website, please contact us so we can promptly remove it.
+            Our website is directed at parents and caregivers, not children. We do not knowingly collect personal information
+            from children under the age of 13. If you believe your child has submitted personal information through our website,
+            please contact us so we can promptly remove it.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Data Retention</h2>
+          <h2>Data Retention</h2>
           <p>
-            We retain personal information collected through our forms only as long as needed to respond to your inquiry or follow up regarding our services. Website forms collect only basic contact and inquiry information. Detailed intake is handled separately. You may request deletion of your information at any time by contacting us at <a href="mailto:kolarikspeechtherapy@gmail.com" class="text-sage-500 hover:text-sage-600 underline">kolarikspeechtherapy@gmail.com</a>.
+            We retain personal information collected through our forms only as long as needed to respond to your inquiry, plan
+            and run Sound Groups, or follow up regarding our services. Website forms collect only basic contact and inquiry
+            information. Detailed intake is handled separately. You may request deletion of your information at any time by
+            contacting us at <a href={`mailto:${site.email}`} class={link}>{site.email}</a>.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Sharing and Selling of Information</h2>
+          <h2>Sharing and Selling of Information</h2>
           <p>
-            We do not sell, rent, or trade your personal information to third parties. Information is only shared with the third-party services listed above (Google Analytics on selected pages, and Netlify for form processing) as necessary to operate our website.
+            We do not sell, rent, or trade your personal information to third parties. Information is only shared with the
+            third-party services listed above (Google Analytics on selected pages, and Netlify for form processing) as necessary to
+            operate our website.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Data Security</h2>
+          <h2>Data Security</h2>
           <p>
-            We take reasonable measures to protect the information you share with us. However, no method of transmission over the internet is completely secure, and we cannot guarantee absolute security.
+            We take reasonable measures to protect the information you share with us. However, no method of transmission over
+            the internet is completely secure, and we cannot guarantee absolute security.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Your Choices</h2>
-          <ul class="list-disc pl-6 space-y-2">
-            <li>You can opt out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" class="text-sage-500 hover:text-sage-600 underline" target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.</li>
+          <h2>Your Choices</h2>
+          <ul>
+            <li>
+              You can opt out of Google Analytics by installing the
+              <a href="https://tools.google.com/dlpage/gaoptout" class={link} target="_blank" rel="noopener noreferrer">Google Analytics Opt-out Browser Add-on</a>.
+            </li>
             <li>You can disable cookies in your browser settings at any time.</li>
+            <li>You can unsubscribe from priority list emails at any time.</li>
           </ul>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Changes to This Policy</h2>
+          <h2>Changes to This Policy</h2>
           <p>
-            We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. We encourage you to review this policy periodically.
+            We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date.
+            We encourage you to review this policy periodically.
           </p>
         </div>
 
         <div>
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-3">Contact Us</h2>
+          <h2>Contact Us</h2>
           <p>
             If you have questions about this Privacy Policy or how we handle your information, please contact us at
-            <a href="mailto:kolarikspeechtherapy@gmail.com" class="text-sage-500 hover:text-sage-600 underline">kolarikspeechtherapy@gmail.com</a>.
+            <a href={`mailto:${site.email}`} class={link}>{site.email}</a>.
           </p>
         </div>
       </div>
