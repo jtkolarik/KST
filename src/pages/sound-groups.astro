@@ -1,349 +1,287 @@
 ---
+import { Image, Picture } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import { faqs, site } from '../data/site';
+import walkPhoto from '../assets/images/gallery-6.jpg';
+import mollyLake from '../assets/images/molly-lake-portrait.jpg';
+import ashaBadge from '../assets/images/asha-certified.png';
 
-const faqSchema = [
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What ages are Sound Groups for?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sound Groups are designed for children ages 3 and up. We group kids by age and speech sound targets so every session is a great fit."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does my child need a diagnosis to join?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No diagnosis or referral is needed. If your child is hard to understand or struggling with certain sounds, they're welcome to join. A quick call with Molly is all it takes to get started."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How are groups organized?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Groups are small — just 2 to 4 kids — and organized by age and the speech sounds being targeted. This keeps sessions focused and effective."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What if my child needs more support than a group setting?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Some children benefit from individual attention. If Molly feels your child would be better served with one-on-one sessions, she'll let you know and help you find the right path forward."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What happens in a typical session?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Each 30-minute session is play-based and structured around specific speech sounds. Kids practice through games, activities, and interaction with peers — it feels like fun, not work."
-        }
-      }
-    ]
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Speech Sound Groups",
-    "description": "Small group speech therapy sessions for children ages 3+. Kids work on speech sounds together in a relaxed, play-based setting. $50 per 30-minute session.",
-    "provider": {
-      "@type": "Person",
-      "name": "Molly Kolarik",
-      "jobTitle": "Speech-Language Pathologist"
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": "Kansas City"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "50",
-      "priceCurrency": "USD"
-    }
-  }
+const glance = [
+  { value: '$50', label: 'per session' },
+  { value: '30 min', label: 'playful sessions' },
+  { value: 'Small', label: 'groups' },
+  { value: '3+', label: 'years old' },
 ];
+
+const steps = [
+  { title: 'Join the list', text: 'Tell me a little about your child. It takes about two minutes and costs nothing.' },
+  { title: 'Pick your time', text: 'Priority list families choose group times first, before enrollment opens to everyone.' },
+  { title: 'Show up and play', text: 'Bring your child to a 30-minute session. No prep needed; I handle the rest.' },
+  { title: 'Watch them grow', text: 'Kids practice week after week alongside peers, and confidence follows.' },
+];
+
+const goodFit = [
+  'Is hard for people outside the family to understand',
+  'Swaps one sound for another, like "wabbit" for rabbit',
+  'Leaves sounds off the beginning or end of words',
+  'Has a lisp or a "slushy" s sound',
+  'Gets frustrated when they aren\'t understood',
+  'Was told they didn\'t qualify for speech at school, but you still hear errors',
+];
+
+const oneOnOne = [
+  'Needs support with language, like understanding or putting words together',
+  'Finds group settings overwhelming right now',
+  'Needs more intensive, individualized practice to get started',
+];
+
+const whyGroups = [
+  { icon: 'friends', title: 'Kids learn from each other', text: 'Hearing a peer try a sound helps children notice the difference in their own speech.' },
+  { icon: 'chat', title: "It's closer to real life", text: 'Practicing sounds while actually talking with other kids builds the bridge to everyday conversation.' },
+  { icon: 'heart', title: 'Confidence grows in company', text: "Knowing they're not the only one working on a sound is a big relief for a lot of kids." },
+  { icon: 'sparkle', title: 'Motivation is contagious', text: "When one child has a breakthrough, the others notice. Kids cheer each other on." },
+] as const;
+
+const details = [
+  { icon: 'calendar', label: 'When', value: `Opening ${site.launch.opens}. The priority list hears first and gets first pick of times.` },
+  { icon: 'pin', label: 'Where', value: 'Kansas City. The location will be shared with the priority list first.' },
+  { icon: 'friends', label: 'Who', value: 'Kids ages 3 and up, matched by age and the sounds they are working on.' },
+  { icon: 'tag', label: 'Cost', value: '$50 per 30-minute session. Simple private pay, no insurance paperwork.' },
+] as const;
+
+const service = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Speech Sound Groups',
+  description: 'Small-group speech therapy for children ages 3 and up in Kansas City, led by an experienced pediatric speech-language pathologist. Play-based 30-minute sessions for $50.',
+  provider: { '@type': 'Person', name: site.owner, jobTitle: 'Speech-Language Pathologist' },
+  areaServed: { '@type': 'City', name: 'Kansas City' },
+  offers: { '@type': 'Offer', price: '50', priceCurrency: 'USD' },
+};
 ---
 
 <Layout
   title="Speech Sound Groups"
-  description="Small group speech sessions for kids in Kansas City. Play-based, $50 per session, 30 minutes. Led by Molly Kolarik, CCC-SLP. Now enrolling for June 2026."
-  schema={faqSchema}
+  description="Small, play-based speech sound groups for kids in Kansas City: $50 per 30-minute session, led by Molly Kolarik, CCC-SLP. Join the priority list to hear first when groups open."
+  schema={[service]}
 >
-  <!-- Hero Banner -->
-  <section class="relative overflow-hidden">
-    <div class="relative h-[28rem] md:h-[34rem]">
-      <img
-        src="/gallery 1.jpg"
-        alt="Molly Kolarik reading with children during a play-based speech therapy session"
-        class="absolute inset-0 w-full h-full object-cover object-[center_42%]"
-      />
-      <div class="absolute inset-0 bg-gradient-to-t from-warmgray-700/80 via-warmgray-700/40 to-transparent"></div>
-      <div class="absolute bottom-0 left-0 right-0 p-6 md:p-12 max-w-6xl mx-auto">
-        <div class="animate-on-scroll max-w-2xl">
-          <h1 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Speech Sessions Your Child Will
-            <span class="text-sage-200">Look Forward To</span>
-          </h1>
-          <p class="text-base md:text-lg text-white/90 mb-6 leading-relaxed">
-            Sound Groups are small, play-based sessions where kids work on speech sounds together. Pick a time, show up, and let Molly handle the rest.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a
-              href="/register/"
-              class="btn-hover inline-block bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500 text-center"
-            >
-              Reserve a Spot for June 2026
-            </a>
-            <a
-              href="#"
-              class="inline-block border-2 border-white/80 text-white px-8 py-3 rounded-lg font-semibold text-center hover:bg-white/10 transition-colors phone-link"
-            >
-              Call <span class="phone-text"></span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Value Prop Boxes -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="animate-on-scroll stagger-1 bg-sage-50 rounded-xl p-8 text-center card-hover border border-sage-200">
-          <p class="inline-block bg-sage-400 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">Affordable</p>
-          <p class="text-4xl font-bold text-warmgray-700 mb-1">$50</p>
-          <p class="text-warmgray-400 font-medium mb-3">per session</p>
-          <p class="text-warmgray-500 text-sm">
-            Quality speech therapy at a price that works for your family.
-          </p>
-        </div>
-        <div class="animate-on-scroll stagger-2 bg-sage-50 rounded-xl p-8 text-center card-hover border border-sage-200">
-          <p class="inline-block bg-sage-400 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">Fun & Social</p>
-          <p class="text-4xl font-bold text-warmgray-700 mb-1">Small</p>
-          <p class="text-warmgray-400 font-medium mb-3">group setting</p>
-          <p class="text-warmgray-500 text-sm">
-            Kids learn alongside peers in a comfortable, play-based environment.
-          </p>
-        </div>
-        <div class="animate-on-scroll stagger-3 bg-sage-50 rounded-xl p-8 text-center card-hover border border-sage-200">
-          <p class="inline-block bg-sage-400 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wide">Easy to Start</p>
-          <p class="text-4xl font-bold text-warmgray-700 mb-1">30 min</p>
-          <p class="text-warmgray-400 font-medium mb-3">focused sessions</p>
-          <p class="text-warmgray-500 text-sm">
-            No lengthy intake process. Just grab a spot and get started.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works -->
-  <section class="py-16 bg-sage-50">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-warmgray-700 text-center mb-12 animate-on-scroll">How It Works</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="text-center animate-on-scroll stagger-1">
-          <div class="w-16 h-16 bg-sage-400 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">1</div>
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Sign Up</h3>
-          <p class="text-warmgray-500">
-            Fill out a quick form and Molly will match your child to the right group. It takes less than two minutes.
-          </p>
-        </div>
-        <div class="text-center animate-on-scroll stagger-2">
-          <div class="w-16 h-16 bg-sage-400 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">2</div>
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Show Up</h3>
-          <p class="text-warmgray-500">
-            Bring your child to a 30-minute group session. Molly handles the rest — no prep needed on your end.
-          </p>
-        </div>
-        <div class="text-center animate-on-scroll stagger-3">
-          <div class="w-16 h-16 bg-sage-400 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">3</div>
-          <h3 class="text-xl font-semibold text-warmgray-700 mb-2">Watch Them Grow</h3>
-          <p class="text-warmgray-500">
-            See real progress as your child practices speech sounds week after week alongside peers their own age.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why Parents Choose Sound Groups -->
-  <section class="py-16 bg-white">
-    <div class="max-w-3xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-warmgray-700 text-center mb-4 animate-on-scroll">
-        Why Parents Choose Sound Groups
-      </h2>
-      <p class="text-lg text-warmgray-500 text-center max-w-2xl mx-auto mb-12 animate-on-scroll">
-        A better way to help your child with speech sounds — accessible, effective, and designed for kids.
+  <!-- Hero -->
+  <section class="relative isolate overflow-hidden">
+    <div class="hero-bg grain" aria-hidden="true"></div>
+    <div class="container-x pb-14 pt-10 text-center lg:pt-16">
+      <p class="eyebrow load-in">
+        <span class="live-dot" aria-hidden="true"></span>
+        {site.launch.status} · Priority list open
       </p>
-
-      <div class="space-y-4">
-        <div class="animate-on-scroll stagger-1 flex items-start gap-4 p-4 bg-sage-50 rounded-lg border border-sage-200">
-          <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <div>
-            <p class="font-semibold text-warmgray-700">Play-based and fun for kids</p>
-            <p class="text-warmgray-500 text-sm">Sessions are built around games and activities — your child won't even realize they're working on speech.</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll stagger-2 flex items-start gap-4 p-4 bg-sage-50 rounded-lg border border-sage-200">
-          <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <div>
-            <p class="font-semibold text-warmgray-700">Kids build confidence with peers</p>
-            <p class="text-warmgray-500 text-sm">Practicing alongside other children their age makes the experience feel natural and encouraging.</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll stagger-3 flex items-start gap-4 p-4 bg-sage-50 rounded-lg border border-sage-200">
-          <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <div>
-            <p class="font-semibold text-warmgray-700">Led by a certified speech-language pathologist</p>
-            <p class="text-warmgray-500 text-sm">Molly Kolarik holds her CCC-SLP and specializes in pediatric speech sounds.</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll stagger-4 flex items-start gap-4 p-4 bg-sage-50 rounded-lg border border-sage-200">
-          <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <div>
-            <p class="font-semibold text-warmgray-700">No complicated intake process</p>
-            <p class="text-warmgray-500 text-sm">No evaluations, no complicated intake, no insurance paperwork. Just sign up and get started.</p>
-          </div>
-        </div>
-        <div class="animate-on-scroll stagger-1 flex items-start gap-4 p-4 bg-sage-50 rounded-lg border border-sage-200">
-          <svg class="w-6 h-6 text-sage-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-          </svg>
-          <div>
-            <p class="font-semibold text-warmgray-700">Weekly consistency builds real progress</p>
-            <p class="text-warmgray-500 text-sm">Regular sessions mean steady improvement. Consistency is key, and parents notice the difference.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Is This Right for My Child? -->
-  <section class="py-16 bg-sage-50">
-    <div class="max-w-3xl mx-auto px-4 text-center animate-on-scroll">
-      <h2 class="text-3xl font-bold text-warmgray-700 mb-6">Is This Right for My Child?</h2>
-      <p class="text-lg text-warmgray-500 mb-8 leading-relaxed">
-        If your child struggles with certain speech sounds or is hard to understand, Sound Groups could be a great fit. Common concerns include leaving off sounds in words, substituting one sound for another, or being difficult for teachers and family to understand.
+      <h1 class="display mx-auto mt-6 max-w-4xl load-in" style="--d:1">
+        Speech sessions your child will <span class="accent">look forward to</span>
+      </h1>
+      <p class="lead mx-auto mt-6 max-w-2xl load-in" style="--d:2">
+        Sound Groups are small, play-based sessions where kids practice speech sounds together. Pick a time, show up, and
+        I'll handle the rest.
       </p>
-      <p class="text-warmgray-500 mb-8">
-        <strong class="text-warmgray-700">Not sure?</strong> A quick call with Molly is all it takes to figure out if Sound Groups are right for your child.
-      </p>
-      <a
-        href="#"
-        class="inline-block text-sage-500 font-semibold hover:text-sage-600 transition-colors text-lg phone-link"
-      >
-        Call or text <span class="phone-text"></span>
-      </a>
-    </div>
-  </section>
-
-  <!-- FAQ Section -->
-  <section class="py-16 bg-white">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-warmgray-700 text-center mb-12 animate-on-scroll">Common Questions</h2>
-      <div class="space-y-6">
-        <div class="bg-sage-50 rounded-xl p-6 animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">What ages are Sound Groups for?</h3>
-          <p class="text-warmgray-500">
-            Sound Groups are designed for children ages 3 and up. We group kids by age and speech sound targets so every session is a great fit.
-          </p>
-        </div>
-        <div class="bg-sage-50 rounded-xl p-6 animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">Does my child need a diagnosis to join?</h3>
-          <p class="text-warmgray-500">
-            No diagnosis or referral is needed. If your child is hard to understand or struggling with certain sounds, they're welcome to join. A quick call with Molly is all it takes to get started.
-          </p>
-        </div>
-        <div class="bg-sage-50 rounded-xl p-6 animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">How are groups organized?</h3>
-          <p class="text-warmgray-500">
-            Groups are small — just 2 to 4 kids — and organized by age and the speech sounds being targeted. This keeps sessions focused and effective.
-          </p>
-        </div>
-        <div class="bg-sage-50 rounded-xl p-6 animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">What if my child needs more support than a group setting?</h3>
-          <p class="text-warmgray-500">
-            Some children benefit from individual attention. If Molly feels your child would be better served with one-on-one sessions, she'll let you know and help you find the right path forward.
-          </p>
-        </div>
-        <div class="bg-sage-50 rounded-xl p-6 animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">What happens in a typical session?</h3>
-          <p class="text-warmgray-500">
-            Each 30-minute session is play-based and structured around specific speech sounds. Kids practice through games, activities, and interaction with peers — it feels like fun, not work.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Meet Molly Mini Bio -->
-  <section class="py-16 bg-sage-50">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div class="flex justify-center animate-on-scroll">
-          <img
-            src="/headshot-2.jpg"
-            alt="Molly Kolarik, CCC-SLP"
-            class="rounded-2xl shadow-lg max-w-sm w-full img-hover"
-          />
-        </div>
-        <div class="animate-on-scroll stagger-1">
-          <h2 class="text-3xl font-bold text-warmgray-700 mb-6">Meet Molly Kolarik, CCC-SLP</h2>
-          <p class="text-lg text-warmgray-500 mb-4 leading-relaxed">
-            Molly is a licensed speech-language pathologist with a Master's degree from the University of Central Missouri. She specializes in helping children master speech sounds — and she's passionate about making the process fun.
-          </p>
-          <p class="text-lg text-warmgray-500 mb-6 leading-relaxed">
-            She created Sound Groups because she believes every family deserves access to quality speech therapy — without the stress of complicated intake processes or overwhelming costs.
-          </p>
-          <div class="flex items-center gap-4">
-            <img src="/asha-certified.png" alt="ASHA Certified" class="w-16 h-auto" />
-            <p class="text-sm text-warmgray-400">ASHA Certified Speech-Language Pathologist</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="py-16 bg-sage-400">
-    <div class="max-w-4xl mx-auto px-4 text-center animate-on-scroll">
-      <h2 class="text-3xl font-bold text-white mb-4">
-        June 2026 Enrollment Is Open
-      </h2>
-      <p class="text-sage-100 text-lg mb-8">
-        Spots are limited. Reserve your child's place in a Sound Group today.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/register/"
-          class="btn-hover inline-block bg-white text-sage-500 px-8 py-3 rounded-lg font-semibold hover:bg-sage-50"
-        >
-          Reserve Your Child's Spot
+      <div class="mt-9 flex flex-wrap justify-center gap-3 load-in" style="--d:3">
+        <a href="/register/" class="btn btn-primary btn-lg">
+          Join the priority list
+          <Icon name="arrow" class="arrow" size={20} />
         </a>
-        <a
-          href="#"
-          class="inline-block border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white/10 transition-colors phone-link"
-        >
-          Call <span class="phone-text"></span>
-        </a>
+        <a href="#fit" class="btn btn-secondary btn-lg">Is it right for my child?</a>
+      </div>
+      <dl class="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4 load-in" style="--d:4">
+        {
+          glance.map((item) => (
+            <div class="card px-4 py-5">
+              <dt class="sr-only">{item.label}</dt>
+              <dd>
+                <span class="block font-serif text-3xl font-semibold text-ink">{item.value}</span>
+                <span class="text-sm text-muted">{item.label}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+    <div class="container-x pb-6">
+      <div class="relative overflow-hidden rounded-[2.25rem] shadow-[var(--shadow-soft)] load-in" style="--d:5">
+        <Picture
+          src={walkPhoto}
+          formats={['avif', 'webp']}
+          alt="Molly walking hand in hand with two young girls in a park"
+          widths={[640, 960, 1280, 1700]}
+          width={1700}
+          sizes="(min-width: 1184px) 70rem, 94vw"
+          loading="eager"
+          fetchpriority="high"
+          class="aspect-[16/10] w-full object-cover object-[50%_60%] sm:aspect-[16/7]"
+        />
       </div>
     </div>
   </section>
+
+  <!-- How it works -->
+  <section class="section">
+    <div class="container-x">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="kicker reveal">How it works</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Simple from <span class="accent">start to finish</span></h2>
+      </div>
+      <ol class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {
+          steps.map((step, i) => (
+            <li class="card card-lift reveal relative p-7" style={`--i:${i}`}>
+              <span class="grid h-12 w-12 place-items-center rounded-full bg-sage-700 font-serif text-xl font-semibold text-white">
+                {i + 1}
+              </span>
+              <h3 class="mt-5 text-xl">{step.title}</h3>
+              <p class="mt-2">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Fit -->
+  <section class="section bg-white/70" id="fit">
+    <div class="container-x">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="kicker reveal">Is it a fit?</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Made for kids working on <span class="accent">speech sounds</span></h2>
+        <p class="lead mt-5 reveal" style="--i:2">You know your child best. Here's a quick way to think about it.</p>
+      </div>
+      <div class="mt-14 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
+        <div class="callout reveal p-8 md:p-10">
+          <h3 class="font-serif text-2xl">A great fit if your child…</h3>
+          <ul class="mt-6 space-y-4">
+            {
+              goodFit.map((item) => (
+                <li class="flex items-start gap-3.5 text-ink">
+                  <span class="check-dot mt-0.5">
+                    <Icon name="check" size={15} strokeWidth={2.6} />
+                  </span>
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="card reveal p-8 md:p-10" style="--i:1">
+          <h3 class="font-serif text-2xl">One-on-one might be a better start if your child…</h3>
+          <ul class="mt-6 space-y-4">
+            {
+              oneOnOne.map((item) => (
+                <li class="flex items-start gap-3.5">
+                  <span class="mt-2.5 h-2 w-2 flex-none rounded-full bg-sage-400" />
+                  {item}
+                </li>
+              ))
+            }
+          </ul>
+          <p class="mt-8 rounded-2xl bg-cream px-5 py-4 text-[0.98rem] text-muted">
+            Not sure? <a href="/contact/" class="text-link">Send me a note</a> and I'll tell you honestly what I'd recommend.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why groups -->
+  <section class="section">
+    <div class="container-x grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+      <div>
+        <p class="kicker reveal">Why groups?</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Kids thrive <span class="accent">alongside peers</span></h2>
+        <p class="lead mt-5 reveal" style="--i:2">
+          One-on-one therapy has its place. But for speech sounds, practicing with a few other kids adds something a quiet
+          therapy room can't.
+        </p>
+        <p class="mt-6 reveal" style="--i:3">
+          <a href="/blog/why-kids-thrive-in-group-speech-therapy/" class="text-link">Read why kids thrive in groups <span class="arrow">→</span></a>
+        </p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2">
+        {
+          whyGroups.map((item, i) => (
+            <article class="card card-lift reveal p-7" style={`--i:${i}`}>
+              <span class="icon-badge">
+                <Icon name={item.icon} size={24} />
+              </span>
+              <h3 class="mt-5 text-lg">{item.title}</h3>
+              <p class="mt-1.5 text-[0.98rem]">{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- The details so far -->
+  <section class="pb-20 md:pb-28">
+    <div class="container-x">
+      <div class="card reveal relative overflow-hidden p-8 md:p-12">
+        <p class="pill">{site.launch.status}</p>
+        <h2 class="h2 mt-5 max-w-xl">What I can tell you <span class="accent">so far</span></h2>
+        <dl class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-2">
+          {
+            details.map((item) => (
+              <div class="flex gap-4">
+                <span class="icon-badge">
+                  <Icon name={item.icon} size={24} />
+                </span>
+                <div>
+                  <dt class="font-semibold text-ink">{item.label}</dt>
+                  <dd class="mt-1">{item.value}</dd>
+                </div>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-white/70">
+    <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div>
+        <p class="kicker reveal">Questions</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Common <span class="accent">questions</span></h2>
+      </div>
+      <Faq items={[faqs.ages, faqs.diagnosis, faqs.session, faqs.leader, faqs.moreSupport, faqs.insurance, faqs.start, faqs.where]} />
+    </div>
+  </section>
+
+  <!-- Meet Molly -->
+  <section class="section">
+    <div class="container-x grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <div class="mx-auto w-full max-w-[20rem] reveal">
+        <div class="arch-frame">
+          <div class="arch aspect-[4/5]">
+            <Image src={mollyLake} alt="Molly Kolarik, CCC-SLP" widths={[320, 480, 640]} width={640} sizes="(min-width: 1024px) 20rem, 80vw" />
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="kicker reveal">Your child's SLP</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Meet Molly Kolarik, <span class="accent">CCC-SLP</span></h2>
+        <p class="mt-6 reveal" style="--i:2">
+          I'm an experienced pediatric speech-language pathologist with a Master's degree from the University of Central
+          Missouri. I specialize in helping children master speech sounds, and Sound Groups are a new way I'm bringing that
+          work to more Kansas City families.
+        </p>
+        <div class="mt-6 flex items-center gap-4 reveal" style="--i:3">
+          <Image src={ashaBadge} alt="" width={56} densities={[1, 2]} />
+          <p class="text-sm text-muted">Certified by the American Speech-Language-Hearing Association</p>
+        </div>
+        <p class="mt-8 reveal" style="--i:4">
+          <a href="/about/" class="text-link">More about me <span class="arrow">→</span></a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
 </Layout>

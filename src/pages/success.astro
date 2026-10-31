@@ -1,25 +1,106 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Bird from '../components/Bird.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+
+// A gentle shower of leaves instead of confetti.
+const leaves = Array.from({ length: 14 }, (_, i) => ({
+  x: `${(i * 7.3 + 3) % 100}%`,
+  size: `${1 + ((i * 37) % 9) / 10}rem`,
+  time: `${7 + ((i * 13) % 6)}s`,
+  delay: `${-((i * 1.7) % 8)}s`,
+  color: i % 3 === 0 ? 'var(--color-sage-300)' : i % 3 === 1 ? 'var(--color-sage-400)' : 'var(--color-sage-200)',
+}));
+
+const next = [
+  { icon: 'mail', title: 'Watch your inbox', text: "You'll get a short Sound of the Month email with a playful game to try at home." },
+  { icon: 'calendar', title: 'Before groups open', text: 'Priority list families get first pick of group times.' },
+  { icon: 'pin', title: 'When groups open', text: "I'll share the location and schedule, chosen with families' ZIP codes in mind." },
+] as const;
 ---
 
-<Layout title="Thank You" description="Your message has been received. Molly will be in touch soon.">
-  <section class="py-24">
-    <div class="max-w-2xl mx-auto px-4 text-center animate-on-scroll">
-      <div class="w-20 h-20 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-8">
-        <svg class="w-10 h-10 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-        </svg>
+<Layout title="You're on the List" description="Thanks for joining the Sound Groups priority list." noindex>
+  <section class="relative isolate overflow-hidden">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 -z-1 overflow-hidden" aria-hidden="true">
+      {
+        leaves.map((leaf) => (
+          <svg
+            class="leaf-fall"
+            viewBox="0 0 24 24"
+            style={`--x:${leaf.x};--s:${leaf.size};--t:${leaf.time};--delay:${leaf.delay};--c:${leaf.color}`}
+          >
+            <path d="M4 20C4 11 9 5 20 4c-1 10-7 16-16 16z" fill="currentColor" />
+            <path d="M4 20l8-8" stroke="#fff" stroke-opacity=".6" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        ))
+      }
+    </div>
+
+    <div class="container-x py-16 text-center lg:py-24">
+      <div class="mx-auto w-28 load-in">
+        <Bird bubble perch words={[['Y', 'ay'], ['H', 'ooray'], ['W', 'elcome']]} class="w-full!" />
       </div>
-      <h1 class="text-4xl font-bold text-warmgray-700 mb-4">Thank You!</h1>
-      <p class="text-lg text-warmgray-500 mb-8 leading-relaxed">
-        Your message has been received. Molly will reach out within 24 hours.
+      <h1 class="display mt-8 load-in" style="--d:1">You're on the <span class="accent">list!</span></h1>
+      <p class="lead mx-auto mt-5 max-w-xl load-in" style="--d:2">
+        Thank you for joining the priority list. I can't wait to meet your child. Here's what happens next.
       </p>
-      <a
-        href="/"
-        class="btn-hover inline-block bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500"
-      >
-        Back to Home
-      </a>
+
+      <ol class="mx-auto mt-12 grid max-w-4xl gap-5 text-left md:grid-cols-3">
+        {
+          next.map((step, i) => (
+            <li class="card p-6 load-in" style={`--d:${i + 3}`}>
+              <span class="icon-badge">
+                <Icon name={step.icon} size={24} />
+              </span>
+              <h2 class="mt-4 font-sans text-lg font-semibold">{step.title}</h2>
+              <p class="mt-1.5 text-[0.98rem]">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="callout mx-auto mt-12 max-w-2xl px-6 py-8 load-in sm:px-10" style="--d:6">
+        <h2 class="font-serif text-2xl">Know a family who'd love this?</h2>
+        <p class="mt-2">Groups are more fun with friends. Share the list and I'll do my best to group buddies together.</p>
+        <button type="button" class="btn btn-primary mt-6" data-share>
+          <Icon name="share" size={19} />
+          <span data-share-label>Share with a friend</span>
+        </button>
+      </div>
+
+      <div class="mt-10 flex flex-wrap justify-center gap-3 load-in" style="--d:7">
+        <a href="/speech-sound-chart/" class="btn btn-secondary">Try the speech sound chart</a>
+        <a href="/" class="btn btn-secondary">Back to home</a>
+      </div>
     </div>
   </section>
 </Layout>
+
+<script define:vars={{ shareUrl: `${site.url}/register/` }}>
+  const button = document.querySelector('[data-share]');
+  const label = document.querySelector('[data-share-label]');
+  button?.addEventListener('click', async () => {
+    const data = {
+      title: 'Sound Groups for kids in Kansas City',
+      text: 'Small, play-based speech groups for kids, coming to Kansas City. The priority list is free to join:',
+      url: shareUrl,
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(data);
+      } catch {
+        // Closing the share sheet is fine.
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      if (label) label.textContent = 'Link copied!';
+      setTimeout(() => label && (label.textContent = 'Share with a friend'), 2400);
+    } catch {
+      window.location.href = `mailto:?subject=${encodeURIComponent(data.title)}&body=${encodeURIComponent(`${data.text} ${shareUrl}`)}`;
+    }
+  });
+</script>

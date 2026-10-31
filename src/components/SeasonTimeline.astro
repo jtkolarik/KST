@@ -1,0 +1,20 @@
+---
+import { launchSteps } from '../data/site';
+---
+
+<ol class="timeline" data-reveal style={`--steps:${launchSteps.length}`}>
+  <span class="timeline-line" aria-hidden="true"></span>
+  {
+    launchSteps.map((step, i) => (
+      <li class:list={['tl-step', step.now && 'is-now']} style={`--i:${i}`}>
+        <span class="tl-dot" aria-hidden="true" />
+        <p class="tl-when">
+          {step.when}
+          {step.now && <span class="sr-only"> (you are here)</span>}
+        </p>
+        <h3 class="tl-title">{step.title}</h3>
+        <p class="tl-text">{step.text}</p>
+      </li>
+    ))
+  }
+</ol>

@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Bird from '../components/Bird.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import SoundChecker from '../components/SoundChecker.astro';
+import { site } from '../data/site';
+import { soundBands, soundSources, totalSounds } from '../data/sounds';
+
+const chartFaqs = [
+  {
+    q: 'At what age should a child say the r sound?',
+    a: "Most children can say r by around age 5 or 6. It's one of the later sounds kids learn, so it's common for younger children to say \"w\" instead (like \"wabbit\" for rabbit).",
+  },
+  {
+    q: 'When should a lisp go away?',
+    a: "Most children say s clearly by around age 4 to 5. If your child is older than that and still lisping, it's worth a check-in with a speech-language pathologist.",
+  },
+  {
+    q: 'When do kids learn the th sound?',
+    a: 'Th is usually the very last consonant to settle in: the "th" in "this" by around age 5, and the "th" in "thumb" by around age 6.',
+  },
+  {
+    q: 'My child is behind on one sound. Should I worry?',
+    a: "Not necessarily. Every child develops a little differently. If your child is older than the age on the chart and still working on a sound, or is often hard for others to understand, a short conversation with a speech-language pathologist can give you clarity.",
+  },
+];
+
+const swaps = [
+  { swap: '"wabbit" for rabbit', what: 'w for r' },
+  { swap: '"thun" for sun', what: 'th for s (a lisp)' },
+  { swap: '"tat" for cat', what: 't for k' },
+  { swap: '"ca" for cat', what: 'dropping the last sound' },
+];
+
+const signs = [
+  'Your child is older than the age on the chart and still working on that sound',
+  'People outside your family often have trouble understanding your child by age 4 or 5',
+  'Your child gets frustrated, or avoids talking, when they aren\'t understood',
+  'A teacher or caregiver has mentioned your child\'s speech',
+];
+
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Speech sound chart by age',
+  description: 'When do kids learn each speech sound? An interactive chart of the ages by which most U.S. children say each English consonant.',
+  author: { '@type': 'Person', name: site.owner, jobTitle: 'Speech-Language Pathologist', url: `${site.url}/about/` },
+  publisher: { '@type': 'Organization', name: site.name, logo: { '@type': 'ImageObject', url: `${site.url}/logo.png` } },
+  mainEntityOfPage: `${site.url}/speech-sound-chart/`,
+  citation: soundSources.map((s) => s.url),
+};
+---
+
+<Layout
+  title="Speech Sound Chart by Age"
+  description="When do kids learn r, s, l, and th? Tap your child's age to see which speech sounds most children can say by then, with example words and tips from a Kansas City SLP."
+  schema={[article]}
+>
+  <section class="relative isolate overflow-hidden">
+    <div class="hero-bg grain" aria-hidden="true"></div>
+    <div class="container-x grid gap-12 pb-16 pt-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16 lg:pb-24 lg:pt-16">
+      <div class="lg:sticky lg:top-32">
+        <p class="eyebrow load-in">
+          <Icon name="sparkle" size={16} class="text-sage-600" />
+          Free parent tool
+        </p>
+        <h1 class="display mt-6 load-in" style="--d:1">Speech sound chart <span class="accent">by age</span></h1>
+        <p class="lead mt-6 load-in" style="--d:2">
+          When do kids learn each sound? Tap your child's age to see which sounds most children can say by then.
+        </p>
+        <p class="mt-5 load-in" style="--d:3">
+          Think of it as a friendly guide, not a test. Every child develops a little differently, and you know your child
+          best.
+        </p>
+        <div class="mt-14 hidden pl-2 load-in lg:block" style="--d:4">
+          <Bird bubble perch class="w-36!" />
+        </div>
+      </div>
+      <div class="card p-5 load-in sm:p-8" style="--d:2">
+        <SoundChecker id="chart-checker" startAge={5} />
+      </div>
+    </div>
+  </section>
+
+  <!-- At a glance table -->
+  <section class="section bg-white/70">
+    <div class="container-x">
+      <div class="max-w-2xl">
+        <p class="kicker reveal">At a glance</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Which sounds kids learn <span class="accent">at each age</span></h2>
+        <p class="lead mt-5 reveal" style="--i:2">
+          The age shown is when most children (about 9 in 10) say the sound correctly. Plenty of kids get there sooner.
+        </p>
+      </div>
+      <div class="card reveal mt-12 overflow-hidden" style="--i:1">
+        <table class="w-full text-left">
+          <thead class="bg-sage-100 text-sm uppercase tracking-[0.12em] text-sage-800">
+            <tr>
+              <th scope="col" class="px-5 py-4 font-semibold sm:px-8">By age</th>
+              <th scope="col" class="px-5 py-4 font-semibold sm:px-8">Sounds (example words)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-tan">
+            {
+              soundBands.map((band) => (
+                <tr>
+                  <th scope="row" class="whitespace-nowrap px-5 py-5 align-top font-serif text-2xl font-semibold text-ink sm:px-8">
+                    {band.age}
+                  </th>
+                  <td class="px-5 py-5 sm:px-8">
+                    <ul class="flex flex-wrap gap-2">
+                      {band.sounds.map((s) => (
+                        <li class="rounded-full border-[1.5px] border-sage-200 bg-white px-3 py-1 text-[0.95rem]">
+                          <strong class="text-ink">{s.label}</strong>
+                          <span class="text-muted">{` (${s.word.join('')}${s.note ? `, ${s.note}` : ''})`}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted">{totalSounds} English consonant sounds, based on research with U.S. children (sources below).</p>
+    </div>
+  </section>
+
+  <!-- How to read it + swaps -->
+  <section class="section">
+    <div class="container-x grid gap-6 lg:grid-cols-2">
+      <article class="card reveal p-8 md:p-10">
+        <span class="icon-badge"><Icon name="book" size={24} /></span>
+        <h2 class="mt-6 font-serif text-3xl">Common sound swaps</h2>
+        <p class="mt-3">
+          Swapping one sound for another is a normal part of learning to talk. What matters is whether a swap is still
+          happening after the age when most kids have that sound.
+        </p>
+        <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+          {
+            swaps.map((s) => (
+              <li class="rounded-2xl bg-cream px-4 py-3">
+                <span class="block font-serif text-lg text-ink">{s.swap}</span>
+                <span class="text-sm text-muted">{s.what}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+      <article class="card reveal p-8 md:p-10" style="--i:1">
+        <span class="icon-badge"><Icon name="chat" size={24} /></span>
+        <h2 class="mt-6 font-serif text-3xl">When to talk to an SLP</h2>
+        <p class="mt-3">It may be worth a conversation with a speech-language pathologist if:</p>
+        <ul class="mt-6 space-y-3.5">
+          {
+            signs.map((sign) => (
+              <li class="flex items-start gap-3.5 text-ink">
+                <span class="check-dot mt-0.5">
+                  <Icon name="check" size={15} strokeWidth={2.6} />
+                </span>
+                {sign}
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-white/70">
+    <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div>
+        <p class="kicker reveal">Parent questions</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Sounds parents <span class="accent">ask about most</span></h2>
+      </div>
+      <Faq items={chartFaqs} />
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section class="pt-16">
+    <div class="container-x">
+      <div class="rounded-3xl border-[1.5px] border-tan bg-cream-deep p-8 text-muted md:p-10">
+        <h2 class="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-ink">Sources</h2>
+        <p class="mt-3 text-[0.95rem]">
+          Ages come from a review of 15 studies covering 18,907 children who speak English in the United States. Speech
+          development varies from child to child; this chart is general information, not a diagnosis.
+        </p>
+        <ul class="mt-4 space-y-2 text-sm">
+          {
+            soundSources.map((source) => (
+              <li>
+                {source.text}{' '}
+                <a href={source.url} class="text-link" rel="noopener">
+                  {source.url.replace('https://', '')}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="pt-20 md:pt-28">
+    <CtaBand
+      title="Still working on a tricky sound?"
+      text="That's exactly what Sound Groups are for. Join the priority list. It's free, and you'll hear first when groups open."
+    />
+  </div>
+</Layout>

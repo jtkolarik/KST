@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+import type { Faq } from '../data/site';
+
+interface Props {
+  items: Faq[];
+  schema?: boolean;
+}
+
+const { items, schema = true } = Astro.props;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<div>
+  {
+    items.map((item, i) => (
+      <details class="faq-item reveal" style={`--i:${Math.min(i, 4)}`}>
+        <summary>
+          <span>{item.q}</span>
+          <span class="faq-icon">
+            <Icon name="plus" size={18} strokeWidth={2} />
+          </span>
+        </summary>
+        <div class="faq-answer">
+          <p>{item.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+{schema && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}

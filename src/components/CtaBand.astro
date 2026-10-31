@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  label?: string;
+  href?: string;
+  showPhone?: boolean;
+}
+
+const {
+  title = 'Be the first to know when groups open',
+  text = "Join the Sound Groups priority list. It's free, takes two minutes, and you'll hear first when the schedule is set.",
+  label = 'Join the priority list',
+  href = '/register/',
+  showPhone = true,
+} = Astro.props;
+---
+
+<section class="pb-20 md:pb-28">
+  <div class="container-x">
+    <div class="cta-band reveal px-6 py-14 sm:px-12 md:py-20">
+      <div class="leaf-pattern" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-2xl text-center">
+        <h2 class="h2 text-white">{title}</h2>
+        <p class="lead mx-auto mt-5 max-w-xl text-sage-100">{text}</p>
+        <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a href={href} class="btn btn-light btn-lg">
+            {label}
+            <Icon name="arrow" class="arrow" size={20} />
+          </a>
+          {
+            showPhone && (
+              <a href="#" class="btn btn-ghost-light btn-lg phone-link">
+                <Icon name="phone" size={19} />
+                Call or text <span class="phone-text" />
+              </a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

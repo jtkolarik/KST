@@ -1,0 +1,43 @@
+---
+// An organic section break: the branch draws itself and its leaves unfurl
+// when it scrolls into view.
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const leaves = [
+  { x: 40, y: 26, r: -42 },
+  { x: 70, y: 27, r: 36 },
+  { x: 102, y: 29, r: -36 },
+  { x: 138, y: 28, r: 40 },
+  { x: 176, y: 25, r: -38 },
+  { x: 212, y: 23, r: 34 },
+  { x: 248, y: 22, r: -40 },
+  { x: 284, y: 23, r: 32 },
+];
+---
+
+<div class:list={['branch-divider', className]} data-reveal aria-hidden="true">
+  <svg viewBox="0 0 320 48" fill="none">
+    <path
+      class="branch-stem"
+      pathLength="1"
+      d="M6 30C60 22 110 34 160 27s102-7 154-2"
+      stroke="currentColor"
+      stroke-width="2.4"
+      stroke-linecap="round"
+    />
+    {
+      leaves.map((leaf, i) => (
+        <g transform={`translate(${leaf.x} ${leaf.y}) rotate(${leaf.r})`}>
+          <g class="branch-leaf" style={`--i:${i}`}>
+            <path d="M0 0C5-6.5 14-6.5 19 0 14 6.5 5 6.5 0 0z" />
+            <path class="vein" d="M2 0h15" />
+          </g>
+        </g>
+      ))
+    }
+  </svg>
+</div>

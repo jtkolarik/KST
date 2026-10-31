@@ -1,268 +1,143 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import { faqs, site } from '../data/site';
+import readingPhoto from '../assets/images/gallery-4.jpg';
+
+const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
 ---
 
-<Layout title="Contact" description="Get in touch with Molly Kolarik, pediatric speech sound specialist in Kansas City. Send a message or give us a call. Now enrolling for June 2026 Sound Groups.">
-  <section class="py-16">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-12 animate-on-scroll">
-        <h1 class="text-4xl font-bold text-warmgray-700 mb-4">Let's Talk</h1>
-        <p class="text-lg text-warmgray-500 max-w-2xl mx-auto">
-          Have questions about Sound Groups? Wondering if it's the right fit for your child? I'd love to hear from you.
+<Layout
+  title="Contact"
+  description="Questions about Sound Groups or your child's speech? Get in touch with Molly Kolarik, CCC-SLP, an experienced pediatric speech-language pathologist in Kansas City."
+>
+  <section class="relative isolate overflow-hidden">
+    <div class="hero-bg grain" aria-hidden="true"></div>
+    <div class="container-x pb-20 pt-10 lg:pb-28 lg:pt-14">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="eyebrow load-in">
+          <Icon name="chat" size={16} class="text-sage-600" />
+          I typically reply within a day
         </p>
-        <p class="text-warmgray-500 mt-3">
-          Looking to register? <a href="/register/" class="text-sage-500 font-semibold hover:text-sage-600 transition-colors">Reserve your child's spot here →</a>
+        <h1 class="display mt-6 load-in" style="--d:1">Let's <span class="accent">talk</span></h1>
+        <p class="lead mt-6 load-in" style="--d:2">
+          Wondering if Sound Groups are right for your child, or just have a question? I'd love to hear from you.
+        </p>
+        <p class="mt-4 load-in" style="--d:3">
+          Want to hear first when groups open? <a href="/register/" class="text-link">Join the priority list <span class="arrow">→</span></a>
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-12">
-        <!-- Contact Form -->
-        <div class="bg-white rounded-xl p-8 shadow-sm border border-sage-200 animate-on-scroll">
-          <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Send a Message</h2>
-          <form name="contact" method="POST" action="/success/" data-netlify="true" netlify-honeypot="bot-field" class="space-y-6">
-            <p style="display:none;">
-              <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
-            </p>
+      <div class="mt-14 grid gap-8 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
+        <div class="card p-6 load-in sm:p-10" style="--d:3">
+          <h2 class="font-serif text-3xl">Send a message</h2>
+          <form
+            name="contact"
+            method="POST"
+            action="/message-sent/"
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+            class="mt-7 space-y-6"
+            data-contact-form
+          >
             <input type="hidden" name="form-name" value="contact" />
-
+            <p class="hidden">
+              <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
             <div>
-              <label for="name" class="block text-sm font-medium text-warmgray-700 mb-2">
-                Your Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
-                placeholder="Your name"
-              />
+              <label for="name" class="field-label">Your name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" class="field" />
             </div>
-
-            <div class="grid sm:grid-cols-2 gap-4">
+            <div class="grid gap-5 sm:grid-cols-2">
               <div>
-                <label for="email" class="block text-sm font-medium text-warmgray-700 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
-                  placeholder="you@email.com"
-                />
+                <label for="email" class="field-label">Email</label>
+                <input id="email" name="email" type="email" required autocomplete="email" class="field" placeholder="you@email.com" />
               </div>
-
               <div>
-                <label for="phone" class="block text-sm font-medium text-warmgray-700 mb-2">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors"
-                  placeholder="(555) 555-5555"
-                />
+                <label for="phone" class="field-label">Phone <span class="optional">(optional)</span></label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" class="field" placeholder="(555) 555-5555" />
               </div>
             </div>
-
             <div>
-              <label for="child-age" class="block text-sm font-medium text-warmgray-700 mb-2">
-                Child's Age
-              </label>
-              <select
-                id="child-age"
-                name="child-age"
-                class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors bg-white"
-              >
-                <option value="">Select age range</option>
-                <option value="3-4">3–4 years</option>
-                <option value="4-5">4–5 years</option>
-                <option value="5-6">5–6 years</option>
-                <option value="6-7">6–7 years</option>
-                <option value="7+">7+ years</option>
+              <label for="child-age" class="field-label">Child's age <span class="optional">(optional)</span></label>
+              <select id="child-age" name="child-age" class="field">
+                <option value="">Select</option>
+                {ages.map((age) => <option value={age}>{age}</option>)}
               </select>
             </div>
-
             <div>
-              <label for="message" class="block text-sm font-medium text-warmgray-700 mb-2">
-                What's on your mind?
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                required
-                class="w-full px-4 py-3 rounded-lg border border-sage-200 focus:border-sage-400 focus:ring-2 focus:ring-sage-100 outline-none transition-colors resize-none"
-                placeholder="Tell me about your child and any concerns you have..."
-              ></textarea>
+              <label for="message" class="field-label">What's on your mind?</label>
+              <textarea id="message" name="message" rows="5" required class="field resize-none"></textarea>
+              <p class="field-hint">Please don't include medical, diagnostic, or detailed clinical information here.</p>
             </div>
-
-            <button
-              type="submit"
-              class="w-full bg-sage-400 text-white px-8 py-3 rounded-lg font-semibold hover:bg-sage-500 transition-colors"
-            >
-              Send Message
+            <button type="submit" class="btn btn-primary btn-lg w-full sm:w-auto" data-submit>
+              <span data-submit-label>Send message</span>
+              <Icon name="arrow" class="arrow" size={20} />
             </button>
           </form>
-          <p class="text-sm text-warmgray-400 mt-4 text-center">
-            I typically respond within 24 hours.
-          </p>
         </div>
 
-        <!-- Contact Info -->
-        <div class="flex flex-col gap-8">
-          <div class="bg-sage-50 rounded-xl p-8 animate-on-scroll border border-sage-200">
-            <h2 class="text-2xl font-semibold text-warmgray-700 mb-6">Get in Touch</h2>
-            <div class="space-y-6">
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                  </svg>
-                </div>
+        <aside class="space-y-6 lg:sticky lg:top-28">
+          <div class="card p-7 load-in" style="--d:4">
+            <h2 class="font-sans text-lg font-semibold">Get in touch</h2>
+            <ul class="mt-5 space-y-5">
+              <li class="flex items-start gap-3.5">
+                <span class="icon-badge h-11! w-11!"><Icon name="phone" size={20} /></span>
                 <div>
-                  <h3 class="font-semibold text-warmgray-700">Call or Text</h3>
-                  <a href="#" class="text-sage-500 text-lg phone-link">
-                    <span class="phone-text"></span>
-                  </a>
+                  <p class="text-sm text-muted">Call or text</p>
+                  <a href="#" class="phone-link font-semibold text-sage-700 hover:text-sage-800"><span class="phone-text"></span></a>
                 </div>
-              </div>
-
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                  </svg>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="icon-badge h-11! w-11!"><Icon name="mail" size={20} /></span>
+                <div class="min-w-0">
+                  <p class="text-sm text-muted">Email</p>
+                  <a href={`mailto:${site.email}`} class="break-all font-semibold text-sage-700 hover:text-sage-800">{site.email}</a>
                 </div>
+              </li>
+              <li class="flex items-start gap-3.5">
+                <span class="icon-badge h-11! w-11!"><Icon name="pin" size={20} /></span>
                 <div>
-                  <h3 class="font-semibold text-warmgray-700">Email</h3>
-                  <a href="mailto:kolarikspeechtherapy@gmail.com" class="text-sage-500 hover:text-sage-600 transition-colors">
-                    kolarikspeechtherapy@gmail.com
-                  </a>
+                  <p class="text-sm text-muted">Service area</p>
+                  <p class="font-semibold text-ink">{site.area}</p>
                 </div>
-              </div>
-
-              <div class="flex items-start gap-4">
-                <div class="w-12 h-12 bg-sage-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg class="w-6 h-6 text-sage-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3 class="font-semibold text-warmgray-700">Service Area</h3>
-                  <p class="text-warmgray-500">Kansas City metro area</p>
-                </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
-
-          <div class="rounded-xl overflow-hidden shadow-sm animate-on-scroll flex-1">
-            <img
-              src="/gallery 3.jpg"
-              alt="Play-based speech therapy session"
-              class="w-full h-full min-h-[280px] object-cover object-top"
+          <div class="overflow-hidden rounded-[1.75rem] shadow-[var(--shadow-soft)] load-in" style="--d:5">
+            <Image
+              src={readingPhoto}
+              alt="Molly reading a story with a young girl at home"
+              widths={[400, 640, 900]} width={900}
+              sizes="(min-width: 1024px) 24rem, 92vw"
+              class="aspect-[4/3] w-full object-cover"
             />
           </div>
-        </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="py-16 bg-sage-50">
-    <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-warmgray-700 text-center mb-12 animate-on-scroll">Common Questions</h2>
-
-      <div class="space-y-6">
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">How do I know if my child needs speech help?</h3>
-          <p class="text-warmgray-500">
-            If people outside your family have trouble understanding your child, or if your child gets frustrated trying to say certain words, it's worth a conversation. A quick call with Molly can help you figure out the right next step.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">What's the difference between Sound Groups and individual therapy?</h3>
-          <p class="text-warmgray-500">
-            Sound Groups are small group sessions (2–4 kids) focused on speech sounds at $50 for 30 minutes. Kids practice alongside peers in a fun, play-based setting. If your child needs more individualized support, Molly can discuss options with you directly.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">Do you accept insurance?</h3>
-          <p class="text-warmgray-500">
-            Kolarik Speech Therapy is a private pay practice. At $50 per session, Sound Groups are designed to be accessible without the hassle of insurance billing.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">What ages do you work with?</h3>
-          <p class="text-warmgray-500">
-            Sound Groups are for children ages 3 and up. Groups are organized by age so your child is always working alongside peers at a similar level.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-xl p-6 shadow-sm animate-on-scroll border border-sage-200">
-          <h3 class="font-semibold text-warmgray-700 mb-2">How long are sessions?</h3>
-          <p class="text-warmgray-500">
-            Sound Group sessions are 30 minutes — focused, play-based, and designed to keep kids engaged the entire time.
-          </p>
-        </div>
+  <section class="section bg-white/70">
+    <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div>
+        <p class="kicker reveal">Questions</p>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Quick <span class="accent">answers</span></h2>
       </div>
+      <Faq items={[faqs.needsHelp, faqs.start, faqs.cost, faqs.insurance, faqs.ages]} />
     </div>
   </section>
-
-  <!-- FAQPage Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I know if my child needs speech help?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "If people outside your family have trouble understanding your child, or if your child gets frustrated trying to say certain words, it's worth a conversation. A quick call with Molly can help you figure out the right next step."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What's the difference between Sound Groups and individual therapy?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sound Groups are small group sessions (2-4 kids) focused on speech sounds at $50 for 30 minutes. Kids practice alongside peers in a fun, play-based setting. If your child needs more individualized support, Molly can discuss options with you directly."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you accept insurance?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Kolarik Speech Therapy is a private pay practice. At $50 per session, Sound Groups are designed to be accessible without the hassle of insurance billing."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What ages do you work with?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sound Groups are for children ages 3 and up. Groups are organized by age so your child is always working alongside peers at a similar level."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How long are sessions?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sound Group sessions are 30 minutes — focused, play-based, and designed to keep kids engaged the entire time."
-        }
-      }
-    ]
-  }
-  </script>
 </Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  form?.addEventListener('submit', () => {
+    const button = form.querySelector<HTMLButtonElement>('[data-submit]');
+    const label = form.querySelector<HTMLElement>('[data-submit-label]');
+    if (!button || !label) return;
+    label.textContent = 'Sending…';
+    button.setAttribute('aria-disabled', 'true');
+  });
+</script>
