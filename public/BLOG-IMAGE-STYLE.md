@@ -10,6 +10,9 @@ Warm, soft gouache children's book illustration with gentle expressions, rosy ch
 - **Skin tones:** Warm with rosy cheeks
 - **Hair:** Brown tones
 
+## Composition
+Keep the people and key objects inside the central 60% of the frame. On the article page the painting is printed onto the paper, and its edges fade away.
+
 ## Base Prompt Template
 
 warm cheerful illustration of [SCENE DESCRIPTION], child in soft coral sweater, mother in sage green, profile view facing each other, soft rounded gouache style, rosy cheeks, gentle smiles, warm cream sage background with subtle paper texture, children's book illustration, warm and tender moment --ar 16:9 --style raw --s 100 --v 7

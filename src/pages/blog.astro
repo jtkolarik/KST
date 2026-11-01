@@ -1,17 +1,23 @@
 ---
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import ChartTeaser from '../components/ChartTeaser.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import { posts } from '../data/posts';
 import birdEnvelope from '../assets/images/bird-envelope.png';
+
+// The newest post leads; any older ones sit two to a row below.
+const lead = posts[0];
+const more = posts.slice(1);
 ---
 
 <Layout
   title="The Nest | Blog"
   description="Speech tips, resources, and ideas for parents from Molly Kolarik, CCC-SLP. Learn how to support your child’s speech sound development at home."
+  footerPromo={false}
 >
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x pb-14 pt-10 text-center lg:pb-20 lg:pt-14">
       <Image src={birdEnvelope} alt="" width={150} densities={[1, 2]} class="mx-auto h-auto w-32 load-in" loading="eager" />
@@ -23,41 +29,71 @@ import birdEnvelope from '../assets/images/bird-envelope.png';
   </section>
 
   <section class="pb-20 md:pb-28">
-    <div class="container-x grid gap-8 md:grid-cols-2">
-      {
-        posts.map((post, i) => (
-          <a href={post.href} class="card card-lift reveal group flex flex-col overflow-hidden" style={`--i:${i}`}>
-            <Image
-              src={post.image}
-              alt={post.imageAlt}
-              widths={[480, 760, 1000]} width={1000}
-              sizes="(min-width: 768px) 34rem, 92vw"
-              class="aspect-[16/9] w-full object-cover"
-            />
-            <article class="flex flex-1 flex-col p-7 md:p-8">
-              <p class="text-sm text-muted">
-                {post.tag} · <time datetime={post.date}>{post.dateLabel}</time> · {post.readTime}
-              </p>
-              <h2 class="mt-2 font-serif text-[1.75rem] leading-snug transition-colors group-hover:text-sage-800">{post.title}</h2>
-              <p class="mt-3 flex-1">{post.excerpt}</p>
-              <span class="text-link mt-6">
-                Read the post <span class="arrow">→</span>
-              </span>
-            </article>
-          </a>
-        ))
-      }
-      <a href="/speech-sound-chart/" class="card card-lift reveal group flex flex-col justify-between bg-sage-100! p-7 md:p-8" style="--i:1">
-        <div>
+    <div class="container-x">
+      <a
+        href={lead.href}
+        class="card card-featured card-lift group grid overflow-hidden md:grid-cols-[1.15fr_1fr]"
+        aria-labelledby="lead-post-title"
+      >
+        <Image
+          src={lead.image}
+          alt={lead.imageAlt}
+          widths={[480, 760, 1000, 1200]} width={1200}
+          sizes="(min-width: 1184px) 38rem, (min-width: 768px) 54vw, 92vw"
+          class="aspect-[16/9] w-full object-cover md:aspect-auto md:h-full md:min-h-[22rem]"
+        />
+        <article class="flex flex-col justify-center p-7 md:p-10">
+          <p class="flex flex-wrap items-baseline text-sm text-muted">
+            {lead.tag}<span class="sep"> <span aria-hidden="true">·</span> </span><time class="whitespace-nowrap" datetime={lead.date}>{lead.dateLabel}</time><span class="sep"> <span aria-hidden="true">·</span> </span><span class="whitespace-nowrap">{lead.readTime}</span>
+          </p>
+          <h2 id="lead-post-title" class="mt-3 font-serif text-[2rem] leading-tight transition-colors group-hover:text-sage-800">{lead.title}</h2>
+          <p class="mt-4">{lead.excerpt}</p>
+          <span class="text-link mt-7">
+            Read the post <Icon name="arrow" size={16} class="arrow" />
+          </span>
+        </article>
+      </a>
+
+      <a href="/speech-sound-chart/" class="card card-lift group mt-6 flex flex-col gap-6 bg-sage-100! p-7 md:flex-row md:items-center md:justify-between">
+        <div class="max-w-xl">
           <p class="inline-flex items-center gap-2 text-sm text-muted">
-            <Icon name="sparkle" size={16} class="text-sage-600" />
+            <Icon name="sprig" size={16} class="text-sage-600" />
             Free parent tool
           </p>
           <h2 class="mt-2 font-serif text-[1.75rem] leading-snug transition-colors group-hover:text-sage-800">Speech sound chart by age</h2>
           <p class="mt-3">When do kids learn r, s, and th? Tap your child’s age to see which sounds most children can say by then.</p>
+          <span class="text-link mt-5 inline-block">Try the chart <Icon name="arrow" size={16} class="arrow" /></span>
         </div>
-        <span class="text-link mt-8">Try the chart <span class="arrow">→</span></span>
+        <ChartTeaser class="max-w-[13.5rem] shrink-0 lg:max-w-none" />
       </a>
+
+      {
+        more.length > 0 && (
+          <div class="mt-8 grid gap-8 md:grid-cols-2">
+            {more.map((post, i) => (
+              <a href={post.href} class="card card-lift reveal group flex flex-col overflow-hidden" style={`--i:${i}`}>
+                <Image
+                  src={post.image}
+                  alt={post.imageAlt}
+                  widths={[480, 760, 1000]} width={1000}
+                  sizes="(min-width: 768px) 34rem, 92vw"
+                  class="aspect-[16/9] w-full object-cover"
+                />
+                <article class="flex flex-1 flex-col p-7 md:p-8">
+                  <p class="flex flex-wrap items-baseline text-sm text-muted">
+                    {post.tag}<span class="sep"> <span aria-hidden="true">·</span> </span><time class="whitespace-nowrap" datetime={post.date}>{post.dateLabel}</time><span class="sep"> <span aria-hidden="true">·</span> </span><span class="whitespace-nowrap">{post.readTime}</span>
+                  </p>
+                  <h2 class="mt-2 font-serif text-[1.75rem] leading-snug transition-colors group-hover:text-sage-800">{post.title}</h2>
+                  <p class="mt-3 flex-1">{post.excerpt}</p>
+                  <span class="text-link mt-6">
+                    Read the post <Icon name="arrow" size={16} class="arrow" />
+                  </span>
+                </article>
+              </a>
+            ))}
+          </div>
+        )
+      }
     </div>
   </section>
 

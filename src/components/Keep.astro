@@ -1,0 +1,12 @@
+---
+// Keeps hyphenated compounds (speech-language, one-on-one, 30-minute) from
+// breaking across lines. The text stays escaped: it renders as text, not HTML.
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const parts = text.split(/([\w’]+(?:-[\w’]+)+)/g);
+---
+
+{parts.map((part, i) => (i % 2 ? <span class="whitespace-nowrap">{part}</span> : part))}

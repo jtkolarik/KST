@@ -10,6 +10,11 @@ export const site = {
   area: 'Kansas City metro',
   launch: {
     status: 'Coming soon',
+    // The small announcement lines above the hero and in the footer. Retire 'New'
+    // here once groups have been running for a while.
+    badge: 'New: Sound Groups',
+    eyebrow: 'Priority list now open',
+    eyebrowShort: 'Priority list open',
     // Only used where a parent asks "when?" directly (FAQ answers).
     opens: 'in 2027',
   },

@@ -4,7 +4,7 @@ import groupTherapy from '../assets/images/blog-group-therapy.png';
 export const posts = [
   {
     href: '/blog/why-kids-thrive-in-group-speech-therapy/',
-    title: 'Why Kids Thrive in Group Speech Therapy',
+    title: 'Why kids thrive in group speech therapy',
     excerpt:
       'Speech sessions your child will actually look forward to. Why small groups help kids build confidence and make progress with speech sounds.',
     date: '2026-03-28',

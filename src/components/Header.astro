@@ -41,7 +41,13 @@ function isActive(href: string): boolean {
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href="/register/" class="btn btn-primary btn-sm"><span>Join<span class="hidden sm:inline"> the list</span></span></a>
+      <a
+        href="/register/"
+        class:list={['btn btn-sm', currentPath === '/register/' ? 'btn-secondary' : 'btn-primary']}
+        aria-current={currentPath === '/register/' ? 'page' : undefined}
+      >
+        <span>Join<span class="hidden sm:inline"> the list</span></span>
+      </a>
       <button
         type="button"
         class="menu-btn lg:hidden"

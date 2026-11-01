@@ -6,24 +6,25 @@ import { listPerks, site } from '../data/site';
 const ages = ['3', '4', '5', '6', '7', '8', '9+', 'Not sure'];
 const times = ['Weekday mornings', 'Weekday afternoons', 'Evenings', 'Saturdays'];
 const sources = ['Google search', 'AI assistant (ChatGPT, Gemini, etc.)', 'A friend or family member', 'Pediatrician or doctor', 'Preschool, daycare, or school', 'Facebook or Instagram', 'A flyer', 'Other'];
+const [emailUser, emailDomain] = site.email.split('@');
 ---
 
 <Layout
   title="Join the Sound Groups Priority List"
   description="Join the free priority list for Kansas City Sound Groups. Hear first when groups open, get first pick of group times, and receive a monthly at-home sound game."
+  footerPromo={false}
 >
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x pb-20 pt-10 lg:pb-28 lg:pt-14">
       <div class="mx-auto max-w-2xl text-center">
         <p class="eyebrow load-in">
-          <span class="live-dot" aria-hidden="true"></span>
-          Free · No commitment
+          Free<span class="sep"> <span aria-hidden="true">·</span> </span>No commitment
         </p>
         <h1 class="display mt-6 load-in" style="--d:1">Join the <span class="accent">priority list</span></h1>
         <p class="lead mt-6 load-in" style="--d:2">
           Tell me a little about your child. You’ll hear first when Sound Groups open, get first pick of group times, and
-          receive a playful at-home sound game each month until we begin.
+          receive a playful <span class="whitespace-nowrap">at-home</span> sound game each month until we begin.
         </p>
       </div>
 
@@ -144,19 +145,19 @@ const sources = ['Google search', 'AI assistant (ChatGPT, Gemini, etc.)', 'A fri
                 <span data-submit-label>Join the priority list</span>
                 <Icon name="arrow" class="arrow" size={20} />
               </button>
-              <p class="text-sm text-muted">Free · No commitment · Unsubscribe anytime</p>
+              <p class="text-sm text-muted">Free<span class="sep"> <span aria-hidden="true">·</span> </span><span class="whitespace-nowrap">No commitment</span><span class="sep"> <span aria-hidden="true">·</span> </span><span class="whitespace-nowrap">Unsubscribe anytime</span></p>
             </div>
           </form>
         </div>
 
         <aside class="space-y-6 lg:sticky lg:top-28">
           <div class="callout relative p-7">
-            <p class="pill">What you’ll get</p>
+            <p class="kicker">What you’ll get</p>
             <ul class="mt-6 space-y-5">
               {
                 listPerks.map((perk) => (
                   <li class="flex gap-3.5">
-                    <span class="icon-badge h-11! w-11! bg-white!">
+                    <span class="icon-badge icon-badge-white h-11! w-11!">
                       <Icon name={perk.icon} size={20} />
                     </span>
                     <div>
@@ -176,9 +177,9 @@ const sources = ['Google search', 'AI assistant (ChatGPT, Gemini, etc.)', 'A fri
                 <Icon name="phone" size={18} />
                 <span class="phone-text"></span>
               </a>
-              <a href={`mailto:${site.email}`} class="flex items-center gap-2 break-all font-semibold text-sage-700 hover:text-sage-800">
+              <a href={`mailto:${site.email}`} class="flex items-center gap-2 font-semibold text-sage-700 [overflow-wrap:anywhere] hover:text-sage-800">
                 <Icon name="mail" size={18} class="flex-none" />
-                {site.email}
+                <span class="min-w-0">{emailUser}<wbr />@{emailDomain}</span>
               </a>
             </div>
           </div>

@@ -7,13 +7,14 @@ import { faqs, site } from '../data/site';
 import readingPhoto from '../assets/images/gallery-4.jpg';
 
 const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
+const [emailUser, emailDomain] = site.email.split('@');
 ---
 
 <Layout
   title="Contact"
   description="Questions about Sound Groups or your child’s speech? Get in touch with Molly Kolarik, CCC-SLP, an experienced pediatric speech-language pathologist in Kansas City."
 >
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x pb-20 pt-10 lg:pb-28 lg:pt-14">
       <div class="mx-auto max-w-2xl text-center">
@@ -26,7 +27,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
           Wondering if Sound Groups are right for your child, or just have a question? I’d love to hear from you.
         </p>
         <p class="mt-4 load-in" style="--d:3">
-          Want to hear first when groups open? <a href="/register/" class="text-link">Join the priority list <span class="arrow">→</span></a>
+          Want to hear first when groups open? <a href="/register/" class="text-link">Join the priority list <Icon name="arrow" size={16} class="arrow" /></a>
         </p>
       </div>
 
@@ -94,7 +95,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
                 <span class="icon-badge h-11! w-11!"><Icon name="mail" size={20} /></span>
                 <div class="min-w-0">
                   <p class="text-sm text-muted">Email</p>
-                  <a href={`mailto:${site.email}`} class="break-all font-semibold text-sage-700 hover:text-sage-800">{site.email}</a>
+                  <a href={`mailto:${site.email}`} class="font-semibold text-sage-700 [overflow-wrap:anywhere] hover:text-sage-800">{emailUser}<wbr />@{emailDomain}</a>
                 </div>
               </li>
               <li class="flex items-start gap-3.5">
@@ -106,7 +107,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
               </li>
             </ul>
           </div>
-          <div class="overflow-hidden rounded-[1.75rem] shadow-[var(--shadow-soft)] load-in" style="--d:5">
+          <div class="overflow-hidden rounded-[1.75rem] load-in" style="--d:5">
             <Image
               src={readingPhoto}
               alt="Molly reading a story with a young girl at home"
@@ -124,7 +125,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
     <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
       <div>
         <p class="kicker reveal">Questions</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Quick <span class="accent">answers</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Quick answers</h2>
       </div>
       <Faq items={[faqs.needsHelp, faqs.start, faqs.cost, faqs.insurance, faqs.ages]} />
     </div>

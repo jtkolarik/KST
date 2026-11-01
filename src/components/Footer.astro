@@ -4,7 +4,15 @@ import Icon from './Icon.astro';
 import logo from '../assets/images/logo.png';
 import { site } from '../data/site';
 
+interface Props {
+  // One invitation per page: pages that already end on the CTA band hide this card.
+  promo?: boolean;
+}
+
+const { promo = true } = Astro.props;
+
 const currentYear = new Date().getFullYear();
+const [emailUser, emailDomain] = site.email.split('@');
 
 const explore = [
   { name: 'Sound Groups', href: '/sound-groups/' },
@@ -15,7 +23,7 @@ const explore = [
 ];
 ---
 
-<footer class="border-t border-tan bg-cream-deep text-muted">
+<footer class="site-footer border-t border-tan bg-cream-deep text-muted">
   <div class="container-x grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.1fr_0.8fr_1.4fr_1.1fr] lg:gap-10">
     <div>
       <a href="/" class="inline-block transition-transform duration-300 hover:-rotate-2" aria-label="Kolarik Speech Therapy, home">
@@ -28,11 +36,11 @@ const explore = [
 
     <div>
       <h2 class="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-ink">Explore</h2>
-      <ul class="mt-4 space-y-2.5 text-[0.95rem]">
+      <ul class="mt-3 text-[0.95rem]">
         {
           explore.map((link) => (
             <li>
-              <a href={link.href} class="transition-colors hover:text-sage-800">
+              <a href={link.href} class="inline-flex min-h-11 items-center transition-colors hover:text-sage-800">
                 {link.name}
               </a>
             </li>
@@ -43,41 +51,45 @@ const explore = [
 
     <div>
       <h2 class="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-ink">Say hello</h2>
-      <ul class="mt-4 space-y-3 text-[0.95rem]">
+      <ul class="mt-3 text-[0.95rem]">
         <li>
-          <a href="/contact/" class="phone-link inline-flex items-center gap-2 transition-colors hover:text-sage-800">
+          <a href="/contact/" class="phone-link inline-flex min-h-11 items-center gap-2 transition-colors hover:text-sage-800">
             <Icon name="phone" size={18} class="text-sage-600" />
             <span class="phone-text"></span>
           </a>
         </li>
         <li>
-          <a href={`mailto:${site.email}`} class="inline-flex items-center gap-2 break-words transition-colors hover:text-sage-800">
+          <a href={`mailto:${site.email}`} class="inline-flex min-h-11 items-center gap-2 transition-colors [overflow-wrap:anywhere] hover:text-sage-800">
             <Icon name="mail" size={18} class="flex-none text-sage-600" />
-            {site.email}
+            <span>{emailUser}<wbr />@{emailDomain}</span>
           </a>
         </li>
-        <li class="inline-flex items-center gap-2">
+        <li class="inline-flex min-h-11 items-center gap-2">
           <Icon name="pin" size={18} class="text-sage-600" />
           Serving the {site.area}
         </li>
       </ul>
     </div>
 
-    <div class="card p-6">
-      <p class="pill">New: Sound Groups</p>
-      <p class="mt-4 font-serif text-xl leading-snug text-ink">Hear first when groups open.</p>
-      <a href="/register/" class="btn btn-primary mt-5 w-full">
-        Join the list
-        <Icon name="arrow" class="arrow" size={18} />
-      </a>
-    </div>
+    {
+      promo && (
+        <div class="card self-start p-6">
+          <p class="kicker">{site.launch.badge}</p>
+          <p class="mt-3 font-serif text-xl leading-snug text-ink">Hear first when groups open.</p>
+          <a href="/register/" class="btn btn-primary mt-5 w-full">
+            Join the list
+            <Icon name="arrow" class="arrow" size={18} />
+          </a>
+        </div>
+      )
+    }
   </div>
 
-  <div class="border-t border-tan">
+  <div class="border-t border-tan bg-cream-deep">
     <div class="container-x flex flex-col items-center justify-between gap-3 py-6 text-sm sm:flex-row">
       <p>&copy; {currentYear} Kolarik Speech Therapy LLC</p>
       <p class="font-serif italic text-sage-700">Help your child find their voice.</p>
-      <a href="/privacy/" class="transition-colors hover:text-sage-800">Privacy policy</a>
+      <a href="/privacy/" class="inline-flex min-h-11 items-center transition-colors hover:text-sage-800">Privacy policy</a>
     </div>
   </div>
 </footer>

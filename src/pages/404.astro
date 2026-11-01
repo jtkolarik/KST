@@ -4,7 +4,7 @@ import Bird from '../components/Bird.astro';
 ---
 
 <Layout title="Page Not Found" description="This page flew the nest." noindex>
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x py-20 text-center lg:py-28">
       <div class="mx-auto w-28 load-in">
@@ -15,7 +15,7 @@ import Bird from '../components/Bird.astro';
       <p class="lead mx-auto mt-5 max-w-xl load-in" style="--d:2">
         The page you’re looking for has moved or doesn’t exist. Let’s get you somewhere helpful.
       </p>
-      <div class="mt-10 flex flex-wrap justify-center gap-3 load-in" style="--d:3">
+      <div class="btn-row mx-auto mt-10 load-in sm:justify-center" style="--d:3">
         <a href="/" class="btn btn-primary">Back to home</a>
         <a href="/sound-groups/" class="btn btn-secondary">About Sound Groups</a>
         <a href="/speech-sound-chart/" class="btn btn-secondary">Speech sound chart</a>

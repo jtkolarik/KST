@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import BranchDivider from '../components/BranchDivider.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
+import Keep from '../components/Keep.astro';
 import { site } from '../data/site';
 import mollyLake from '../assets/images/molly-lake-portrait.jpg';
 import laughPhoto from '../assets/images/gallery-5.jpg';
@@ -38,8 +39,9 @@ const person = {
   title="About Molly Kolarik, CCC-SLP"
   description="Meet Molly Kolarik, M.S., CCC-SLP: an experienced pediatric speech-language pathologist and Kansas City mom bringing play-based Sound Groups to local families."
   schema={[person]}
+  footerPromo={false}
 >
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x grid items-center gap-14 pb-20 pt-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:pb-28 lg:pt-14">
       <div>
@@ -49,22 +51,22 @@ const person = {
         </p>
         <h1 class="display mt-6 load-in" style="--d:1">Hi, I’m <span class="accent">Molly</span></h1>
         <p class="lead mt-6 max-w-xl load-in" style="--d:2">
-          I’m an experienced pediatric speech-language pathologist and a Kansas City mom. I specialize in speech sounds,
+          I’m an experienced pediatric <span class="whitespace-nowrap">speech-language</span> pathologist and a Kansas City mom. I specialize in speech sounds,
           helping kids speak clearly and confidently through play.
         </p>
-        <ul class="mt-10 grid gap-3 sm:grid-cols-3 load-in" style="--d:3">
+        <ul class="ledger ledger-rows mt-8 max-w-xl load-in" style="--d:3">
           {
             credentials.map((c) => (
-              <li class="card p-5">
-                <Icon name={c.icon} size={24} class="text-sage-600" />
-                <p class="mt-3 font-semibold leading-snug text-ink">{c.title}</p>
-                <p class="mt-1 text-sm text-muted">{c.text}</p>
+              <li>
+                <span class="icon-badge"><Icon name={c.icon} size={22} /></span>
+                <p class="font-semibold text-ink"><Keep text={c.title} /></p>
+                <p class="mt-1 text-muted"><Keep text={c.text} /></p>
               </li>
             ))
           }
         </ul>
       </div>
-      <div class="relative mx-auto w-full max-w-[24rem]">
+      <div class="relative mx-auto w-full max-w-[24rem] pl-2 pr-3 sm:px-0">
         <div class="arch-frame">
           <div class="arch arch-reveal aspect-[4/5]">
             <Image
@@ -77,10 +79,7 @@ const person = {
             />
           </div>
         </div>
-        <div class="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border-[1.5px] border-sage-200 bg-white px-4 py-3 shadow-[var(--shadow-soft)] load-in sm:-left-10" style="--d:5">
-          <Image src={ashaBadge} alt="" width={44} densities={[1, 2]} />
-          <span class="text-sm leading-tight text-ink"><strong class="block">ASHA certified</strong>Speech-language pathologist</span>
-        </div>
+        <span class="seal"><Image src={ashaBadge} alt="ASHA certified, CCC-SLP" width={80} densities={[1, 2]} /></span>
       </div>
     </div>
   </section>
@@ -89,7 +88,7 @@ const person = {
     <div class="container-x max-w-3xl">
       <p class="kicker reveal">My background</p>
       <h2 class="h2 mt-3 reveal" style="--i:1">Helping kids <span class="accent">be understood</span></h2>
-      <div class="mt-6 space-y-5 text-[1.0625rem] reveal" style="--i:2">
+      <div class="mt-6 max-w-[36rem] space-y-5 text-[1.0625rem] reveal" style="--i:2">
         <p>
           I earned my Master’s degree in Speech-Language Pathology from the University of Central Missouri and hold my
           Certificate of Clinical Competence (CCC-SLP) from the American Speech-Language-Hearing Association.
@@ -100,11 +99,8 @@ const person = {
           make practice feel like fun.
         </p>
       </div>
-      <div class="mt-12 rounded-3xl border-[1.5px] border-sage-300 bg-sage-50 p-7 reveal md:p-9" style="--i:3">
-        <h3 class="flex items-center gap-3 font-serif text-2xl">
-          <Icon name="sparkle" size={26} class="text-sage-600" />
-          A new service, the same experience
-        </h3>
+      <div class="margin-note max-w-[36rem] reveal" style="--i:3">
+        <h3><Icon name="sprig" size={22} class="mr-2 inline-block align-[-0.12em] text-sage-600" />A new service, the same experience</h3>
         <p class="mt-3">
           During the school year I work as a school-based speech-language pathologist, helping kids with speech sounds every
           week. Sound Groups are a new way to bring that experience to more families, in a format that’s affordable, playful,
@@ -117,17 +113,17 @@ const person = {
   <section class="section">
     <div class="container-x grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
       <div class="reveal">
-        <div class="overflow-hidden rounded-[2rem] shadow-[var(--shadow-soft)]">
+        <div class="overflow-hidden rounded-[2rem]">
           <Image
             src={laughPhoto}
             alt="Molly and a boy laughing together during a play-based activity"
             widths={[480, 760, 1100]} width={1100}
             sizes="(min-width: 1024px) 34rem, 92vw"
-            class="aspect-[4/3] w-full object-cover"
+            class="aspect-[4/3] w-full object-cover object-[0%_50%]"
           />
         </div>
       </div>
-      <div>
+      <div class="max-w-[36rem]">
         <p class="kicker reveal">Why Sound Groups</p>
         <h2 class="h2 mt-3 reveal" style="--i:1">Getting help <span class="accent">shouldn’t be hard</span></h2>
         <div class="mt-6 space-y-5 reveal" style="--i:2">
@@ -148,22 +144,21 @@ const person = {
     <div class="container-x">
       <BranchDivider class="mb-10" />
       <div class="mx-auto max-w-2xl text-center">
-        <p class="kicker reveal">My approach</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">How I work <span class="accent">with kids</span></h2>
+        <h2 class="h2 reveal">How I work with kids</h2>
       </div>
-      <div class="mt-14 grid gap-6 md:grid-cols-3">
+      <ul class="ledger mt-14">
         {
           approach.map((item, i) => (
-            <article class="card card-lift reveal p-8" style={`--i:${i}`}>
+            <li class="reveal" style={`--i:${i}`}>
               <span class="icon-badge">
                 <Icon name={item.icon} size={26} />
               </span>
-              <h3 class="mt-6 text-xl">{item.title}</h3>
-              <p class="mt-2">{item.text}</p>
-            </article>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </div>
   </section>
 

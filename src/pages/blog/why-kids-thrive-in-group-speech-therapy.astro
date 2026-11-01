@@ -2,14 +2,13 @@
 import { Image, getImage } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import BranchDivider from '../../components/BranchDivider.astro';
-import CtaBand from '../../components/CtaBand.astro';
 import Icon from '../../components/Icon.astro';
 import { site } from '../../data/site';
 import groupTherapy from '../../assets/images/blog-group-therapy.png';
 import mollyPortrait from '../../assets/images/headshot-portrait.png';
 
 const articleData = {
-  title: 'Why Kids Thrive in Group Speech Therapy',
+  title: 'Why kids thrive in group speech therapy',
   description:
     'Speech sessions your child will actually look forward to. Learn why small group settings help kids build confidence and make faster progress with speech sounds.',
   publishedDate: '2026-03-28',
@@ -58,13 +57,14 @@ const articleSchema = {
   type="article"
   publishedDate={articleData.publishedDate}
   schema={[articleSchema]}
+  footerPromo={false}
 >
   <div class="read-progress" aria-hidden="true"></div>
   <article>
-    <header class="relative isolate overflow-hidden">
+    <header class="relative isolate overflow-clip">
       <div class="hero-bg grain" aria-hidden="true"></div>
-      <div class="container-x max-w-3xl! pb-10 pt-10 lg:pt-14">
-        <a href="/blog/" class="text-link inline-flex items-center gap-1.5 text-sm load-in">
+      <div class="article pb-10 pt-10 lg:pt-14">
+        <a href="/blog/" class="text-link inline-flex items-center gap-1.5 justify-self-start text-sm load-in">
           <Icon name="arrow" size={16} class="rotate-180" />
           Back to The Nest
         </a>
@@ -72,20 +72,23 @@ const articleSchema = {
         <h1 class="mt-3 text-[clamp(2.3rem,1.6rem+3vw,3.6rem)] load-in" style="--d:1">{articleData.title}</h1>
         <p class="lead mt-4 font-serif italic text-sage-700 load-in" style="--d:2">Speech sessions your child will actually look forward to</p>
         <div class="mt-7 flex items-center gap-3 text-sm text-muted load-in" style="--d:3">
-          <Image src={mollyPortrait} alt="" width={44} height={44} densities={[1, 2]} class="h-11 w-11 rounded-full object-cover object-top" />
-          <span><strong class="text-ink">Molly Kolarik, CCC-SLP</strong> · <time datetime={articleData.publishedDate}>March 2026</time> · 7 min read</span>
+          <Image src={mollyPortrait} alt="" width={44} height={44} densities={[1, 2]} class="h-11 w-11 shrink-0 rounded-full object-cover object-top" />
+          <span class="flex flex-wrap items-baseline">
+            <strong class="whitespace-nowrap text-ink">Molly Kolarik, CCC-SLP</strong><span class="sep max-sm:sr-only"> <span aria-hidden="true">·</span> </span><span class="whitespace-nowrap max-sm:basis-full"><time datetime={articleData.publishedDate}>March 2026</time><span class="sep"> <span aria-hidden="true">·</span> </span>7 min read</span>
+          </span>
         </div>
       </div>
     </header>
 
-    <div class="container-x max-w-3xl!">
+    <div class="article pb-8 md:pb-12">
       <Image
         src={groupTherapy}
         alt="Illustration of three young children practicing speech sounds together"
         widths={[480, 760, 1100]} width={1100}
-        sizes="(min-width: 768px) 46rem, 92vw"
+        sizes="(min-width: 800px) 48rem, 94vw"
         loading="eager"
-        class="w-full rounded-[1.75rem] border-[1.5px] border-sage-200 shadow-[6px_6px_0_var(--color-sage-200)] load-in"
+        fetchpriority="high"
+        class="wide plate-art w-full load-in"
         style="--d:3"
       />
 
@@ -111,7 +114,7 @@ const articleSchema = {
 
       <BranchDivider class="my-14" />
 
-      <div class="prose-kst">
+      <div class="prose-kst [&>h2:first-child]:mt-0">
         <h2>What the research actually says</h2>
         <p>
           When most people picture speech therapy, they imagine a child sitting across from a therapist in a quiet room,
@@ -125,8 +128,8 @@ const articleSchema = {
         </p>
         <p>
           Think about it from your child’s perspective. When they’re the only one in the room working on a tricky sound, it
-          can feel isolating, like they’re the only kid in the world who can’t say their "s" right. But when they’re sitting
-          next to two other kids who are working on the same thing? Suddenly it’s normal. They see other children making the
+          can feel isolating, like they’re the only kid in the world who can’t say their “s” right. But when they’re sitting
+          next to other kids who are working on the same thing? Suddenly it’s normal. They see other children making the
           same mistakes, trying the same strategies, and making progress. That’s incredibly powerful for a child’s confidence.
         </p>
         <p>
@@ -139,20 +142,17 @@ const articleSchema = {
 
         <h2>Why peer learning works for speech sounds</h2>
         <p>There are a few specific reasons group therapy is especially well-suited for speech sound work:</p>
-      </div>
+        <ol class="reasons">
+          {
+            reasons.map((reason, i) => (
+              <li class="reveal" style={`--i:${i}`}>
+                <h3>{reason.title}</h3>
+                <p>{reason.text}</p>
+              </li>
+            ))
+          }
+        </ol>
 
-      <div class="mt-8 grid gap-4">
-        {
-          reasons.map((reason, i) => (
-            <div class="callout reveal rounded-3xl! p-6 md:p-7" style={`--i:${i}`}>
-              <p class="font-serif text-xl font-semibold text-ink">{reason.title}</p>
-              <p class="mt-2 text-[1.02rem] leading-relaxed">{reason.text}</p>
-            </div>
-          ))
-        }
-      </div>
-
-      <div class="prose-kst mt-4">
         <h2>What Sound Groups look like in practice</h2>
         <p>
           Sound Groups at Kolarik Speech Therapy are small group sessions (just a few kids, grouped by the speech sounds
@@ -166,8 +166,8 @@ const articleSchema = {
           that can be. I designed Sound Groups to be the opposite of that experience.
         </p>
         <p>
-          I think of it like swim lessons. You wouldn’t hesitate to sign your kid up for a group swimming class. Speech sounds
-          work the same way: kids learn alongside peers, they get expert instruction, and they build skills in a setting that
+          I think of it as part class, part playdate. You wouldn’t hesitate to sign your kid up for a group class to learn
+          something new, and speech sounds work the same way: kids learn alongside peers, they get expert instruction, and they build skills in a setting that
           feels like an activity, not a medical appointment.
         </p>
         <p>
@@ -197,14 +197,14 @@ const articleSchema = {
         </p>
       </div>
 
-      <div class="card reveal mt-12 p-7 md:p-9">
-        <p class="pill">{site.launch.status}</p>
-        <h2 class="mt-4 font-serif text-3xl">Getting started is simple</h2>
+      <div class="card card-featured reveal mt-12 p-7 md:p-9">
+        <p class="kicker">{site.launch.status}</p>
+        <h2 class="mt-3 font-serif text-3xl">Getting started is simple</h2>
         <p class="mt-3">
           No complicated intake. No insurance headaches. Sound Groups are coming to Kansas City; join the priority list to
           hear first and get first pick of group times.
         </p>
-        <div class="mt-6 flex flex-wrap gap-3">
+        <div class="btn-row mt-6">
           <a href="/register/" class="btn btn-primary">
             Join the priority list
             <Icon name="arrow" class="arrow" size={18} />
@@ -217,7 +217,7 @@ const articleSchema = {
       </div>
 
       <div class="mt-12 flex items-center gap-4 border-t-[1.5px] border-tan py-10">
-        <Image src={mollyPortrait} alt="" width={64} height={64} densities={[1, 2]} class="h-16 w-16 rounded-full object-cover object-top" />
+        <Image src={mollyPortrait} alt="" width={64} height={64} densities={[1, 2]} class="h-16 w-16 shrink-0 rounded-full object-cover object-top" />
         <div>
           <p class="font-semibold text-ink">Molly Kolarik, M.S., CCC-SLP</p>
           <p class="text-sm text-muted">
@@ -228,8 +228,4 @@ const articleSchema = {
       </div>
     </div>
   </article>
-
-  <div class="pt-8">
-    <CtaBand />
-  </div>
 </Layout>

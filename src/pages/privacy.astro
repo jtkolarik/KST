@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
 
 const link = 'text-link font-medium';
+const [emailUser, emailDomain] = site.email.split('@');
 ---
 
 <Layout title="Privacy Policy" description="Privacy policy for Kolarik Speech Therapy. Learn how we collect, use, and protect your information.">
@@ -10,7 +11,9 @@ const link = 'text-link font-medium';
     <div class="container-x max-w-3xl!">
       <p class="kicker">Legal</p>
       <h1 class="mt-3 text-[clamp(2.4rem,1.8rem+2.6vw,3.4rem)]">Privacy Policy</h1>
-      <p class="mt-3 text-muted">Effective date: March 28, 2026 · Last updated: October 31, 2026</p>
+      <p class="mt-3 flex flex-wrap items-baseline text-muted">
+        <span class="whitespace-nowrap max-sm:basis-full">Effective date: March 28, 2026</span><span class="sep max-sm:sr-only"> <span aria-hidden="true">·</span> </span><span class="whitespace-nowrap max-sm:basis-full">Last updated: October 31, 2026</span>
+      </p>
 
       <div class="mt-12 space-y-10 leading-relaxed [&_h2]:font-serif [&_h2]:text-2xl [&_h2]:mb-3 [&_ul]:list-disc [&_ul]:space-y-2 [&_ul]:pl-6">
         <div>
@@ -23,7 +26,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Information We Collect</h2>
+          <h2>Information we collect</h2>
           <p class="mb-3">
             <strong class="text-ink">Information you provide directly:</strong> When you fill out our contact form or join the Sound
             Groups priority list, you may provide your name, email address, phone number, your child’s first name and age, your ZIP code,
@@ -39,7 +42,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>How We Use Your Information</h2>
+          <h2>How we use your information</h2>
           <ul>
             <li>To respond to your inquiries and schedule consultations</li>
             <li>To plan Sound Groups, including choosing a location, schedule, and group sizes that work for families</li>
@@ -52,7 +55,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Third-Party Services</h2>
+          <h2>Third-party services</h2>
           <p class="mb-3">We use the following third-party services that may collect information about your visit:</p>
           <ul>
             <li>
@@ -79,7 +82,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Children’s Privacy</h2>
+          <h2>Children’s privacy</h2>
           <p>
             Our website is directed at parents and caregivers, not children. We do not knowingly collect personal information
             from children under the age of 13. If you believe your child has submitted personal information through our website,
@@ -88,17 +91,17 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Data Retention</h2>
+          <h2>Data retention</h2>
           <p>
             We retain personal information collected through our forms only as long as needed to respond to your inquiry, plan
             and run Sound Groups, or follow up regarding our services. Website forms collect only basic contact and inquiry
             information. Detailed intake is handled separately. You may request deletion of your information at any time by
-            contacting us at <a href={`mailto:${site.email}`} class={link}>{site.email}</a>.
+            contacting us at <a href={`mailto:${site.email}`} class={`${link} [overflow-wrap:anywhere]`}>{emailUser}<wbr />@{emailDomain}</a>.
           </p>
         </div>
 
         <div>
-          <h2>Sharing and Selling of Information</h2>
+          <h2>Sharing and selling of information</h2>
           <p>
             We do not sell, rent, or trade your personal information to third parties. Information is only shared with the
             third-party services listed above (Google Analytics on selected pages, and Netlify for form processing) as necessary to
@@ -107,7 +110,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Data Security</h2>
+          <h2>Data security</h2>
           <p>
             We take reasonable measures to protect the information you share with us. However, no method of transmission over
             the internet is completely secure, and we cannot guarantee absolute security.
@@ -115,7 +118,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Your Choices</h2>
+          <h2>Your choices</h2>
           <ul>
             <li>
               You can opt out of Google Analytics by installing the
@@ -127,7 +130,7 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Changes to This Policy</h2>
+          <h2>Changes to this policy</h2>
           <p>
             We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated date.
             We encourage you to review this policy periodically.
@@ -135,10 +138,10 @@ const link = 'text-link font-medium';
         </div>
 
         <div>
-          <h2>Contact Us</h2>
+          <h2>Contact us</h2>
           <p>
             If you have questions about this Privacy Policy or how we handle your information, please contact us at
-            <a href={`mailto:${site.email}`} class={link}>{site.email}</a>.
+            <a href={`mailto:${site.email}`} class={`${link} [overflow-wrap:anywhere]`}>{emailUser}<wbr />@{emailDomain}</a>.
           </p>
         </div>
       </div>

@@ -104,8 +104,8 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
   </ul>
 
   <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted" aria-hidden="true">
-    <span><span class="legend-dot border-[1.5px] border-sage-400 bg-sage-100"></span> Most kids say this by now</span>
-    <span><span class="legend-dot border-[1.5px] border-dashed border-[#d9cdb8] bg-white"></span> Still developing, and that’s okay</span>
+    <span class="inline-flex items-center gap-2"><span class="legend-dot border-[1.5px] border-sage-400 bg-sage-100"></span>Most kids say this by now</span>
+    <span class="inline-flex items-center gap-2"><span class="legend-dot border-[1.5px] border-dashed border-[#d9cdb8] bg-white"></span>Still developing, and that’s okay</span>
   </div>
 
   <div class="mt-6 rounded-2xl bg-cream px-5 py-4">
@@ -114,7 +114,7 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
 </div>
 
 <script>
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   document.querySelectorAll<HTMLElement>('[data-checker]').forEach((root) => {
     const inputs = [...root.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
@@ -138,7 +138,7 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
     const countTo = (target: number) => {
       cancelAnimationFrame(frame);
       if (!countEl) return;
-      if (reduceMotion) {
+      if (reducedMotion.matches) {
         countEl.textContent = String(target);
         shown = target;
         return;
@@ -163,7 +163,7 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
       const fillingUp = changed.length > 0 && changed[0].dataset.state === 'growing';
       // Fill forward when the age goes up; empty backward when it goes down.
       (fillingUp ? changed : [...changed].reverse()).forEach((tile, order) => {
-        tile.style.setProperty('--delay', reduceMotion ? '0ms' : `${order * 45}ms`);
+        tile.style.setProperty('--delay', reducedMotion.matches ? '0ms' : `${order * 45}ms`);
         tile.dataset.state = fillingUp ? 'ready' : 'growing';
         tile.classList.remove('is-flip');
         void tile.offsetWidth;

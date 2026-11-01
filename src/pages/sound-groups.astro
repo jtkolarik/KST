@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
 import Icon from '../components/Icon.astro';
+import Keep from '../components/Keep.astro';
 import { faqs, site } from '../data/site';
 import walkPhoto from '../assets/images/gallery-6.jpg';
 import mollyLake from '../assets/images/molly-lake-portrait.jpg';
@@ -13,7 +14,7 @@ const { groups, oneOnOne } = site;
 
 const glance = [
   { value: `$${groups.price}`, label: 'per session' },
-  { value: `${groups.minutes} min`, label: 'playful sessions' },
+  { value: `${groups.minutes}`, label: 'minutes' },
   { value: 'Small', label: 'groups' },
   { value: `${groups.minAge}+`, label: 'years old' },
 ];
@@ -44,7 +45,7 @@ const whyGroups = [
   { icon: 'friends', title: 'Kids learn from each other', text: 'Hearing a peer try a sound helps children notice the difference in their own speech.' },
   { icon: 'chat', title: "It’s closer to real life", text: 'Practicing sounds while actually talking with other kids builds the bridge to everyday conversation.' },
   { icon: 'heart', title: 'Confidence grows in company', text: "Knowing they’re not the only one working on a sound is a big relief for a lot of kids." },
-  { icon: 'sparkle', title: 'Motivation is contagious', text: "When one child has a breakthrough, the others notice. Kids cheer each other on." },
+  { icon: 'sprig', title: 'Motivation is contagious', text: "When one child has a breakthrough, the others notice. Kids cheer each other on." },
 ] as const;
 
 const details = [
@@ -69,45 +70,46 @@ const service = {
   title="Speech Sound Groups"
   description={`Small, play-based speech sound groups for kids in Kansas City: $${groups.price} per ${groups.minutes}-minute session, led by ${site.owner}, CCC-SLP. Join the priority list to hear first when groups open.`}
   schema={[service]}
+  footerPromo={false}
 >
   <!-- Hero -->
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x pb-14 pt-10 text-center lg:pt-16">
       <p class="eyebrow load-in">
-        <span class="live-dot" aria-hidden="true"></span>
-        {site.launch.status} · Priority list open
+        {site.launch.status}<span class="sep"> <span aria-hidden="true">·</span> </span>Priority list open
       </p>
       <h1 class="display mx-auto mt-6 max-w-4xl load-in" style="--d:1">
         Speech sessions your child will <span class="accent">look forward to</span>
       </h1>
       <p class="lead mx-auto mt-6 max-w-2xl load-in" style="--d:2">
-        Sound Groups are small, play-based sessions where kids practice speech sounds together. Pick a time, show up, and
-        I’ll handle the rest.
+        Sound Groups are small, <span class="whitespace-nowrap">play-based</span> sessions where kids practice speech
+        sounds together. Pick a time, show up, and I’ll handle the rest.
       </p>
-      <div class="mt-9 flex flex-wrap justify-center gap-3 load-in" style="--d:3">
+      <div class="btn-row mx-auto mt-9 sm:justify-center load-in" style="--d:3">
         <a href="/register/" class="btn btn-primary btn-lg">
           Join the priority list
           <Icon name="arrow" class="arrow" size={20} />
         </a>
         <a href="#fit" class="btn btn-secondary btn-lg">Is it right for my child?</a>
       </div>
-      <dl class="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4 load-in" style="--d:4">
+      <!-- Four facts don’t fit one row on a phone, so below sm the plate sets as two rows of two. -->
+      <div
+        class="plate mx-auto mt-12 max-w-3xl load-in max-sm:grid max-sm:grid-cols-2 max-sm:gap-y-6 max-sm:[&>div:nth-child(odd)]:border-l-0"
+        style="--d:4"
+      >
         {
           glance.map((item) => (
-            <div class="card px-4 py-5">
-              <dt class="sr-only">{item.label}</dt>
-              <dd>
-                <span class="block font-serif text-3xl font-semibold text-ink">{item.value}</span>
-                <span class="text-sm text-muted">{item.label}</span>
-              </dd>
+            <div>
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
             </div>
           ))
         }
-      </dl>
+      </div>
     </div>
     <div class="container-x pb-6">
-      <div class="relative overflow-hidden rounded-[2.25rem] shadow-[var(--shadow-soft)] load-in" style="--d:5">
+      <div class="relative overflow-hidden rounded-[2.25rem] load-in" style="--d:5">
         <Picture
           src={walkPhoto}
           formats={['avif', 'webp']}
@@ -128,17 +130,17 @@ const service = {
     <div class="container-x">
       <div class="mx-auto max-w-2xl text-center">
         <p class="kicker reveal">How it works</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Simple from <span class="accent">start to finish</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Simple from start to finish</h2>
       </div>
       <ol class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         {
           steps.map((step, i) => (
-            <li class="card card-lift reveal relative p-7" style={`--i:${i}`}>
-              <span class="grid h-12 w-12 place-items-center rounded-full bg-sage-700 font-serif text-xl font-semibold text-white">
+            <li class="card reveal grid grid-cols-[2.75rem_1fr] gap-x-4 p-5 sm:block sm:p-7" style={`--i:${i}`}>
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-sage-700 font-serif text-lg font-semibold text-white sm:h-12 sm:w-12 sm:text-xl">
                 {i + 1}
               </span>
-              <h3 class="mt-5 text-xl">{step.title}</h3>
-              <p class="mt-2">{step.text}</p>
+              <h3 class="mt-0 self-center text-xl sm:mt-5">{step.title}</h3>
+              <p class="col-start-2 mt-1 sm:mt-2"><Keep text={step.text} /></p>
             </li>
           ))
         }
@@ -151,7 +153,7 @@ const service = {
     <div class="container-x">
       <div class="mx-auto max-w-2xl text-center">
         <p class="kicker reveal">Is it a fit?</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Made for kids working on <span class="accent">speech sounds</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Made for kids working on speech sounds</h2>
         <p class="lead mt-5 reveal" style="--i:2">You know your child best. Here’s a quick way to think about it.</p>
       </div>
       <div class="mt-14 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
@@ -160,7 +162,7 @@ const service = {
           <ul class="mt-6 space-y-4">
             {
               goodFit.map((item) => (
-                <li class="flex items-start gap-3.5 text-ink">
+                <li class="flex items-start gap-4 text-ink">
                   <span class="check-dot mt-0.5">
                     <Icon name="check" size={15} strokeWidth={2.6} />
                   </span>
@@ -211,52 +213,52 @@ const service = {
     <div class="container-x grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
       <div>
         <p class="kicker reveal">Why groups?</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Kids thrive <span class="accent">alongside peers</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Kids thrive alongside peers</h2>
         <p class="lead mt-5 reveal" style="--i:2">
-          One-on-one therapy has its place. But for speech sounds, practicing with a few other kids adds something a quiet
-          therapy room can’t.
+          <span class="whitespace-nowrap">One-on-one</span> therapy has its place. But for speech sounds, practicing with a
+          few other kids adds something a quiet therapy room can’t.
         </p>
         <p class="mt-6 reveal" style="--i:3">
-          <a href="/blog/why-kids-thrive-in-group-speech-therapy/" class="text-link">Read why kids thrive in groups <span class="arrow">→</span></a>
+          <a href="/blog/why-kids-thrive-in-group-speech-therapy/" class="text-link">Read why kids thrive in groups <Icon name="arrow" size={16} class="arrow" /></a>
         </p>
       </div>
-      <div class="grid gap-5 sm:grid-cols-2">
+      <ul class="ledger" style="--cols:2">
         {
           whyGroups.map((item, i) => (
-            <article class="card card-lift reveal p-7" style={`--i:${i}`}>
+            <li class="reveal" style={`--i:${i}`}>
               <span class="icon-badge">
                 <Icon name={item.icon} size={24} />
               </span>
-              <h3 class="mt-5 text-lg">{item.title}</h3>
-              <p class="mt-1.5 text-[0.98rem]">{item.text}</p>
-            </article>
+              <h3>{item.title}</h3>
+              <p class="text-[0.98rem]">{item.text}</p>
+            </li>
           ))
         }
-      </div>
+      </ul>
     </div>
   </section>
 
   <!-- The details so far -->
   <section class="pb-20 md:pb-28">
     <div class="container-x">
-      <div class="card reveal relative overflow-hidden p-8 md:p-12">
-        <p class="pill">{site.launch.status}</p>
-        <h2 class="h2 mt-5 max-w-xl">What I can tell you <span class="accent">so far</span></h2>
-        <dl class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-2">
+      <div class="card card-featured reveal relative overflow-hidden p-8 md:p-12">
+        <p class="kicker">{site.launch.status}</p>
+        <h2 class="h2 mt-3 max-w-xl">What I can tell you so far</h2>
+        <ul class="mt-10 grid gap-x-10 gap-y-8 md:grid-cols-2">
           {
             details.map((item) => (
-              <div class="flex gap-4">
+              <li class="flex gap-4">
                 <span class="icon-badge">
                   <Icon name={item.icon} size={24} />
                 </span>
                 <div>
-                  <dt class="font-semibold text-ink">{item.label}</dt>
-                  <dd class="mt-1">{item.value}</dd>
+                  <p class="font-semibold text-ink">{item.label}</p>
+                  <p class="mt-1"><Keep text={item.value} /></p>
                 </div>
-              </div>
+              </li>
             ))
           }
-        </dl>
+        </ul>
       </div>
     </div>
   </section>
@@ -265,8 +267,7 @@ const service = {
   <section class="section bg-white/70">
     <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
       <div>
-        <p class="kicker reveal">Questions</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Common <span class="accent">questions</span></h2>
+        <h2 class="h2 reveal">Common questions</h2>
       </div>
       <Faq items={[faqs.ages, faqs.diagnosis, faqs.session, faqs.leader, faqs.moreSupport, faqs.insurance, faqs.start, faqs.where]} />
     </div>
@@ -275,7 +276,7 @@ const service = {
   <!-- Meet Molly -->
   <section class="section">
     <div class="container-x grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-      <div class="mx-auto w-full max-w-[20rem] reveal">
+      <div class="mx-auto w-full max-w-[20rem] pl-1 pr-3 reveal sm:px-0">
         <div class="arch-frame">
           <div class="arch aspect-[4/5]">
             <Image src={mollyLake} alt="Molly Kolarik, CCC-SLP" widths={[320, 480, 640]} width={640} sizes="(min-width: 1024px) 20rem, 80vw" />
@@ -284,18 +285,18 @@ const service = {
       </div>
       <div>
         <p class="kicker reveal">Your child’s SLP</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Meet Molly Kolarik, <span class="accent">CCC-SLP</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Meet Molly Kolarik, CCC-SLP</h2>
         <p class="mt-6 reveal" style="--i:2">
-          I’m an experienced pediatric speech-language pathologist with a Master’s degree from the University of Central
-          Missouri. I specialize in helping children master speech sounds, and Sound Groups are a new way I’m bringing that
-          work to more Kansas City families.
+          I’m an experienced pediatric <span class="whitespace-nowrap">speech-language</span> pathologist with a Master’s
+          degree from the University of Central Missouri. I specialize in helping children master speech sounds, and Sound
+          Groups are a new way I’m bringing that work to more Kansas City families.
         </p>
         <div class="mt-6 flex items-center gap-4 reveal" style="--i:3">
           <Image src={ashaBadge} alt="" width={56} densities={[1, 2]} />
           <p class="text-sm text-muted">Certified by the American Speech-Language-Hearing Association</p>
         </div>
         <p class="mt-8 reveal" style="--i:4">
-          <a href="/about/" class="text-link">More about me <span class="arrow">→</span></a>
+          <a href="/about/" class="text-link">More about me <Icon name="arrow" size={16} class="arrow" /></a>
         </p>
       </div>
     </div>

@@ -57,16 +57,20 @@ const article = {
   title="Speech Sound Chart by Age"
   description="When do kids learn r, s, l, and th? Tap your child’s age to see which speech sounds most children can say by then, with example words and tips from a Kansas City SLP."
   schema={[article]}
+  footerPromo={false}
 >
-  <section class="relative isolate overflow-hidden">
+  <section class="relative isolate overflow-clip">
     <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="container-x grid gap-12 pb-16 pt-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-16 lg:pb-24 lg:pt-16">
       <div class="lg:sticky lg:top-32">
         <p class="eyebrow load-in">
-          <Icon name="sparkle" size={16} class="text-sage-600" />
+          <Icon name="sprig" size={16} class="text-sage-600" />
           Free parent tool
         </p>
-        <h1 class="display mt-6 load-in" style="--d:1">Speech sound chart <span class="accent">by age</span></h1>
+        <!-- In the narrow lg column the default display size breaks “Speech sound” apart; this keeps it to two lines. -->
+        <h1 class="display mt-6 load-in lg:text-[clamp(3.4rem,0.3rem+5vw,4.1rem)]" style="--d:1">
+          Speech sound chart <span class="accent">by age</span>
+        </h1>
         <p class="lead mt-6 load-in" style="--d:2">
           When do kids learn each sound? Tap your child’s age to see which sounds most children can say by then.
         </p>
@@ -78,7 +82,7 @@ const article = {
           <Bird bubble perch class="w-36!" />
         </div>
       </div>
-      <div class="card p-5 load-in sm:p-8" style="--d:2">
+      <div class="card card-featured p-5 load-in sm:p-8" style="--d:2">
         <SoundChecker id="chart-checker" startAge={5} />
       </div>
     </div>
@@ -89,7 +93,7 @@ const article = {
     <div class="container-x">
       <div class="max-w-2xl">
         <p class="kicker reveal">At a glance</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Which sounds kids learn <span class="accent">at each age</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Which sounds kids learn at each age</h2>
         <p class="lead mt-5 reveal" style="--i:2">
           The age shown is when most children (about 9 in 10) say the sound correctly. Plenty of kids get there sooner.
         </p>
@@ -98,7 +102,7 @@ const article = {
         <table class="w-full text-left">
           <thead class="bg-sage-100 text-sm uppercase tracking-[0.12em] text-sage-800">
             <tr>
-              <th scope="col" class="px-5 py-4 font-semibold sm:px-8">By age</th>
+              <th scope="col" class="w-px whitespace-nowrap px-5 py-4 font-semibold sm:px-8">By age</th>
               <th scope="col" class="px-5 py-4 font-semibold sm:px-8">Sounds (example words)</th>
             </tr>
           </thead>
@@ -106,7 +110,7 @@ const article = {
             {
               soundBands.map((band) => (
                 <tr>
-                  <th scope="row" class="whitespace-nowrap px-5 py-5 align-top font-serif text-2xl font-semibold text-ink sm:px-8">
+                  <th scope="row" class="whitespace-nowrap px-5 py-5 align-top font-serif text-2xl font-semibold tabular-nums text-ink sm:px-8">
                     {band.age}
                   </th>
                   <td class="px-5 py-5 sm:px-8">
@@ -153,11 +157,13 @@ const article = {
       <article class="card reveal p-8 md:p-10" style="--i:1">
         <span class="icon-badge"><Icon name="chat" size={24} /></span>
         <h2 class="mt-6 font-serif text-3xl">When to talk to an SLP</h2>
-        <p class="mt-3">It may be worth a conversation with a speech-language pathologist if:</p>
+        <p class="mt-3">
+          It may be worth a conversation with a <span class="whitespace-nowrap">speech-language</span> pathologist if:
+        </p>
         <ul class="mt-6 space-y-3.5">
           {
             signs.map((sign) => (
-              <li class="flex items-start gap-3.5 text-ink">
+              <li class="flex items-start gap-4 text-ink">
                 <span class="check-dot mt-0.5">
                   <Icon name="check" size={15} strokeWidth={2.6} />
                 </span>
@@ -174,8 +180,7 @@ const article = {
   <section class="section bg-white/70">
     <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
       <div>
-        <p class="kicker reveal">Parent questions</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Sounds parents <span class="accent">ask about most</span></h2>
+        <h2 class="h2 reveal">Sounds parents ask about most</h2>
       </div>
       <Faq items={chartFaqs} />
     </div>

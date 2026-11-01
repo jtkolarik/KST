@@ -19,6 +19,8 @@ interface Props {
   canonicalUrl?: string;
   schema?: Record<string, any>[];
   noindex?: boolean;
+  // Set false on pages that already end with the CTA band (one invitation per page).
+  footerPromo?: boolean;
 }
 
 const {
@@ -30,6 +32,7 @@ const {
   canonicalUrl: canonicalUrlProp,
   schema,
   noindex = false,
+  footerPromo = true,
 } = Astro.props;
 
 // Analytics stays off the pages where families share contact details.
@@ -164,16 +167,25 @@ const businessSchema = {
     <main id="main-content" class="flex-grow">
       <slot />
     </main>
-    <Footer />
+    <Footer promo={footerPromo} />
 
     <script>
-      // Reveal sections as they scroll into view.
+      // Reveal sections as they scroll into view. Once an element has arrived it
+      // drops the reveal class, so its own hover and press transitions take over.
       const revealObserver = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
             if (!entry.isIntersecting) continue;
-            entry.target.classList.add('is-in');
-            revealObserver.unobserve(entry.target);
+            const el = entry.target as HTMLElement;
+            el.classList.add('is-in');
+            revealObserver.unobserve(el);
+            if (!el.classList.contains('reveal')) continue;
+            const arrived = (event: TransitionEvent) => {
+              if (event.target !== el || event.propertyName !== 'opacity') return;
+              el.removeEventListener('transitionend', arrived);
+              el.classList.remove('reveal');
+            };
+            el.addEventListener('transitionend', arrived);
           }
         },
         { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },

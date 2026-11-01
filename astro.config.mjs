@@ -19,6 +19,11 @@ export default defineConfig({
     inlineStylesheets: 'always'
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      // The CSS is inlined into every page, so the paper textures stay separate files
+      // that load once and stay cached instead of riding along in every page.
+      assetsInlineLimit: (file) => (file.includes('/textures/') ? false : undefined)
+    }
   }
 });

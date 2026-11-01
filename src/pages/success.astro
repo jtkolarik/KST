@@ -4,12 +4,12 @@ import Bird from '../components/Bird.astro';
 import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 
-// A gentle shower of leaves instead of confetti.
-const leaves = Array.from({ length: 14 }, (_, i) => ({
-  x: `${(i * 7.3 + 3) % 100}%`,
+// A gentle shower of leaves instead of confetti: one shower, over within five seconds.
+const leaves = Array.from({ length: 12 }, (_, i) => ({
+  x: `${(i * 8.3 + 3) % 100}%`,
   size: `${1 + ((i * 37) % 9) / 10}rem`,
-  time: `${7 + ((i * 13) % 6)}s`,
-  delay: `${-((i * 1.7) % 8)}s`,
+  time: `${(3 + ((i * 13) % 6) * 0.2).toFixed(1)}s`,
+  delay: `${(0.3 + ((i * 1.7) % 8) / 11).toFixed(2)}s`,
   color: i % 3 === 0 ? 'var(--color-sage-300)' : i % 3 === 1 ? 'var(--color-sage-400)' : 'var(--color-sage-200)',
 }));
 
@@ -20,19 +20,20 @@ const next = [
 ] as const;
 ---
 
-<Layout title="You’re on the List" description="Thanks for joining the Sound Groups priority list." noindex>
-  <section class="relative isolate overflow-hidden">
-    <div class="hero-bg" aria-hidden="true"></div>
+<Layout title="You’re on the List" description="Thanks for joining the Sound Groups priority list." noindex footerPromo={false}>
+  <section class="relative isolate overflow-clip">
+    <div class="hero-bg grain" aria-hidden="true"></div>
     <div class="pointer-events-none absolute inset-0 -z-1 overflow-hidden" aria-hidden="true">
       {
         leaves.map((leaf) => (
           <svg
             class="leaf-fall"
-            viewBox="0 0 24 24"
+            viewBox="-1 -7 21 14"
             style={`--x:${leaf.x};--s:${leaf.size};--t:${leaf.time};--delay:${leaf.delay};--c:${leaf.color}`}
           >
-            <path d="M4 20C4 11 9 5 20 4c-1 10-7 16-16 16z" fill="currentColor" />
-            <path d="M4 20l8-8" stroke="#fff" stroke-opacity=".6" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M0 0C4.5-6.2 13.5-6.8 19.5-.4 13.8 6 4.8 6.4 0 0z" fill="currentColor" />
+            <path d="M0 0C5-5.6 13.6-6.2 19.5-.4 13-1.6 6-1.2 0 0z" fill="#fff" fill-opacity=".22" />
+            <path d="M1.5 0C7-.9 12-.9 17.5-.4" stroke="#fff" stroke-opacity=".6" stroke-width=".7" stroke-linecap="round" />
           </svg>
         ))
       }
@@ -47,14 +48,14 @@ const next = [
         Thank you for joining the priority list. I can’t wait to meet your child. Here’s what happens next.
       </p>
 
-      <ol class="mx-auto mt-12 grid max-w-4xl gap-5 text-left md:grid-cols-3">
+      <ol class="ledger mx-auto mt-12 max-w-4xl text-left" style="--cols:3">
         {
           next.map((step, i) => (
-            <li class="card p-6 load-in" style={`--d:${i + 3}`}>
+            <li class="load-in" style={`--d:${i + 3}`}>
               <span class="icon-badge">
-                <Icon name={step.icon} size={24} />
+                <Icon name={step.icon} size={24} strokeWidth={1.6} />
               </span>
-              <h2 class="mt-4 font-sans text-lg font-semibold">{step.title}</h2>
+              <h2>{step.title}</h2>
               <p class="mt-1.5 text-[0.98rem]">{step.text}</p>
             </li>
           ))
@@ -70,7 +71,7 @@ const next = [
         </button>
       </div>
 
-      <div class="mt-10 flex flex-wrap justify-center gap-3 load-in" style="--d:7">
+      <div class="btn-row mx-auto mt-10 load-in sm:justify-center" style="--d:7">
         <a href="/speech-sound-chart/" class="btn btn-secondary">Try the speech sound chart</a>
         <a href="/" class="btn btn-secondary">Back to home</a>
       </div>

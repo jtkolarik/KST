@@ -1,6 +1,8 @@
 ---
-// The sage bird from the logo, redrawn in SVG so it can blink, bob, hop
-// when tapped, and "say" practice words (target sound highlighted).
+// The sage bird from the logo, painted in gouache: flat layered pigment, a soft
+// pencil line, and one shared paint filter for the grain and pooled edges.
+// It settles onto its perch on arrival, blinks when it speaks, hops when tapped,
+// and "says" practice words (target sound highlighted), then rests.
 // Words are split [before, sound, after], like the sound chart’s examples.
 type Word = [string, string, string];
 
@@ -33,9 +35,9 @@ const exclaim = ([before, sound, after]: Word): Word => {
 };
 const [before, sound, after] = exclaim(words[0]);
 
-// Gradient ids must be unique when several birds share a page.
-const uid = Math.random().toString(36).slice(2, 8);
-const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-tail-${uid}` };
+// Filter ids must be unique when several birds share a page.
+const paint = `bird-paint-${Math.random().toString(36).slice(2, 8)}`;
+const paintUrl = `url(#${paint})`;
 ---
 
 <div class:list={['bird-wrap', className]} data-bird data-words={JSON.stringify(words)} aria-hidden="true">
@@ -48,68 +50,83 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
   }
   <svg class="bird" viewBox="0 0 128 120" fill="none">
     <defs>
-      <linearGradient id={ids.body} x1="0.3" y1="0" x2="0.6" y2="1">
-        <stop offset="0" stop-color="#e6f2f1" />
-        <stop offset="0.55" stop-color="#d8eadf" />
-        <stop offset="1" stop-color="#c6dfc9" />
-      </linearGradient>
-      <linearGradient id={ids.wing} x1="0.8" y1="0" x2="0.1" y2="1">
-        <stop offset="0" stop-color="#d4e9e6" />
-        <stop offset="1" stop-color="#b3d4c2" />
-      </linearGradient>
-      <linearGradient id={ids.tail} x1="1" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#c9e0d6" />
-        <stop offset="1" stop-color="#aecfbf" />
-      </linearGradient>
+      <filter id={paint} x="-.08" y="-.18" width="1.16" height="1.36" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency=".08 .13" numOctaves="3" seed="5" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="1.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+        <feColorMatrix in="n" values="0 0 .18 0 .87 0 0 .14 0 .9 0 0 .18 0 .87 0 0 0 0 1" result="mo"/>
+        <feComposite in="d" in2="mo" operator="arithmetic" k1="1" result="t"/>
+        <feGaussianBlur in="d" stdDeviation="1.4" result="b"/>
+        <feComposite in="d" in2="b" operator="out"/>
+        <feColorMatrix values=".72 0 0 0 0 0 .76 0 0 0 0 0 .74 0 0 0 0 0 .85 0" result="pool"/>
+        <feTurbulence type="fractalNoise" baseFrequency="1.5" seed="9" result="g"/>
+        <feColorMatrix in="g" values="0 0 0 0 .3 0 0 0 0 .27 0 0 0 0 .22 0 0 0 .8 -.48" result="dk"/>
+        <feColorMatrix in="g" values="0 0 0 0 .98 0 0 0 0 .96 0 0 0 0 .91 0 0 0 -1.5 .62" result="lt"/>
+        <feMerge><feMergeNode in="t"/><feMergeNode in="pool"/><feMergeNode in="dk"/><feMergeNode in="lt"/></feMerge>
+        <feComposite in2="d" operator="in"/>
+      </filter>
     </defs>
 
     {
       perch && (
-        <g>
-          <path d="M-6 114C30 110 84 113 134 106" stroke="#9a7357" stroke-width="3.4" stroke-linecap="round" />
-          <path d="M100 109c6-1 10 1 13 5" stroke="#9a7357" stroke-width="2.1" stroke-linecap="round" />
-          <path d="M10 112c-1-7-6-11-12-12 0 7 5 12 12 12z" fill="#a8c47a" stroke="#6f8f45" stroke-width="1.1" />
-          <path d="M116 106c4-6 10-8 15-7-2 6-8 9-15 7z" fill="#a8c47a" stroke="#6f8f45" stroke-width="1.1" />
+        <g class="bird-perch" filter={paintUrl}>
+          <path d="M-6 112.4C30 108.6 84 111 134 105l.4 2.4C84 114 30 115.6-6 116.4z" fill="#9a7b5f"/>
+          <path d="M2 112C34 110.4 80 110.6 104 108.8M110 108.1c8-.6 14-1.3 20-2.2" stroke="#b89c7e" stroke-width=".8" stroke-linecap="round" opacity=".8"/>
+          <path d="M0 115.5C30 114.7 80 112.7 106 109.8" stroke="#76593f" stroke-width=".7" stroke-linecap="round" opacity=".6"/>
+          <path d="M20 113.4c10-.9 18-1.3 26-1.5M60 112.2c8-.4 16-.9 24-1.8" stroke="#86684e" stroke-width=".9" stroke-linecap="round" opacity=".7"/>
+          <path d="M100 109.6c6-1 10 1 13 5" stroke="#8c6d52" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 112c-1-7-6-11-12-12 0 7 5 12 12 12z" fill="#a3b98a"/>
+          <path d="M10 112c-3-6-7-9-12-12 1 6 5 11 12 12z" fill="#7d9a68"/>
+          <path d="M116 106c4-6 10-8 15-7-2 6-8 9-15 7z" fill="#a3b98a"/>
+          <path d="M116 106c5-3 10-5 15-7-2 6-8 9-15 7z" fill="#7d9a68"/>
+          <path d="M10 112C6 107 3 104-1 101M116 106c4-3 9-5 14-6.4" stroke="#4f5f3c" stroke-width=".7" stroke-linecap="round" opacity=".7"/>
         </g>
       )
     }
 
     <g class="bird-bob">
-      <!-- tail feathers -->
-      <path d="M48 84C34 86 18 89 2 92c14 4 30 5 48 1z" fill={`url(#${ids.tail})`} stroke="#2f5044" stroke-width="2.1" stroke-linejoin="round" />
-      <path d="M50 92C38 97 24 102 8 107c16 2 32-1 46-8z" fill={`url(#${ids.tail})`} stroke="#2f5044" stroke-width="2.1" stroke-linejoin="round" />
-
-      <!-- body -->
-      <path
-        d="M30 86C40 74 48 54 56 36 63 19 74 8 88 8c14 0 24 11 24 25 0 11 1 23-1 33-3 20-19 36-39 37-16 1-30-6-42-17z"
-        fill={`url(#${ids.body})`}
-        stroke="#2f5044"
-        stroke-width="2.3"
-        stroke-linejoin="round"
-      />
-      <ellipse cx="78" cy="18" rx="9" ry="4" transform="rotate(-30 78 18)" fill="#fff" opacity="0.55" />
-
-      <!-- wing -->
-      <path
-        d="M60 50c10-10 28-10 36 2 6 10 4 26-8 36-14 11-40 13-72 8 14-8 26-20 34-32 3-5 6-10 10-14z"
-        fill={`url(#${ids.wing})`}
-        stroke="#2f5044"
-        stroke-width="2.1"
-        stroke-linejoin="round"
-      />
-      <path d="M28 94c20-1 42-6 58-17M40 87c16-2 34-8 48-20M52 79c14-3 28-10 38-22" stroke="#3d6857" stroke-width="1.35" stroke-linecap="round" />
-
-      <!-- face -->
-      <ellipse cx="91.5" cy="34.5" rx="5.2" ry="3.2" fill="#f2b3ad" opacity="0.7" />
-      <g class="bird-eye">
-        <circle cx="97" cy="24" r="3.8" fill="#1f2b26" />
-        <circle cx="98.4" cy="22.6" r="1.3" fill="#fff" />
+      <g filter={paintUrl}>
+        <!-- feet, tail, body washes, blush, beak and pencil line -->
+        <path d="M66 101l-1.2 9M80 100.5l-.8 9M60.5 111.2c2-2.2 6-2.4 8 0M75 110.6c2-2.2 6-2.4 8 0" stroke="#7a5c44" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M48 84C34 86 18 89 2 92C16 96 32 97 50 93Z" fill="#bbd2c2"/>
+        <path d="M50 92C38 97 24 102 8 107C24 109 40 106 54 99Z" fill="#a9c4b0"/>
+        <path d="M48 85.6C34 88 20 90.4 6 92.4C20 92 34 90.6 48 88ZM50 95C40 99.6 28 103.4 14 106.2C28 104.6 40 101.6 51 97Z" fill="#93b09b" opacity=".7"/>
+        <path d="M30 86C40 74 48 54 56 36C63 19 74 8 88 8C102 8 112 19 112 33C112 44 113 56 111 66C108 86 92 102 72 103C56 104 42 97 30 86Z" fill="#dde9dd"/>
+        <path d="M87 8.6C74 9.6 63 20 57 35C49 54 41 74 31 86C38 89 44 87 48 80C55 67 59 51 65 39C70 28 77 18 91 12.4C90 10 89 9 87 8.6Z" fill="#c4d8c8"/>
+        <path d="M90 9C79 10.6 70 18 64 30C68 23 76 15.6 88 13.6C93 12.8 96 11.6 90 9Z" fill="#b4cdba" opacity=".8"/>
+        <path d="M104 35C110 45 110.6 61 106.6 74C101.6 90 89 99 74 101.4C83 92 92 82 96 68C99 56 98.4 44 104 35Z" fill="#edf2e7"/>
+        <path d="M93 13.6C102 14 109 21.6 110.6 32C105 29.4 97.6 24.4 93 13.6Z" fill="#eaf0e4" opacity=".85"/>
+        <path d="M66 24C69 20 72 17.6 76 16C72.6 18.6 69.6 21 66 24ZM60 34C62.4 30 64.6 27.4 67.6 25.4C65 28.4 62.6 31 60 34Z" fill="#a8c5b3" opacity=".7"/>
+        <path d="M100 76C102 80 101.6 84 99 88C100.2 84 100.6 80 100 76ZM106 60C107.6 64 107.4 68 106 72C106.2 68 106.4 64 106 60Z" fill="#a3bfad" opacity=".6"/>
+        <path d="M86.2 35.2C86 32.8 88.6 31.4 91.4 31.5C94.6 31.6 96.8 33 96.6 35C96.4 37 93.4 37.8 90.6 37.6C88.2 37.4 86.4 36.6 86.2 35.2Z" fill="#e9a095" opacity=".38"/>
+        <path d="M87.4 35.8C87.2 34 89 32.8 91 32.9C92.8 33 93.6 34.2 93.2 35.4C92.6 36.7 90.6 37.2 89.2 37C88.2 36.8 87.5 36.4 87.4 35.8Z" fill="#e0908a" opacity=".38"/>
+        <path d="M91.6 33.4C93.4 32.8 95.6 33.4 95.8 34.8C95.6 36 94 36.4 92.8 36.1C91.6 35.8 91 34.4 91.6 33.4Z" fill="#eaa69c" opacity=".35"/>
+        <path d="M110.2 21.8C114.5 20.2 119.5 20.4 123.6 22.6L111.6 29.6Z" fill="#e9a65a" stroke="#7a4f2c" stroke-width=".75" stroke-opacity=".8" stroke-linejoin="round"/>
+        <path d="M123 23L111.9 29.2 111.5 27.6C115.4 25.6 119.2 24 123 23Z" fill="#d98a46" opacity=".8"/>
+        <g stroke="#4a3d33" stroke-linecap="round" stroke-linejoin="round" opacity=".8">
+          <path d="M30.4 86C36 79 41 70 45 60C49 52 52 44 56 36" stroke-width=".9"/>
+          <path d="M56 36C63 19 74 8.2 88 8.2C99 8.2 107 14 110.4 21.4" stroke-width="1.15"/>
+          <path d="M70 14.6C75 10.8 80 9.4 86 9.6M58 38.6C60 34 62 30 64.6 26M40.6 72.6C42.8 68 44.6 63.6 46.2 59.4" stroke-width=".6" opacity=".5"/>
+          <path d="M111.2 36.8C112.2 47 112.6 57 111 66" stroke-width="1.1"/>
+          <path d="M111 66C109 80 101 92 89 98.4" stroke-width=".9"/>
+          <path d="M83 101.6C76 103.4 70 103.6 64 103" stroke-width=".85"/>
+          <path d="M47 84.6C33 86.6 18 89.6 4 92M11 106.6C24 102 37 97.6 48 92.8" stroke-width=".95"/>
+        </g>
       </g>
-      <path d="M110.2 21.8c4.3-1.6 9.3-1.4 13.4.8l-12 7z" fill="#f4a847" stroke="#b86e25" stroke-width="1.2" stroke-linejoin="round" />
-      <path class="bird-jaw" d="M111.6 30.6l10.2 2.4c-3.3 3.2-7.3 4.4-11 3.6z" fill="#e58c36" stroke="#b86e25" stroke-width="1.2" stroke-linejoin="round" />
-
-      <!-- feet -->
-      <path d="M66 102.5l-1.2 7.5M80 101.5l-.8 8M60.5 111.2c2-2.2 6-2.4 8 0M75 110.6c2-2.2 6-2.4 8 0" stroke="#7a5838" stroke-width="1.9" stroke-linecap="round" />
+      <g filter={paintUrl}>
+        <!-- wing -->
+        <path d="M60 50C70 40 88 40 96 52C102 62 100 78 88 88C74 99 48 101 16 96C30 88 42 76 50 64C53 59 56 54 60 50Z" fill="#b5ccb6"/>
+        <path d="M16 96C48 101 74 99 88 88C97 80 101 70 100 60C96 74 86 84 72 89C56 94 36 95 16 96Z" fill="#9fb9a2"/>
+        <path d="M62 50C72 43 86 43 93 53C88 48.6 78 48 70 52.4C64 55.4 58 62 53 67C55 60.4 58 54 62 50Z" fill="#d2e2d0"/>
+        <path d="M28 94C48 93 70 88 86 77C70 89.6 48 94.6 28 94ZM40 87C56 85 74 79 88 67C74 80.6 56 86.6 40 87ZM56 78C68 75 80 68 90 57C81 70 69 76.6 56 78Z" fill="#819d85" opacity=".75"/>
+        <path d="M74 60C79 57 84 56 88 57C84 58 79 59 74 60ZM68 68C73 65 78 64 82 64.6C77 66 72.6 67 68 68Z" fill="#e3eee3" opacity=".7"/>
+        <g stroke="#4a3d33" stroke-linecap="round" opacity=".8" stroke-width=".95">
+          <path d="M54 64C57 56 61 50 66 46.6C74 42 86 42 93.4 49"/>
+          <path d="M98.6 58C100.2 69 96.6 79 88 88C79 95 64 98.6 46 98.4"/>
+        </g>
+      </g>
+      <!-- the eye stays out of the paint filter so a blink stays crisp and cheap -->
+      <g class="bird-eye"><ellipse cx="97" cy="24" rx="3.2" ry="3.6" fill="#2f2a26"/><circle cx="98.1" cy="22.6" r=".9" fill="#f5f0e8"/></g>
+      <path class="bird-jaw" d="M111.6 30.6L121.8 33C118.5 36.2 114.5 37.4 110.8 36.6Z" fill="#d98a46" stroke="#7a4f2c" stroke-width=".75" stroke-opacity=".8" stroke-linejoin="round" filter={paintUrl}/>
     </g>
   </svg>
 </div>
@@ -117,7 +134,7 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
 <script>
   type Word = [string, string, string];
 
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   const exclaim = ([before, sound, after]: Word): Word => {
     const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
@@ -125,12 +142,23 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
     return before ? [cap(before), sound, after + end] : ['', cap(sound), after + end];
   };
 
+  // Restart a one-shot CSS animation by toggling its class.
+  const replay = (el: Element, className: string) => {
+    el.classList.remove(className);
+    void (el as HTMLElement).offsetWidth;
+    el.classList.add(className);
+  };
+
   document.querySelectorAll<HTMLElement>('[data-bird]').forEach((bird) => {
     const wordEl = bird.querySelector<HTMLElement>('[data-bubble-word]');
     const words: Word[] = JSON.parse(bird.dataset.words || '[]');
     let index = 0;
+    let swaps = 0;
     let timer = 0;
-    let observer: IntersectionObserver | undefined;
+    let arrival = 0;
+    let arrivalBlink = 0;
+
+    const blink = () => replay(bird, 'is-blink');
 
     const show = (word: Word) => {
       if (!wordEl) return;
@@ -138,9 +166,8 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
       const b = document.createElement('b');
       b.textContent = sound;
       wordEl.replaceChildren(before, b, after);
-      wordEl.classList.remove('is-swap');
-      void wordEl.offsetWidth;
-      wordEl.classList.add('is-swap');
+      replay(wordEl, 'is-swap');
+      blink();
       bird.classList.add('is-chirping');
       window.setTimeout(() => bird.classList.remove('is-chirping'), 240);
     };
@@ -154,42 +181,50 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
     // Once someone taps the bird or uses the chart, it only speaks when spoken to.
     const settle = () => {
       window.clearInterval(timer);
+      window.clearTimeout(arrival);
+      window.clearTimeout(arrivalBlink);
       timer = 0;
-      observer?.disconnect();
+      swaps = Infinity;
     };
 
-    // On arrival the bird says each of its words once, then rests on the first.
-    if (wordEl && words.length > 1 && !reduceMotion) {
-      observer = new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && !timer) {
+    // On arrival the bird lands on its perch, says a couple of words, then rests.
+    // Everything it does on its own is over within about four seconds.
+    const arrive = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        arrive.disconnect();
+        if (reducedMotion.matches || swaps === Infinity) return;
+        arrival = window.setTimeout(() => {
+          bird.classList.add('is-awake');
+          arrivalBlink = window.setTimeout(blink, 1000);
+          if (!wordEl || words.length < 2) return;
           timer = window.setInterval(() => {
             next();
-            if (index === 0) settle();
-          }, 2600);
-        }
-        if (!entry.isIntersecting && timer) {
-          window.clearInterval(timer);
-          timer = 0;
-        }
-      });
-      observer.observe(bird);
-    }
+            if (++swaps >= Math.min(2, words.length - 1)) settle();
+          }, 1600);
+        }, 800);
+      },
+      { threshold: 0.6 },
+    );
+    arrive.observe(bird);
 
     bird.addEventListener('click', () => {
       settle();
-      bird.classList.remove('is-hop');
-      void bird.offsetWidth;
-      bird.classList.add('is-hop');
+      bird.classList.remove('is-awake');
+      replay(bird, 'is-hop');
       next();
     });
     bird.addEventListener('animationend', (event) => {
       if (event.animationName === 'bird-hop') bird.classList.remove('is-hop');
+      if (event.animationName === 'bird-settle') bird.classList.remove('is-awake');
+      if (event.animationName === 'blink') bird.classList.remove('is-blink');
     });
 
     // The speech sound chart says which word fits the age a parent just picked.
     if (wordEl) {
       document.addEventListener('kst:say', (event) => {
         settle();
+        bird.classList.remove('is-awake');
         show((event as CustomEvent<Word>).detail);
       });
     }
