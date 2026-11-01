@@ -13,16 +13,18 @@ import { posts } from '../data/posts';
 import heroPhoto from '../assets/images/hero-group-portrait.jpg';
 import mollyPortrait from '../assets/images/headshot-portrait.png';
 import ashaBadge from '../assets/images/asha-certified.png';
-import kidsIllustration from '../assets/images/blog-group-therapy.png';
+import groupPhoto from '../assets/images/gallery-3.jpg';
+import gallery1 from '../assets/images/gallery-1.jpg';
 import gallery2 from '../assets/images/gallery-2.jpg';
-import gallery3 from '../assets/images/gallery-3.jpg';
 import gallery4 from '../assets/images/gallery-4.jpg';
 import gallery5 from '../assets/images/gallery-5.jpg';
 import gallery6 from '../assets/images/gallery-6.jpg';
 
+const { groups } = site;
+
 const gallery = [
   { src: gallery2, alt: 'Molly reading a picture book with a young boy in a park', r: '-2deg' },
-  { src: gallery3, alt: 'A smiling girl sitting in the grass during an outdoor activity', r: '1.5deg' },
+  { src: gallery1, alt: 'Molly telling a felt-board story to three children under a tree', r: '1.5deg' },
   { src: gallery4, alt: 'Molly reading a story with a young girl at home', r: '-1deg' },
   { src: gallery5, alt: 'Molly and a boy laughing together during a play-based activity', r: '2deg' },
   { src: gallery6, alt: 'Molly walking hand in hand with two young girls in a park', r: '-1.5deg' },
@@ -36,12 +38,12 @@ const whatCards = [
   },
   {
     icon: 'clock',
-    title: '30 playful minutes',
-    text: "Games, stories, and movement built around your child's sounds. Long enough for real practice, short enough to stay fun.",
+    title: `${groups.minutes} playful minutes`,
+    text: 'Games, stories, and movement built around your child’s sounds. Long enough for real practice, short enough to stay fun.',
   },
   {
     icon: 'tag',
-    title: '$50 a session',
+    title: `$${groups.price} a session`,
     text: 'Simple private pay. No insurance paperwork and no long-term contract.',
   },
 ] as const;
@@ -82,7 +84,7 @@ const latest = posts[0];
             Join the priority list
             <Icon name="arrow" class="arrow" size={20} />
           </a>
-          <a href="/speech-sound-chart/" class="btn btn-secondary btn-lg">Check your child's sounds</a>
+          <a href="/speech-sound-chart/" class="btn btn-secondary btn-lg">Check your child’s sounds</a>
         </div>
         <ul class="reassure mt-6 load-in" style="--d:4">
           <li><Icon name="check" size={18} strokeWidth={2.2} />Free to join</li>
@@ -107,7 +109,7 @@ const latest = posts[0];
           </div>
         </div>
         <div class="absolute -left-3 top-[8%] load-in sm:-left-10" style="--d:5">
-          <div class="float-a flex items-center gap-3 rounded-2xl border-[1.5px] border-sage-200 bg-white py-2.5 pl-2.5 pr-4 shadow-[var(--shadow-offset),var(--shadow-soft)]">
+          <div class="flex items-center gap-3 rounded-2xl border-[1.5px] border-sage-200 bg-white py-2.5 pl-2.5 pr-4 shadow-[var(--shadow-offset),var(--shadow-soft)]">
             <Image src={ashaBadge} alt="" width={40} densities={[1, 2]} />
             <span class="text-sm leading-tight text-ink">
               <strong class="block">Molly Kolarik</strong>
@@ -116,10 +118,10 @@ const latest = posts[0];
           </div>
         </div>
         <div class="absolute -bottom-6 -left-2 load-in sm:-left-10" style="--d:6">
-          <div class="stat-card float-b">
-            <div><strong>$50</strong><span>per session</span></div>
-            <div><strong>30</strong><span>minutes</span></div>
-            <div><strong>3+</strong><span>years old</span></div>
+          <div class="stat-card">
+            <div><strong>${groups.price}</strong><span>per session</span></div>
+            <div><strong>{groups.minutes}</strong><span>minutes</span></div>
+            <div><strong>{groups.minAge}+</strong><span>years old</span></div>
           </div>
         </div>
       </div>
@@ -141,7 +143,7 @@ const latest = posts[0];
     <div class="container-x">
       <BranchDivider class="mb-10" />
       <div class="mx-auto max-w-2xl text-center">
-        <p class="kicker reveal">What's a Sound Group?</p>
+        <p class="kicker reveal">What’s a Sound Group?</p>
         <h2 class="h2 mt-3 reveal" style="--i:1">Like swim lessons, but for <span class="accent">speech sounds</span></h2>
         <p class="lead mt-5 reveal" style="--i:2">
           Kids learn alongside a few peers, with expert guidance, in a setting that feels like an activity rather than an
@@ -168,7 +170,7 @@ const latest = posts[0];
   </section>
 
   <!-- Photo strip -->
-  <section class="bg-sage-100/70 py-8" aria-label="Photos of Molly with children">
+  <section class="relative bg-sage-100/70 py-8" aria-label="Photos of Molly with children" data-marquee>
     <div class="marquee">
       <div class="marquee-track">
         {
@@ -188,6 +190,11 @@ const latest = posts[0];
         }
       </div>
     </div>
+    <button type="button" class="marquee-toggle" aria-pressed="false" data-marquee-toggle>
+      <span class="sr-only">Pause the photos</span>
+      <Icon name="pause" size={18} strokeWidth={2.4} class="icon-pause" />
+      <Icon name="play" size={18} strokeWidth={2} class="icon-play" />
+    </button>
   </section>
 
   <!-- Why groups -->
@@ -196,12 +203,12 @@ const latest = posts[0];
       <div class="relative reveal">
         <div class="overflow-hidden rounded-[2rem] border-[1.5px] border-sage-200 shadow-[6px_6px_0_var(--color-sage-200)]">
           <Image
-            src={kidsIllustration}
-            alt="Illustration of three young children sitting together and talking"
+            src={groupPhoto}
+            alt="A girl grinning as she sits in the grass with other kids during an outdoor activity"
             widths={[480, 760, 1100]}
             width={1100}
             sizes="(min-width: 1024px) 34rem, 92vw"
-            class="h-auto w-full"
+            class="aspect-[4/3] h-auto w-full object-cover object-[42%_50%]"
           />
         </div>
         <span class="eyebrow absolute -bottom-5 right-5 bg-white!">
@@ -242,7 +249,7 @@ const latest = posts[0];
         <p class="kicker reveal">What happens next</p>
         <h2 class="h2 mt-3 reveal" style="--i:1">Join now, <span class="accent">decide later</span></h2>
         <p class="lead mt-5 reveal" style="--i:2">
-          The priority list is the easiest way to stay in the loop. You'll hear everything first, with no pressure to commit
+          The priority list is the easiest way to stay in the loop. You’ll hear everything first, with no pressure to commit
           until the schedule is ready.
         </p>
       </div>
@@ -257,9 +264,9 @@ const latest = posts[0];
     <div class="container-x grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:gap-16">
       <div class="lg:sticky lg:top-32">
         <p class="kicker reveal">Free parent tool</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Is your child's speech <span class="accent">on track?</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Is your child’s speech <span class="accent">on track?</span></h2>
         <p class="lead mt-5 reveal" style="--i:2">
-          Tap your child's age to see which sounds most kids can say by then. Every child is different, so think of it as a
+          Tap your child’s age to see which sounds most kids can say by then. Every child is different, so think of it as a
           friendly guide, not a test.
         </p>
         <p class="mt-6 reveal" style="--i:3">
@@ -333,16 +340,16 @@ const latest = posts[0];
       </div>
       <div>
         <p class="kicker reveal">Meet Molly</p>
-        <h2 class="h2 mt-3 reveal" style="--i:1">Hi, I'm Molly. <span class="accent">I can't wait to meet your child.</span></h2>
+        <h2 class="h2 mt-3 reveal" style="--i:1">Hi, I’m Molly. <span class="accent">I can’t wait to meet your child.</span></h2>
         <div class="mt-6 space-y-4 reveal" style="--i:2">
           <p>
-            I'm an experienced pediatric speech-language pathologist and a Kansas City mom. I specialize in speech sounds:
+            I’m an experienced pediatric speech-language pathologist and a Kansas City mom. I specialize in speech sounds:
             helping kids who are hard to understand, swap one sound for another, or get stuck on tricky sounds.
           </p>
           <p>
-            As a mom, I know the feeling of wondering whether your child is on track, and whether to "wait and see." Sound
-            Groups are my new way of bringing that expertise to more families, because getting help shouldn't feel
-            complicated. Pick a time, show up, and I'll handle the rest.
+            As a mom, I know the feeling of wondering whether your child is on track, and whether to “wait and see.” Sound
+            Groups are my new way of bringing that expertise to more families, because getting help shouldn’t feel
+            complicated. Pick a time, show up, and I’ll handle the rest.
           </p>
         </div>
         <p class="mt-8 reveal" style="--i:3">
@@ -359,7 +366,7 @@ const latest = posts[0];
         <p class="kicker reveal">Questions</p>
         <h2 class="h2 mt-3 reveal" style="--i:1">Good questions, <span class="accent">honest answers</span></h2>
         <p class="mt-5 reveal" style="--i:2">
-          Don't see yours? <a href="/contact/" class="text-link">Ask me directly</a>. I'm happy to talk it through.
+          Don’t see yours? <a href="/contact/" class="text-link">Ask me directly</a>. I’m happy to talk it through.
         </p>
       </div>
       <Faq items={[faqs.start, faqs.leader, faqs.where, faqs.ages, faqs.cost, faqs.commitment]} />
@@ -420,3 +427,14 @@ const latest = posts[0];
 
   <CtaBand />
 </Layout>
+
+<script>
+  // Anything that moves on its own for more than a few seconds needs a way to stop it.
+  const marquee = document.querySelector<HTMLElement>('[data-marquee]');
+  const toggle = marquee?.querySelector<HTMLButtonElement>('[data-marquee-toggle]');
+  toggle?.addEventListener('click', () => {
+    const paused = toggle.getAttribute('aria-pressed') !== 'true';
+    toggle.setAttribute('aria-pressed', String(paused));
+    marquee?.toggleAttribute('data-paused', paused);
+  });
+</script>

@@ -9,30 +9,32 @@ import walkPhoto from '../assets/images/gallery-6.jpg';
 import mollyLake from '../assets/images/molly-lake-portrait.jpg';
 import ashaBadge from '../assets/images/asha-certified.png';
 
+const { groups, oneOnOne } = site;
+
 const glance = [
-  { value: '$50', label: 'per session' },
-  { value: '30 min', label: 'playful sessions' },
+  { value: `$${groups.price}`, label: 'per session' },
+  { value: `${groups.minutes} min`, label: 'playful sessions' },
   { value: 'Small', label: 'groups' },
-  { value: '3+', label: 'years old' },
+  { value: `${groups.minAge}+`, label: 'years old' },
 ];
 
 const steps = [
   { title: 'Join the list', text: 'Tell me a little about your child. It takes about two minutes and costs nothing.' },
   { title: 'Pick your time', text: 'Priority list families choose group times first, before enrollment opens to everyone.' },
-  { title: 'Show up and play', text: 'Bring your child to a 30-minute session. No prep needed; I handle the rest.' },
+  { title: 'Show up and play', text: `Bring your child to a ${groups.minutes}-minute session. No prep needed; I handle the rest.` },
   { title: 'Watch them grow', text: 'Kids practice week after week alongside peers, and confidence follows.' },
 ];
 
 const goodFit = [
   'Is hard for people outside the family to understand',
-  'Swaps one sound for another, like "wabbit" for rabbit',
+  'Swaps one sound for another, like “wabbit” for rabbit',
   'Leaves sounds off the beginning or end of words',
-  'Has a lisp or a "slushy" s sound',
-  'Gets frustrated when they aren\'t understood',
-  'Was told they didn\'t qualify for speech at school, but you still hear errors',
+  'Has a lisp or a “slushy” s sound',
+  'Gets frustrated when they aren’t understood',
+  'Was told they didn’t qualify for speech at school, but you still hear errors',
 ];
 
-const oneOnOne = [
+const oneOnOneFit = [
   'Needs support with language, like understanding or putting words together',
   'Finds group settings overwhelming right now',
   'Needs more intensive, individualized practice to get started',
@@ -40,32 +42,32 @@ const oneOnOne = [
 
 const whyGroups = [
   { icon: 'friends', title: 'Kids learn from each other', text: 'Hearing a peer try a sound helps children notice the difference in their own speech.' },
-  { icon: 'chat', title: "It's closer to real life", text: 'Practicing sounds while actually talking with other kids builds the bridge to everyday conversation.' },
-  { icon: 'heart', title: 'Confidence grows in company', text: "Knowing they're not the only one working on a sound is a big relief for a lot of kids." },
+  { icon: 'chat', title: "It’s closer to real life", text: 'Practicing sounds while actually talking with other kids builds the bridge to everyday conversation.' },
+  { icon: 'heart', title: 'Confidence grows in company', text: "Knowing they’re not the only one working on a sound is a big relief for a lot of kids." },
   { icon: 'sparkle', title: 'Motivation is contagious', text: "When one child has a breakthrough, the others notice. Kids cheer each other on." },
 ] as const;
 
 const details = [
   { icon: 'calendar', label: 'When', value: `Opening ${site.launch.opens}. The priority list hears first and gets first pick of times.` },
   { icon: 'pin', label: 'Where', value: 'Kansas City. The location will be shared with the priority list first.' },
-  { icon: 'friends', label: 'Who', value: 'Kids ages 3 and up, matched by age and the sounds they are working on.' },
-  { icon: 'tag', label: 'Cost', value: '$50 per 30-minute session. Simple private pay, no insurance paperwork.' },
+  { icon: 'friends', label: 'Who', value: `Kids ages ${groups.minAge} and up, matched by age and the sounds they are working on.` },
+  { icon: 'tag', label: 'Payment', value: 'Simple private pay. No insurance paperwork and no long-term contract.' },
 ] as const;
 
 const service = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Speech Sound Groups',
-  description: 'Small-group speech therapy for children ages 3 and up in Kansas City, led by an experienced pediatric speech-language pathologist. Play-based 30-minute sessions for $50.',
+  description: `Small-group speech therapy for children ages ${groups.minAge} and up in Kansas City, led by an experienced pediatric speech-language pathologist. Play-based ${groups.minutes}-minute sessions for $${groups.price}.`,
   provider: { '@type': 'Person', name: site.owner, jobTitle: 'Speech-Language Pathologist' },
   areaServed: { '@type': 'City', name: 'Kansas City' },
-  offers: { '@type': 'Offer', price: '50', priceCurrency: 'USD' },
+  offers: { '@type': 'Offer', price: String(groups.price), priceCurrency: 'USD' },
 };
 ---
 
 <Layout
   title="Speech Sound Groups"
-  description="Small, play-based speech sound groups for kids in Kansas City: $50 per 30-minute session, led by Molly Kolarik, CCC-SLP. Join the priority list to hear first when groups open."
+  description={`Small, play-based speech sound groups for kids in Kansas City: $${groups.price} per ${groups.minutes}-minute session, led by ${site.owner}, CCC-SLP. Join the priority list to hear first when groups open.`}
   schema={[service]}
 >
   <!-- Hero -->
@@ -81,7 +83,7 @@ const service = {
       </h1>
       <p class="lead mx-auto mt-6 max-w-2xl load-in" style="--d:2">
         Sound Groups are small, play-based sessions where kids practice speech sounds together. Pick a time, show up, and
-        I'll handle the rest.
+        I’ll handle the rest.
       </p>
       <div class="mt-9 flex flex-wrap justify-center gap-3 load-in" style="--d:3">
         <a href="/register/" class="btn btn-primary btn-lg">
@@ -150,10 +152,10 @@ const service = {
       <div class="mx-auto max-w-2xl text-center">
         <p class="kicker reveal">Is it a fit?</p>
         <h2 class="h2 mt-3 reveal" style="--i:1">Made for kids working on <span class="accent">speech sounds</span></h2>
-        <p class="lead mt-5 reveal" style="--i:2">You know your child best. Here's a quick way to think about it.</p>
+        <p class="lead mt-5 reveal" style="--i:2">You know your child best. Here’s a quick way to think about it.</p>
       </div>
       <div class="mt-14 grid gap-6 lg:grid-cols-[1.25fr_1fr]">
-        <div class="callout reveal p-8 md:p-10">
+        <div class="callout reveal flex flex-col p-8 md:p-10">
           <h3 class="font-serif text-2xl">A great fit if your child…</h3>
           <ul class="mt-6 space-y-4">
             {
@@ -167,12 +169,20 @@ const service = {
               ))
             }
           </ul>
+          <div class="price">
+            <p class="price-line">
+              <span class="price-name">Sound Groups</span>
+              <span class="price-leader" aria-hidden="true"></span>
+              <span class="price-amount">${groups.price}</span>
+            </p>
+            <p class="price-per">per {groups.minutes}-minute session</p>
+          </div>
         </div>
-        <div class="card reveal p-8 md:p-10" style="--i:1">
+        <div class="card reveal flex flex-col p-8 md:p-10" style="--i:1">
           <h3 class="font-serif text-2xl">One-on-one might be a better start if your child…</h3>
           <ul class="mt-6 space-y-4">
             {
-              oneOnOne.map((item) => (
+              oneOnOneFit.map((item) => (
                 <li class="flex items-start gap-3.5">
                   <span class="mt-2.5 h-2 w-2 flex-none rounded-full bg-sage-400" />
                   {item}
@@ -181,8 +191,16 @@ const service = {
             }
           </ul>
           <p class="mt-8 rounded-2xl bg-cream px-5 py-4 text-[0.98rem] text-muted">
-            Not sure? <a href="/contact/" class="text-link">Send me a note</a> and I'll tell you honestly what I'd recommend.
+            Not sure? <a href="/contact/" class="text-link">Send me a note</a> and I’ll tell you honestly what I’d recommend.
           </p>
+          <div class="price">
+            <p class="price-line">
+              <span class="price-name">One-on-one</span>
+              <span class="price-leader" aria-hidden="true"></span>
+              <span class="price-amount">${oneOnOne.price}</span>
+            </p>
+            <p class="price-per">per {oneOnOne.minutes}-minute session</p>
+          </div>
         </div>
       </div>
     </div>
@@ -196,7 +214,7 @@ const service = {
         <h2 class="h2 mt-3 reveal" style="--i:1">Kids thrive <span class="accent">alongside peers</span></h2>
         <p class="lead mt-5 reveal" style="--i:2">
           One-on-one therapy has its place. But for speech sounds, practicing with a few other kids adds something a quiet
-          therapy room can't.
+          therapy room can’t.
         </p>
         <p class="mt-6 reveal" style="--i:3">
           <a href="/blog/why-kids-thrive-in-group-speech-therapy/" class="text-link">Read why kids thrive in groups <span class="arrow">→</span></a>
@@ -265,11 +283,11 @@ const service = {
         </div>
       </div>
       <div>
-        <p class="kicker reveal">Your child's SLP</p>
+        <p class="kicker reveal">Your child’s SLP</p>
         <h2 class="h2 mt-3 reveal" style="--i:1">Meet Molly Kolarik, <span class="accent">CCC-SLP</span></h2>
         <p class="mt-6 reveal" style="--i:2">
-          I'm an experienced pediatric speech-language pathologist with a Master's degree from the University of Central
-          Missouri. I specialize in helping children master speech sounds, and Sound Groups are a new way I'm bringing that
+          I’m an experienced pediatric speech-language pathologist with a Master’s degree from the University of Central
+          Missouri. I specialize in helping children master speech sounds, and Sound Groups are a new way I’m bringing that
           work to more Kansas City families.
         </p>
         <div class="mt-6 flex items-center gap-4 reveal" style="--i:3">

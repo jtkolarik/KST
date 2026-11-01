@@ -14,13 +14,13 @@ const leaves = Array.from({ length: 14 }, (_, i) => ({
 }));
 
 const next = [
-  { icon: 'mail', title: 'Watch your inbox', text: "You'll get a short Sound of the Month email with a playful game to try at home." },
+  { icon: 'mail', title: 'Watch your inbox', text: "You’ll get a short Sound of the Month email with a playful game to try at home." },
   { icon: 'calendar', title: 'Before groups open', text: 'Priority list families get first pick of group times.' },
-  { icon: 'pin', title: 'When groups open', text: "I'll share the location and schedule, chosen with families' ZIP codes in mind." },
+  { icon: 'pin', title: 'When groups open', text: "I’ll share the location and schedule, chosen with families’ ZIP codes in mind." },
 ] as const;
 ---
 
-<Layout title="You're on the List" description="Thanks for joining the Sound Groups priority list." noindex>
+<Layout title="You’re on the List" description="Thanks for joining the Sound Groups priority list." noindex>
   <section class="relative isolate overflow-hidden">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="pointer-events-none absolute inset-0 -z-1 overflow-hidden" aria-hidden="true">
@@ -40,11 +40,11 @@ const next = [
 
     <div class="container-x py-16 text-center lg:py-24">
       <div class="mx-auto w-28 load-in">
-        <Bird bubble perch words={[['Y', 'ay'], ['H', 'ooray'], ['W', 'elcome']]} class="w-full!" />
+        <Bird bubble perch words={[['', 'y', 'ay'], ['', 'h', 'ooray'], ['', 'w', 'elcome']]} class="w-full!" />
       </div>
-      <h1 class="display mt-8 load-in" style="--d:1">You're on the <span class="accent">list!</span></h1>
+      <h1 class="display mt-8 load-in" style="--d:1">You’re on the <span class="accent">list!</span></h1>
       <p class="lead mx-auto mt-5 max-w-xl load-in" style="--d:2">
-        Thank you for joining the priority list. I can't wait to meet your child. Here's what happens next.
+        Thank you for joining the priority list. I can’t wait to meet your child. Here’s what happens next.
       </p>
 
       <ol class="mx-auto mt-12 grid max-w-4xl gap-5 text-left md:grid-cols-3">
@@ -62,8 +62,8 @@ const next = [
       </ol>
 
       <div class="callout mx-auto mt-12 max-w-2xl px-6 py-8 load-in sm:px-10" style="--d:6">
-        <h2 class="font-serif text-2xl">Know a family who'd love this?</h2>
-        <p class="mt-2">Groups are more fun with friends. Share the list and I'll do my best to group buddies together.</p>
+        <h2 class="font-serif text-2xl">Know a family who’d love this?</h2>
+        <p class="mt-2">Groups are more fun with friends. Share the list and I’ll do my best to group buddies together.</p>
         <button type="button" class="btn btn-primary mt-6" data-share>
           <Icon name="share" size={19} />
           <span data-share-label>Share with a friend</span>

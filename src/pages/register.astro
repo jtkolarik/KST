@@ -5,7 +5,7 @@ import { listPerks, site } from '../data/site';
 
 const ages = ['3', '4', '5', '6', '7', '8', '9+', 'Not sure'];
 const times = ['Weekday mornings', 'Weekday afternoons', 'Evenings', 'Saturdays'];
-const sources = ['Google search', 'A friend or family member', 'Pediatrician or doctor', 'Preschool, daycare, or school', 'Facebook or Instagram', 'A flyer', 'Other'];
+const sources = ['Google search', 'AI assistant (ChatGPT, Gemini, etc.)', 'A friend or family member', 'Pediatrician or doctor', 'Preschool, daycare, or school', 'Facebook or Instagram', 'A flyer', 'Other'];
 ---
 
 <Layout
@@ -22,7 +22,7 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
         </p>
         <h1 class="display mt-6 load-in" style="--d:1">Join the <span class="accent">priority list</span></h1>
         <p class="lead mt-6 load-in" style="--d:2">
-          Tell me a little about your child. You'll hear first when Sound Groups open, get first pick of group times, and
+          Tell me a little about your child. You’ll hear first when Sound Groups open, get first pick of group times, and
           receive a playful at-home sound game each month until we begin.
         </p>
       </div>
@@ -40,7 +40,7 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
           >
             <input type="hidden" name="form-name" value="registration" />
             <p class="hidden">
-              <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+              <label>Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
             </p>
 
             <div class="grid gap-5 sm:grid-cols-2">
@@ -60,11 +60,11 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
 
             <div class="grid gap-5 sm:grid-cols-3">
               <div>
-                <label for="child-name" class="field-label">Child's first name <span class="optional">(optional)</span></label>
+                <label for="child-name" class="field-label">Child’s first name <span class="optional">(optional)</span></label>
                 <input id="child-name" name="child-name" type="text" class="field" />
               </div>
               <div>
-                <label for="child-age" class="field-label">Child's age</label>
+                <label for="child-age" class="field-label">Child’s age</label>
                 <select id="child-age" name="child-age" required class="field">
                   <option value="">Select</option>
                   {ages.map((age) => <option value={age}>{age}</option>)}
@@ -88,7 +88,7 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
             </div>
             <p class="field-hint -mt-4 flex items-start gap-2">
               <Icon name="pin" size={16} class="mt-0.5 flex-none text-sage-600" />
-              Your ZIP code helps me choose a location that's close to as many families as possible.
+              Your ZIP code helps me choose a location that’s close to as many families as possible.
             </p>
 
             <fieldset>
@@ -114,7 +114,7 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
                 <select id="interest" name="interest" required class="field">
                   <option value="">Select one</option>
                   <option value="Sound Groups">Sound Groups</option>
-                  <option value="Individual sessions">Individual sessions</option>
+                  <option value="Individual sessions">One-on-one sessions</option>
                   <option value="Not sure yet">Not sure yet</option>
                 </select>
               </div>
@@ -129,14 +129,14 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
 
             <div>
               <label for="buddy" class="field-label">Signing up with a friend? <span class="optional">(optional)</span></label>
-              <input id="buddy" name="buddy" type="text" class="field" placeholder="Their child's first name" />
-              <p class="field-hint">I'll do my best to place buddies in the same group.</p>
+              <input id="buddy" name="buddy" type="text" class="field" placeholder="Their child’s first name" />
+              <p class="field-hint">I’ll do my best to place buddies in the same group.</p>
             </div>
 
             <div>
               <label for="note" class="field-label">Anything else? <span class="optional">(optional)</span></label>
               <textarea id="note" name="note" rows="3" class="field resize-none"></textarea>
-              <p class="field-hint">Please don't include medical, diagnostic, or detailed clinical information here.</p>
+              <p class="field-hint">Please don’t include medical, diagnostic, or detailed clinical information here.</p>
             </div>
 
             <div class="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
@@ -151,7 +151,7 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
 
         <aside class="space-y-6 lg:sticky lg:top-28">
           <div class="callout relative p-7">
-            <p class="pill">What you'll get</p>
+            <p class="pill">What you’ll get</p>
             <ul class="mt-6 space-y-5">
               {
                 listPerks.map((perk) => (
@@ -170,9 +170,9 @@ const sources = ['Google search', 'A friend or family member', 'Pediatrician or 
           </div>
           <div class="card p-7">
             <p class="font-semibold text-ink">Questions first?</p>
-            <p class="mt-1.5 text-[0.95rem]">I'm happy to chat about whether Sound Groups are a good fit.</p>
+            <p class="mt-1.5 text-[0.95rem]">I’m happy to chat about whether Sound Groups are a good fit.</p>
             <div class="mt-4 space-y-2.5">
-              <a href="#" class="phone-link flex items-center gap-2 font-semibold text-sage-700 hover:text-sage-800">
+              <a href="/contact/" class="phone-link flex items-center gap-2 font-semibold text-sage-700 hover:text-sage-800">
                 <Icon name="phone" size={18} />
                 <span class="phone-text"></span>
               </a>

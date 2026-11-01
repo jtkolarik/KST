@@ -15,7 +15,7 @@ const ages = [
   {
     value: 2,
     label: '2',
-    message: "Lots of sounds are still on their way at 2, and that's expected. Keep talking, reading, and playing together, and check back as your child grows.",
+    message: "Lots of sounds are still on their way at 2, and that’s expected. Keep talking, reading, and playing together, and check back as your child grows.",
   },
   {
     value: 3,
@@ -25,7 +25,7 @@ const ages = [
   {
     value: 4,
     label: '4',
-    message: "By 4 to 5, most children are understood even by people who don't know them well. If that's not true for your child yet, it may be worth a conversation.",
+    message: "By 4 to 5, most children are understood even by people who don’t know them well. If that’s not true for your child yet, it may be worth a conversation.",
   },
   {
     value: 5,
@@ -35,7 +35,7 @@ const ages = [
   {
     value: 6,
     label: '6',
-    message: "By 6, most kids can say every sound on this chart. Still hearing \"wabbit\" for rabbit, or a lisp? That's exactly what Sound Groups are for.",
+    message: "By 6, most kids can say every sound on this chart. Still hearing “wabbit” for rabbit, or a lisp? That’s exactly what Sound Groups are for.",
   },
   {
     value: 7,
@@ -46,6 +46,10 @@ const ages = [
 
 const tiles = soundBands.flatMap((band) => band.sounds.map((sound) => ({ ...sound, age: band.age })));
 const readyAt = (age: number) => tiles.filter((t) => t.age <= age).length;
+// Words the bird says when a parent picks an age: the sounds most kids gain
+// at that age, or the late, tricky ones for 7+.
+const sayFor = (age: number) =>
+  tiles.filter((t) => (age >= 7 ? ['r', 's', 'l', 'th'].includes(t.label) : t.age === age)).map((t) => t.word);
 const start = ages.find((a) => a.value === startAge) ?? ages[2];
 ---
 
@@ -65,6 +69,7 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
               data-label={String(age.value)}
               data-ready={readyAt(age.value)}
               data-message={age.message}
+              data-say={JSON.stringify(sayFor(age.value))}
             />
             <span>
               <span class="sr-only">Age </span>
@@ -100,7 +105,7 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
 
   <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted" aria-hidden="true">
     <span><span class="legend-dot border-[1.5px] border-sage-400 bg-sage-100"></span> Most kids say this by now</span>
-    <span><span class="legend-dot border-[1.5px] border-dashed border-[#d9cdb8] bg-white"></span> Still developing, and that's okay</span>
+    <span><span class="legend-dot border-[1.5px] border-dashed border-[#d9cdb8] bg-white"></span> Still developing, and that’s okay</span>
   </div>
 
   <div class="mt-6 rounded-2xl bg-cream px-5 py-4">
@@ -168,6 +173,12 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
       if (messageEl) messageEl.textContent = input.dataset.message ?? '';
       countTo(Number(input.dataset.ready));
       moveIndicator();
+
+      // Let the bird nearby say one of this age’s sounds.
+      const words: string[][] = JSON.parse(input.dataset.say || '[]');
+      if (words.length) {
+        document.dispatchEvent(new CustomEvent('kst:say', { detail: words[Math.floor(Math.random() * words.length)] }));
+      }
     };
 
     inputs.forEach((input) => input.addEventListener('change', update));

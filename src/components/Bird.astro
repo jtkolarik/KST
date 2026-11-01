@@ -1,10 +1,13 @@
 ---
 // The sage bird from the logo, redrawn in SVG so it can blink, bob, hop
 // when tapped, and "say" practice words (target sound highlighted).
+// Words are split [before, sound, after], like the sound chart’s examples.
+type Word = [string, string, string];
+
 interface Props {
   bubble?: boolean;
   perch?: boolean;
-  words?: [string, string][];
+  words?: Word[];
   class?: string;
 }
 
@@ -12,15 +15,23 @@ const {
   bubble = false,
   perch = false,
   words = [
-    ['S', 'un'],
-    ['R', 'ed'],
-    ['L', 'ion'],
-    ['Sh', 'oe'],
-    ['Ch', 'air'],
-    ['Th', 'umb'],
+    ['', 's', 'un'],
+    ['', 'r', 'ed'],
+    ['', 'l', 'ion'],
+    ['', 'sh', 'oe'],
+    ['', 'ch', 'air'],
+    ['', 'th', 'umb'],
   ],
   class: className,
 } = Astro.props;
+
+// Capitalize the word, and add a "!" unless it already ends in punctuation.
+const exclaim = ([before, sound, after]: Word): Word => {
+  const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+  const end = /[!?.]$/.test(before + sound + after) ? '' : '!';
+  return before ? [cap(before), sound, after + end] : ['', cap(sound), after + end];
+};
+const [before, sound, after] = exclaim(words[0]);
 
 // Gradient ids must be unique when several birds share a page.
 const uid = Math.random().toString(36).slice(2, 8);
@@ -31,7 +42,7 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
   {
     bubble && (
       <div class="bubble">
-        <span class="bubble-word" data-bubble-word><b>{words[0][0]}</b>{/[!?.]$/.test(words[0][1]) ? words[0][1] : `${words[0][1]}!`}</span>
+        <span class="bubble-word" data-bubble-word>{before}<b>{sound}</b>{after}</span>
       </div>
     )
   }
@@ -104,21 +115,29 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
 </div>
 
 <script>
+  type Word = [string, string, string];
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const exclaim = ([before, sound, after]: Word): Word => {
+    const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+    const end = /[!?.]$/.test(before + sound + after) ? '' : '!';
+    return before ? [cap(before), sound, after + end] : ['', cap(sound), after + end];
+  };
 
   document.querySelectorAll<HTMLElement>('[data-bird]').forEach((bird) => {
     const wordEl = bird.querySelector<HTMLElement>('[data-bubble-word]');
-    const words: [string, string][] = JSON.parse(bird.dataset.words || '[]');
+    const words: Word[] = JSON.parse(bird.dataset.words || '[]');
     let index = 0;
     let timer = 0;
+    let observer: IntersectionObserver | undefined;
 
-    const say = () => {
-      if (!wordEl || words.length < 2) return;
-      index = (index + 1) % words.length;
-      const [sound, rest] = words[index];
+    const show = (word: Word) => {
+      if (!wordEl) return;
+      const [before, sound, after] = exclaim(word);
       const b = document.createElement('b');
       b.textContent = sound;
-      wordEl.replaceChildren(b, /[!?.]$/.test(rest) ? rest : `${rest}!`);
+      wordEl.replaceChildren(before, b, after);
       wordEl.classList.remove('is-swap');
       void wordEl.offsetWidth;
       wordEl.classList.add('is-swap');
@@ -126,24 +145,53 @@ const ids = { body: `bird-body-${uid}`, wing: `bird-wing-${uid}`, tail: `bird-ta
       window.setTimeout(() => bird.classList.remove('is-chirping'), 240);
     };
 
-    if (wordEl && !reduceMotion) {
-      new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting && !timer) timer = window.setInterval(say, 2600);
+    const next = () => {
+      if (words.length < 2) return;
+      index = (index + 1) % words.length;
+      show(words[index]);
+    };
+
+    // Once someone taps the bird or uses the chart, it only speaks when spoken to.
+    const settle = () => {
+      window.clearInterval(timer);
+      timer = 0;
+      observer?.disconnect();
+    };
+
+    // On arrival the bird says each of its words once, then rests on the first.
+    if (wordEl && words.length > 1 && !reduceMotion) {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting && !timer) {
+          timer = window.setInterval(() => {
+            next();
+            if (index === 0) settle();
+          }, 2600);
+        }
         if (!entry.isIntersecting && timer) {
           window.clearInterval(timer);
           timer = 0;
         }
-      }).observe(bird);
+      });
+      observer.observe(bird);
     }
 
     bird.addEventListener('click', () => {
+      settle();
       bird.classList.remove('is-hop');
       void bird.offsetWidth;
       bird.classList.add('is-hop');
-      say();
+      next();
     });
     bird.addEventListener('animationend', (event) => {
       if (event.animationName === 'bird-hop') bird.classList.remove('is-hop');
     });
+
+    // The speech sound chart says which word fits the age a parent just picked.
+    if (wordEl) {
+      document.addEventListener('kst:say', (event) => {
+        settle();
+        show((event as CustomEvent<Word>).detail);
+      });
+    }
   });
 </script>

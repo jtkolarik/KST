@@ -11,7 +11,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
 
 <Layout
   title="Contact"
-  description="Questions about Sound Groups or your child's speech? Get in touch with Molly Kolarik, CCC-SLP, an experienced pediatric speech-language pathologist in Kansas City."
+  description="Questions about Sound Groups or your child’s speech? Get in touch with Molly Kolarik, CCC-SLP, an experienced pediatric speech-language pathologist in Kansas City."
 >
   <section class="relative isolate overflow-hidden">
     <div class="hero-bg grain" aria-hidden="true"></div>
@@ -21,9 +21,9 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
           <Icon name="chat" size={16} class="text-sage-600" />
           I typically reply within a day
         </p>
-        <h1 class="display mt-6 load-in" style="--d:1">Let's <span class="accent">talk</span></h1>
+        <h1 class="display mt-6 load-in" style="--d:1">Let’s <span class="accent">talk</span></h1>
         <p class="lead mt-6 load-in" style="--d:2">
-          Wondering if Sound Groups are right for your child, or just have a question? I'd love to hear from you.
+          Wondering if Sound Groups are right for your child, or just have a question? I’d love to hear from you.
         </p>
         <p class="mt-4 load-in" style="--d:3">
           Want to hear first when groups open? <a href="/register/" class="text-link">Join the priority list <span class="arrow">→</span></a>
@@ -44,7 +44,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
           >
             <input type="hidden" name="form-name" value="contact" />
             <p class="hidden">
-              <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+              <label>Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
             </p>
             <div>
               <label for="name" class="field-label">Your name</label>
@@ -61,16 +61,16 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
               </div>
             </div>
             <div>
-              <label for="child-age" class="field-label">Child's age <span class="optional">(optional)</span></label>
+              <label for="child-age" class="field-label">Child’s age <span class="optional">(optional)</span></label>
               <select id="child-age" name="child-age" class="field">
                 <option value="">Select</option>
                 {ages.map((age) => <option value={age}>{age}</option>)}
               </select>
             </div>
             <div>
-              <label for="message" class="field-label">What's on your mind?</label>
+              <label for="message" class="field-label">What’s on your mind?</label>
               <textarea id="message" name="message" rows="5" required class="field resize-none"></textarea>
-              <p class="field-hint">Please don't include medical, diagnostic, or detailed clinical information here.</p>
+              <p class="field-hint">Please don’t include medical, diagnostic, or detailed clinical information here.</p>
             </div>
             <button type="submit" class="btn btn-primary btn-lg w-full sm:w-auto" data-submit>
               <span data-submit-label>Send message</span>
@@ -87,7 +87,7 @@ const ages = ['2', '3', '4', '5', '6', '7', '8', '9+'];
                 <span class="icon-badge h-11! w-11!"><Icon name="phone" size={20} /></span>
                 <div>
                   <p class="text-sm text-muted">Call or text</p>
-                  <a href="#" class="phone-link font-semibold text-sage-700 hover:text-sage-800"><span class="phone-text"></span></a>
+                  <a href="/contact/" class="phone-link font-semibold text-sage-700 hover:text-sage-800"><span class="phone-text"></span></a>
                 </div>
               </li>
               <li class="flex items-start gap-3.5">

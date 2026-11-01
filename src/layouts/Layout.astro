@@ -48,14 +48,14 @@ const businessSchema = {
   '@type': 'HealthBusiness',
   additionalType: 'https://schema.org/MedicalBusiness',
   name: site.name,
-  description: 'Play-based speech sound groups for kids in the Kansas City metro, led by Molly Kolarik, M.S., CCC-SLP.',
+  description: `Play-based speech sound groups and one-on-one sessions for kids in the ${site.area}, led by ${site.owner}, ${site.credentials}.`,
   url: `${site.url}/`,
   email: site.email,
   founder: {
     '@type': 'Person',
     name: site.owner,
     jobTitle: 'Speech-Language Pathologist',
-    description: "Pediatric speech-language pathologist (M.S., CCC-SLP) with a Master's degree from the University of Central Missouri",
+    description: `Pediatric speech-language pathologist (${site.credentials}) with a Master’s degree from the University of Central Missouri`,
   },
   areaServed: {
     '@type': 'GeoCircle',
@@ -64,7 +64,23 @@ const businessSchema = {
   },
   address: { '@type': 'PostalAddress', addressLocality: 'Kansas City', addressRegion: 'MO', addressCountry: 'US' },
   serviceType: ['Speech Sound Groups', 'Pediatric Speech Therapy', 'Speech Sound Disorders Treatment'],
-  priceRange: '$$',
+  makesOffer: [
+    {
+      '@type': 'Offer',
+      name: 'Sound Groups',
+      description: `${site.groups.minutes}-minute small-group speech sound session for children ages ${site.groups.minAge} and up`,
+      price: String(site.groups.price),
+      priceCurrency: 'USD',
+    },
+    {
+      '@type': 'Offer',
+      name: 'One-on-one speech therapy',
+      description: `${site.oneOnOne.minutes}-minute individual speech therapy session`,
+      price: String(site.oneOnOne.price),
+      priceCurrency: 'USD',
+    },
+  ],
+  priceRange: `$${site.groups.price}–$${site.oneOnOne.price}`,
   currenciesAccepted: 'USD',
   paymentAccepted: 'Cash, Credit Card, Check',
   image: `${site.url}/og/kolarik-speech-therapy.jpg`,
@@ -164,7 +180,7 @@ const businessSchema = {
       );
       document.querySelectorAll('.reveal, [data-reveal]').forEach((el) => revealObserver.observe(el));
 
-      // The phone number is assembled here so scrapers can't harvest it from the HTML.
+      // The phone number is assembled here so scrapers can’t harvest it from the HTML.
       const parts = ['816', '729', '1513'];
       document.querySelectorAll<HTMLAnchorElement>('.phone-link').forEach((el) => (el.href = `tel:${parts.join('')}`));
       document.querySelectorAll('.phone-text').forEach((el) => (el.textContent = `(${parts[0]}) ${parts[1]}-${parts[2]}`));
