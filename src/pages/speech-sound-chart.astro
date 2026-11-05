@@ -7,6 +7,7 @@ import Icon from '../components/Icon.astro';
 import SoundChecker from '../components/SoundChecker.astro';
 import { site } from '../data/site';
 import { soundBands, soundSources, totalSounds } from '../data/sounds';
+import { swaps } from '../data/swaps';
 
 const chartFaqs = [
   {
@@ -25,13 +26,6 @@ const chartFaqs = [
     q: 'My child is behind on one sound. Should I worry?',
     a: "Not necessarily. Every child develops a little differently. If your child is older than the age on the chart and still working on a sound, or is often hard for others to understand, a short conversation with a speech-language pathologist can give you clarity.",
   },
-];
-
-const swaps = [
-  { swap: '“wabbit” for rabbit', what: 'w for r' },
-  { swap: '“thun” for sun', what: 'th for s (a lisp)' },
-  { swap: '“tat” for cat', what: 't for k' },
-  { swap: '“ca” for cat', what: 'dropping the last sound' },
 ];
 
 const signs = [
@@ -83,7 +77,7 @@ const article = {
         </div>
       </div>
       <div class="card card-featured p-5 load-in sm:p-8" style="--d:2">
-        <SoundChecker id="chart-checker" startAge={5} />
+        <SoundChecker id="chart-checker" startAge={5} linkable />
       </div>
     </div>
   </section>
@@ -147,7 +141,7 @@ const article = {
           {
             swaps.map((s) => (
               <li class="rounded-2xl bg-cream px-4 py-3">
-                <span class="block font-serif text-lg text-ink">{s.swap}</span>
+                <span class="block font-serif text-lg text-ink">“{s.said.join('')}” for {s.word.join('')}</span>
                 <span class="text-sm text-muted">{s.what}</span>
               </li>
             ))
