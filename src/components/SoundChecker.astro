@@ -1,15 +1,19 @@
 ---
 // Interactive speech sound chart. Works without JavaScript (it renders the
-// age-4 view); with JavaScript, picking an age animates the tiles.
+// age-4 view); with JavaScript, picking an age animates the tiles, and tapping
+// a sound answers for that age in the chart’s own words.
 import Icon from './Icon.astro';
 import { soundBands, totalSounds } from '../data/sounds';
+import { swaps } from '../data/swaps';
 
 interface Props {
   id?: string;
   startAge?: number;
+  // Opens on the age and sound in the address (?age=4&sound=r), for shared links.
+  linkable?: boolean;
 }
 
-const { id = 'checker', startAge = 4 } = Astro.props;
+const { id = 'checker', startAge = 4, linkable = false } = Astro.props;
 
 const ages = [
   {
@@ -44,7 +48,13 @@ const ages = [
   },
 ];
 
-const tiles = soundBands.flatMap((band) => band.sounds.map((sound) => ({ ...sound, age: band.age })));
+// th is two sounds, so its key carries the note: th-voiced, th-voiceless.
+const tiles = soundBands.flatMap((band) =>
+  band.sounds.map((sound) => {
+    const key = sound.note ? `${sound.label}-${sound.note}` : sound.label;
+    return { ...sound, key, age: band.age, swap: swaps.find((s) => s.sound === key) };
+  }),
+);
 const readyAt = (age: number) => tiles.filter((t) => t.age <= age).length;
 // Words the bird says when a parent picks an age: the sounds most kids gain
 // at that age, or the late, tricky ones for 7+.
@@ -53,7 +63,7 @@ const sayFor = (age: number) =>
 const start = ages.find((a) => a.value === startAge) ?? ages[2];
 ---
 
-<div class="checker" data-checker>
+<div class="checker" data-checker data-linkable={linkable ? '' : undefined}>
   <fieldset>
     <legend class="field-label mb-3">How old is your child?</legend>
     <div class="age-options">
@@ -86,47 +96,97 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
     <strong class="tabular-nums" data-count>{readyAt(start.value)}</strong> of {totalSounds} consonant sounds.
   </p>
 
-  <ul class="sound-grid mt-5" aria-label="English consonant sounds">
-    {
-      tiles.map((tile) => (
-        <li class="sound-tile" data-age={tile.age} data-state={tile.age <= start.value ? 'ready' : 'growing'}>
-          <span class="tile-check" aria-hidden="true">
-            <Icon name="check" size={12} strokeWidth={3} />
-          </span>
-          <span class="tile-sound">{tile.label}</span>
-          <span class="tile-word">{tile.word[0]}<b>{tile.word[1]}</b>{tile.word[2]}</span>
-          <span class="sr-only">
-            {tile.note ? `(${tile.note}) ` : ''}most kids say this by age {tile.age}
-          </span>
-        </li>
-      ))
-    }
-  </ul>
+  <div class="mt-5">
+    <p class="field-label mb-2.5" data-tap-hint hidden>Wondering about one sound? Tap it.</p>
+    <ul class="sound-grid" aria-label="English consonant sounds">
+      {
+        tiles.map((tile) => (
+          <li>
+            <button
+              type="button"
+              class="sound-tile"
+              data-key={tile.key}
+              data-age={tile.age}
+              data-state={tile.age <= start.value ? 'ready' : 'growing'}
+              data-word={JSON.stringify(tile.swap?.word ?? tile.word)}
+              data-said={tile.swap ? JSON.stringify(tile.swap.said) : undefined}
+              data-what={tile.swap?.what}
+            >
+              <span class="tile-check" aria-hidden="true">
+                <Icon name="check" size={12} strokeWidth={3} />
+              </span>
+              <span class="tile-sound">{tile.label}</span>
+              <span class="tile-word">{tile.word[0]}<b>{tile.word[1]}</b>{tile.word[2]}</span>
+              <span class="sr-only">
+                {tile.note ? `(${tile.note}) ` : ''}most kids say this by age {tile.age}
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 
   <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted" aria-hidden="true">
     <span class="inline-flex items-center gap-2"><span class="legend-dot border-[1.5px] border-sage-400 bg-sage-100"></span>Most kids say this by now</span>
     <span class="inline-flex items-center gap-2"><span class="legend-dot border-[1.5px] border-dashed border-[#d9cdb8] bg-white"></span>Still developing, and that’s okay</span>
   </div>
 
-  <div class="mt-6 rounded-2xl bg-cream px-5 py-4">
-    <p class="text-[0.98rem] text-muted" data-message>{start.message}</p>
+  <div class="mt-6 rounded-2xl bg-cream px-5 py-4" data-note>
+    <p class="text-[0.98rem] text-muted" data-age-message>{start.message}</p>
+    <div data-answer aria-live="polite"></div>
+    <button type="button" class="text-link answer-share" data-share hidden>
+      <Icon name="share" size={17} strokeWidth={2} />
+      <span data-share-label aria-live="polite">Share this</span>
+    </button>
   </div>
 </div>
 
 <script>
+  type Word = [string, string, string];
+  type Gtag = (...args: unknown[]) => void;
+
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const ease = { soft: 'cubic-bezier(0.22, 1, 0.36, 1)', spring: 'cubic-bezier(0.34, 1.56, 0.64, 1)' };
+
+  // Anonymous counts of which ages and sounds get tapped, so we can tell whether
+  // the chart is used. Nothing about the family is sent.
+  const track = (name: string, params: Record<string, string>) =>
+    (window as Window & { gtag?: Gtag }).gtag?.('event', name, params);
+
+  const make = (tag: string, className: string, ...children: (Node | string)[]) => {
+    const node = document.createElement(tag);
+    node.className = className;
+    node.append(...children);
+    return node;
+  };
 
   document.querySelectorAll<HTMLElement>('[data-checker]').forEach((root) => {
     const inputs = [...root.querySelectorAll<HTMLInputElement>('input[type="radio"]')];
-    const tiles = [...root.querySelectorAll<HTMLElement>('.sound-tile')];
+    const tiles = [...root.querySelectorAll<HTMLButtonElement>('.sound-tile')];
     const indicator = root.querySelector<HTMLElement>('.age-indicator');
     const countEl = root.querySelector<HTMLElement>('[data-count]');
     const ageEl = root.querySelector<HTMLElement>('[data-age-out]');
-    const messageEl = root.querySelector<HTMLElement>('[data-message]');
+    const noteEl = root.querySelector<HTMLElement>('[data-note]');
+    // Not [data-message]: the age inputs carry that too, and come first.
+    const messageEl = root.querySelector<HTMLElement>('[data-age-message]');
+    const answerEl = root.querySelector<HTMLElement>('[data-answer]');
+    const shareButton = root.querySelector<HTMLButtonElement>('[data-share]');
+    const shareLabel = root.querySelector<HTMLElement>('[data-share-label]');
     let shown = Number(countEl?.textContent ?? 0);
     let frame = 0;
+    let picked: HTMLButtonElement | undefined;
+    let shareText = '';
+    let swapTimer = 0;
+    let sayTimer = 0;
+    let copiedTimer = 0;
 
     const selected = () => inputs.find((input) => input.checked);
+    const wordsOf = (tile: HTMLElement, key: 'word' | 'said'): Word | undefined => {
+      const raw = tile.dataset[key];
+      return raw ? JSON.parse(raw) : undefined;
+    };
+    const say = (word: Word) => document.dispatchEvent(new CustomEvent('kst:say', { detail: word }));
 
     const moveIndicator = () => {
       const label = selected()?.closest('label');
@@ -155,7 +215,146 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
       frame = requestAnimationFrame(step);
     };
 
-    const update = () => {
+    // The answer for one sound at the picked age, in words the page already uses:
+    // the tile’s two states, and the advice for a child past the usual age.
+    const writeAnswer = (tile: HTMLElement, age: number) => {
+      const word = wordsOf(tile, 'word');
+      if (!answerEl || !word) return;
+      const soundAge = Number(tile.dataset.age);
+      const fact = `Most kids say the ${word[1]} in “${word.join('')}” by age ${soundAge}.`;
+      const text = make('p', 'answer-text');
+      shareText = fact;
+      if (soundAge > age) {
+        const lead = `At ${age}, it’s still on its way, and that’s okay.`;
+        text.append(make('strong', 'text-ink', lead), ` ${fact}`);
+        shareText = `${lead} ${fact}`;
+      } else if (age >= 6) {
+        const link = make('a', 'text-link', 'Sound Groups');
+        link.setAttribute('href', '/sound-groups/');
+        text.append(make('strong', 'text-ink', fact), ' If your child is still working on it, that’s exactly what ', link, ' are for.');
+      } else {
+        text.append(
+          make('strong', 'text-ink', fact),
+          ' If your child is still working on it, a short conversation with a ',
+          make('span', 'whitespace-nowrap', 'speech-language'),
+          ' pathologist can give you clarity.',
+        );
+      }
+      const old = answerEl.querySelector('.answer-text');
+      if (old) old.replaceWith(text);
+      else answerEl.append(text);
+    };
+
+    // The word, set large like type. With a swap it first reads the way many kids
+    // say it, then the borrowed sound lifts out and the right one drops in.
+    const setType = (tile: HTMLElement, delay: number) => {
+      const word = wordsOf(tile, 'word');
+      const said = wordsOf(tile, 'said');
+      if (!answerEl || !word) return;
+      const into = make('b', '', word[1]);
+      const slot = make('span', 'answer-slot', into);
+      const line = make('p', 'answer-word', word[0], slot, word[2]);
+      line.setAttribute('aria-hidden', 'true');
+      answerEl.append(line);
+
+      if (!said) {
+        into.animate(
+          reducedMotion.matches
+            ? [{ opacity: 0 }, { opacity: 1 }]
+            : [{ opacity: 0, transform: 'translateY(-0.45em)' }, { opacity: 1, transform: 'none' }],
+          { duration: reducedMotion.matches ? 200 : 450, delay: delay + 60, easing: ease.spring, fill: 'backwards' },
+        );
+        return;
+      }
+
+      const out = make('b', 'answer-said', said[1]);
+      slot.append(out);
+      const from = out.offsetWidth;
+      const to = into.offsetWidth;
+      slot.style.width = `${from}px`;
+      into.style.opacity = '0';
+      const settle = () => {
+        out.remove();
+        slot.style.width = '';
+        into.style.opacity = '';
+        [...slot.getAnimations(), ...into.getAnimations()].forEach((a) => a.cancel());
+      };
+
+      swapTimer = window.setTimeout(
+        () => {
+          // Reduced motion: the sounds trade places with a short fade, nothing travels.
+          if (reducedMotion.matches) {
+            slot.style.width = `${to}px`;
+            out.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+            into.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, fill: 'forwards' }).onfinish = settle;
+            return;
+          }
+          out.animate(
+            [{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-0.6em) rotate(-10deg)' }],
+            { duration: 300, easing: 'cubic-bezier(0.5, 0, 0.75, 0)', fill: 'forwards' },
+          );
+          slot.animate([{ width: `${from}px` }, { width: `${to}px` }], { duration: 360, delay: 100, easing: ease.soft, fill: 'forwards' });
+          into.animate(
+            [{ opacity: 0, transform: 'translateY(-0.55em)' }, { opacity: 1, transform: 'none' }],
+            { duration: 460, delay: 180, easing: ease.spring, fill: 'forwards' },
+          ).onfinish = settle;
+        },
+        delay + (reducedMotion.matches ? 700 : 600),
+      );
+    };
+
+    // On a phone the answer can sit below the screen. Scroll up just enough to
+    // show it, but never so far that the tapped sound slides under the header.
+    const reveal = (tile: HTMLElement) => {
+      if (!noteEl) return;
+      const below = noteEl.getBoundingClientRect().bottom + 16 - window.innerHeight;
+      const header = document.querySelector('[data-header]')?.getBoundingClientRect().bottom ?? 0;
+      const room = tile.getBoundingClientRect().top - Math.max(header, 0) - 12;
+      const by = Math.min(below, room);
+      if (by > 0) window.scrollBy({ top: by, behavior: reducedMotion.matches ? 'auto' : 'smooth' });
+    };
+
+    // Tapping a sound swaps the age message for an answer about that sound.
+    // Tapping it again, or another sound, puts it back down.
+    const pick = (tile: HTMLButtonElement | undefined, { delay = 0, byHand = true } = {}) => {
+      window.clearTimeout(swapTimer);
+      window.clearTimeout(sayTimer);
+      if (picked) {
+        picked.style.setProperty('--delay', '0ms');
+        picked.setAttribute('aria-pressed', 'false');
+      }
+      picked = tile;
+      answerEl?.replaceChildren();
+      if (messageEl) messageEl.hidden = Boolean(tile);
+      if (shareButton) shareButton.hidden = !tile;
+      if (shareLabel) shareLabel.textContent = 'Share this';
+      if (!tile || !answerEl) return;
+
+      tile.style.setProperty('--delay', '0ms');
+      tile.setAttribute('aria-pressed', 'true');
+      const input = selected();
+      const word = wordsOf(tile, 'word');
+      const said = wordsOf(tile, 'said');
+      setType(tile, delay);
+      if (said && word && tile.dataset.what) {
+        answerEl.append(
+          make('p', 'answer-what', make('span', 'sr-only', `“${said.join('')}” for ${word.join('')}. `), `A common swap: ${tile.dataset.what}`),
+        );
+      }
+      writeAnswer(tile, Number(input?.value));
+      if (word) sayTimer = window.setTimeout(() => say(word), delay);
+      reveal(tile);
+      if (!byHand) return;
+
+      const arrive = reducedMotion.matches
+        ? [{ opacity: 0 }, { opacity: 1 }]
+        : [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }];
+      [answerEl, shareButton].forEach((el) => el?.animate(arrive, { duration: reducedMotion.matches ? 200 : 380, easing: ease.soft }));
+      track('chart_sound', { sound: tile.dataset.key ?? '', age: input?.value ?? '' });
+    };
+
+    // `quiet` sets an age without the flip, count-up or bird, for a shared link.
+    const update = (quiet = false) => {
       const input = selected();
       if (!input) return;
       const age = Number(input.value);
@@ -163,27 +362,80 @@ const start = ages.find((a) => a.value === startAge) ?? ages[2];
       const fillingUp = changed.length > 0 && changed[0].dataset.state === 'growing';
       // Fill forward when the age goes up; empty backward when it goes down.
       (fillingUp ? changed : [...changed].reverse()).forEach((tile, order) => {
-        tile.style.setProperty('--delay', reducedMotion.matches ? '0ms' : `${order * 45}ms`);
+        tile.style.setProperty('--delay', reducedMotion.matches || quiet ? '0ms' : `${order * 45}ms`);
         tile.dataset.state = fillingUp ? 'ready' : 'growing';
+        if (quiet) return;
         tile.classList.remove('is-flip');
         void tile.offsetWidth;
         tile.classList.add('is-flip');
       });
       if (ageEl) ageEl.textContent = input.dataset.label ?? input.value;
       if (messageEl) messageEl.textContent = input.dataset.message ?? '';
-      countTo(Number(input.dataset.ready));
+      if (picked) writeAnswer(picked, age);
       moveIndicator();
-
-      // Let the bird nearby say one of this age’s sounds.
-      const words: string[][] = JSON.parse(input.dataset.say || '[]');
-      if (words.length) {
-        document.dispatchEvent(new CustomEvent('kst:say', { detail: words[Math.floor(Math.random() * words.length)] }));
+      if (quiet) {
+        shown = Number(input.dataset.ready);
+        if (countEl) countEl.textContent = String(shown);
+        return;
       }
+      countTo(Number(input.dataset.ready));
+      track('chart_age', { age: input.value });
+
+      // Let the bird nearby say the picked sound’s word, or one of this age’s sounds.
+      const pickedWord = picked && wordsOf(picked, 'word');
+      const words: Word[] = pickedWord ? [pickedWord] : JSON.parse(input.dataset.say || '[]');
+      if (words.length) say(words[Math.floor(Math.random() * words.length)]);
     };
 
-    inputs.forEach((input) => input.addEventListener('change', update));
+    // Phones get the share sheet; computers copy a link to this age and sound.
+    shareButton?.addEventListener('click', async () => {
+      const input = selected();
+      if (!picked || !input) return;
+      const url = new URL('/speech-sound-chart/', window.location.origin);
+      url.searchParams.set('age', input.value);
+      url.searchParams.set('sound', picked.dataset.key ?? '');
+      const params = { sound: picked.dataset.key ?? '', age: input.value };
+      if (navigator.share && window.matchMedia('(hover: none)').matches) {
+        try {
+          await navigator.share({ title: 'Speech sound chart by age', text: shareText, url: url.href });
+          track('chart_share', { ...params, method: 'share' });
+        } catch {
+          // Closing the share sheet without sending is fine.
+        }
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(url.href);
+      } catch {
+        return;
+      }
+      track('chart_share', { ...params, method: 'copy' });
+      if (!shareLabel) return;
+      shareLabel.textContent = 'Link copied';
+      window.clearTimeout(copiedTimer);
+      copiedTimer = window.setTimeout(() => (shareLabel.textContent = 'Share this'), 2400);
+    });
+
+    inputs.forEach((input) => input.addEventListener('change', () => update()));
+    tiles.forEach((tile) => {
+      tile.setAttribute('aria-pressed', 'false');
+      tile.addEventListener('click', () => pick(tile === picked ? undefined : tile));
+    });
     window.addEventListener('resize', moveIndicator, { passive: true });
+    root.querySelector<HTMLElement>('[data-tap-hint]')?.removeAttribute('hidden');
     root.classList.add('is-ready');
     moveIndicator();
+
+    // A shared link opens on its age and sound, once the card has arrived.
+    if (root.hasAttribute('data-linkable')) {
+      const params = new URLSearchParams(window.location.search);
+      const input = inputs.find((i) => i.value === params.get('age'));
+      const tile = tiles.find((t) => t.dataset.key === params.get('sound'));
+      if (input && !input.checked) {
+        input.checked = true;
+        update(true);
+      }
+      if (tile) document.fonts.ready.then(() => pick(tile, { delay: 900, byHand: false }));
+    }
   });
 </script>

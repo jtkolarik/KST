@@ -720,7 +720,8 @@
     transition:
       background-color 0.45s var(--ease-soft) var(--delay, 0ms),
       border-color 0.45s var(--ease-soft) var(--delay, 0ms),
-      box-shadow 0.45s var(--ease-soft) var(--delay, 0ms);
+      box-shadow 0.45s var(--ease-soft) var(--delay, 0ms),
+      translate 0.35s var(--ease-spring);
   }
   .tile-sound {
     font-family: var(--font-serif);
@@ -754,6 +755,42 @@
   }
   .sound-tile[data-state="ready"] .tile-check { transform: scale(1); }
   .sound-tile.is-flip { animation: tile-pop 0.6s var(--ease-spring) var(--delay, 0ms); }
+
+  /* Tapping a sound answers for the picked age. The tile you picked stays lifted
+     off the page in the second ink until it’s tapped again. */
+  .sound-grid > li { display: grid; }
+  .checker.is-ready .sound-tile { cursor: pointer; }
+  .sound-tile[aria-pressed="true"] {
+    translate: -3px -3px;
+    border-color: var(--color-sage-700);
+    box-shadow: 5px 5px 0 var(--color-sage-300);
+  }
+  .sound-tile[aria-pressed="true"] .tile-sound { color: var(--color-sage-800); }
+
+  /* The answer’s word is set large, like type, with its sound in sage. */
+  .answer-word {
+    font-family: var(--font-serif);
+    font-size: 2.35rem;
+    font-weight: 560;
+    letter-spacing: -0.012em;
+    line-height: 1.15;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  .answer-word b { display: inline-block; font-weight: 650; color: var(--color-sage-700); }
+  .answer-slot { position: relative; display: inline-block; }
+  /* The sound a child borrows is in the perch’s pencil brown, until it lifts out. */
+  .answer-word .answer-said { position: absolute; top: 0; left: 0; color: #86684e; }
+  .answer-what { margin-top: 0.1rem; font-size: 0.875rem; color: var(--color-muted); }
+  .answer-text { margin-top: 0.65rem; font-size: 0.98rem; color: var(--color-muted); }
+  .answer-share {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    margin-block: 0.2rem -0.55rem;
+    font-size: 0.95rem;
+  }
 
   .legend-dot {
     display: inline-block;
@@ -1103,7 +1140,10 @@
     color: #e9f1e7;
   }
 
-  /* ---------- Footer endpaper: painted sprigs grow in on the right ---------- */
+  /* ---------- Footer endpaper: painted sprigs grow in on the right ----------
+     The tile is the blog pattern (public/blog-pattern.png) cropped at x 32, y 24
+     to 924×968 for the @2x file, laid on cream-deep at 70% strength; the 1x file
+     is the same at half size. */
   .site-footer { position: relative; isolation: isolate; }
   .site-footer::before {
     content: "";
@@ -1116,8 +1156,10 @@
       url("../assets/textures/footer-leaves@2x.webp") 2x
     );
     background-size: 462px 484px;
-    -webkit-mask-image: linear-gradient(100deg, transparent 0 58%, #000 88%);
-    mask-image: linear-gradient(100deg, transparent 0 58%, #000 88%);
+    /* Measured from the page’s center, not its width, so the sprigs start just
+       past the “Say hello” column at every screen size and never sit behind text. */
+    -webkit-mask-image: linear-gradient(100deg, transparent 0 calc(50% + 15rem), #000 calc(50% + 25rem));
+    mask-image: linear-gradient(100deg, transparent 0 calc(50% + 15rem), #000 calc(50% + 25rem));
   }
   @media (max-width: 1023.98px) {
     .site-footer::before { display: none; }
@@ -1246,6 +1288,7 @@
     .polaroid:hover { transform: rotate(0deg) scale(1.04); }
     .marquee-toggle:hover { translate: 0 -1px; }
     .logo-lockup:hover .logo-birds { translate: 0 -1.5px; rotate: -1.5deg; }
+    .checker.is-ready .sound-tile:not([aria-pressed="true"]):hover { translate: -2px -2px; box-shadow: 4px 4px 0 var(--color-sage-200); }
   }
 
   .btn:active { translate: 0 1px; scale: 0.98; transition-duration: 70ms; }
@@ -1254,6 +1297,7 @@
   .marquee-toggle:active { translate: 2px 2px; box-shadow: 1px 1px 0 var(--color-sage-200); }
   .chip:active { translate: 1px 1px; scale: 0.97; }
   .age-opt:active span { scale: 0.94; }
+  .checker.is-ready .sound-tile:active { translate: 1px 1px; box-shadow: 1px 1px 0 var(--color-sage-200); transition-duration: 80ms; }
   .menu-btn:active { scale: 0.92; }
 }
 
